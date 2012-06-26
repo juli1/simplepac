@@ -64,6 +64,17 @@ public class GameCanvas extends View
 		colorGreen.setColor(Color.GREEN);
 		colorYellow.setColor(Color.YELLOW);
 		
+		/*
+		 * Draw a yellow rectangle for Pacman
+		 */
+		canvas.drawRect(gameModel.getHero().getPositionX() * squareSize , 
+						gameModel.getHero().getPositionY() * squareSize,
+						(gameModel.getHero().getPositionX() + 1) * squareSize,
+						(gameModel.getHero().getPositionY() + 1) * squareSize,
+						colorYellow);
+		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
+
+		
 		for (i = 0 ; i < Map.MAP_WIDTH ; i++)
 		{
 			for (j = 0 ; j < Map.MAP_HEIGHT ; j++)
@@ -88,7 +99,7 @@ public class GameCanvas extends View
 				}
 				if (gameModel.getMap().getPart(i, j).hasBorderBottom())
 				{
-					//Log.i (TAG, "Draw bottom line for part (" + i + "," + j + ")");
+				//	Log.i (TAG, "Draw bottom line for part (" + i + "," + j + ")");
 					canvas.drawLine( (i) * squareSize, (j+1) * squareSize, (i+1) * squareSize, (j+1) * squareSize, colorRed);
 				}
 			}

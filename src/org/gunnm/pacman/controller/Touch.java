@@ -1,5 +1,6 @@
 package org.gunnm.pacman.controller;
 
+import org.gunnm.pacman.model.Entity;
 import org.gunnm.pacman.model.Game;
 
 import android.content.Context;
@@ -62,10 +63,12 @@ public class Touch implements OnTouchListener {
 				if (previousX < currentX)
 				{
 					Log.i(TAG, "Moving right");
+					model.getHero().setDirection(Entity.DIRECTION_RIGHT);
 				}
 				else
 				{
-					Log.i(TAG, "Moving left");				
+					Log.i(TAG, "Moving left");
+					model.getHero().setDirection(Entity.DIRECTION_LEFT);
 				}
 			}
 			
@@ -74,14 +77,20 @@ public class Touch implements OnTouchListener {
 				if (previousY < currentY)
 				{
 					Log.i(TAG, "Moving down");
+
+					model.getHero().setDirection(Entity.DIRECTION_DOWN);
+					
 				}
 				else
 				{
-					Log.i(TAG, "Moving up");				
+					Log.i(TAG, "Moving up");
+					model.getHero().setDirection(Entity.DIRECTION_UP);
 				}
 			}
-			v.invalidate();
 		}
+
+		v.invalidate();
+
 		return true;
 	}
 }
