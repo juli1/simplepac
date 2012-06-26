@@ -1,5 +1,8 @@
 package org.gunnm.pacman;
 
+import org.gunnm.pacman.model.Game;
+import org.gunnm.pacman.model.Map;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,8 +14,9 @@ import android.view.WindowManager;
 
 public class GameCanvas extends View
 {
-	private static String FLAG = "GameCanvas";
+	private static String TAG = "GameCanvas";
 	private int size;
+	private Game gameModel;
 	
 	public GameCanvas (Context context)
 	{
@@ -34,29 +38,66 @@ public class GameCanvas extends View
 	
 	public void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
 	{
-		
 		setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-		
 	}
 	
 	public void draw (Canvas canvas)
 	{
-		Paint color;
+		Paint colorBlack;
+		Paint colorBlue;
+		Paint colorRed;
+		Paint colorGreen;
+		Paint colorYellow;
 		int i;
 		int j;
 		int squareSize;
 		
-		squareSize = size / 11;
-		for (i = 0 ; i < 10 ; i++)
+		squareSize = size / 12;
+		colorBlack = new Paint ();
+		colorBlue = new Paint ();
+		colorGreen = new Paint ();
+		colorRed = new Paint ();
+		colorYellow = new Paint ();
+		colorBlack.setColor(Color.BLACK);
+		colorBlue.setColor(Color.BLUE);
+		colorRed.setColor(Color.RED);
+		colorGreen.setColor(Color.GREEN);
+		colorYellow.setColor(Color.YELLOW);
+		
+		for (i = 0 ; i < Map.MAP_WIDTH ; i++)
 		{
-			for (j = 0 ; j < 10 ; j++)
-			{
-				color = new Paint ();
-				color.setColor(Color.RED);
-				canvas.drawRect(i * squareSize, j * squareSize, (i + 1) * squareSize, (j + 1) * squareSize, color);
+			for (j = 0 ; j < Map.MAP_HEIGHT ; j++)
+			{		
+				//canvas.drawRect(i * squareSize + 1, j * squareSize + 1, (i + 1) * squareSize- 1, (j + 1) * squareSize- 1, colorBlack);
+				if (gameModel.getMap().getPart(i, j).hasBorderLeft())
+				{
+					//Log.i (TAG, "Draw left line for part (" + i + "," + j + ")");
+					canvas.drawLine(i * squareSize, j * squareSize, (i) * squareSize, (j + 1) * squareSize, colorBlue);
+				}
+				if (gameModel.getMap().getPart(i, j).hasBorderTop())
+				{
+					//Log.i (TAG, "Draw top line for part (" + i + "," + j + ")");
+					canvas.drawLine( (i) * squareSize, (j) * squareSize + 1, (i+1) * squareSize, (j) * squareSize + 1, colorYellow);
+
+					canvas.drawLine(i * squareSize, j * squareSize, (i + 1) * squareSize, j * squareSize, colorYellow);
+				}
+				if (gameModel.getMap().getPart(i, j).hasBorderRight())
+				{
+					//Log.i (TAG, "Draw right line for part (" + i + "," + j + ")");
+					canvas.drawLine( (i + 1) * squareSize , j * squareSize, (i + 1) * squareSize - 1, (j + 1 ) * squareSize, colorGreen);
+				}
+				if (gameModel.getMap().getPart(i, j).hasBorderBottom())
+				{
+					//Log.i (TAG, "Draw bottom line for part (" + i + "," + j + ")");
+					canvas.drawLine( (i) * squareSize, (j+1) * squareSize, (i+1) * squareSize, (j+1) * squareSize, colorRed);
+				}
 			}
 		}
 		
-		canvas.save();
+	}
+	
+	public void setModel (Game model)
+	{
+		this.gameModel = model;
 	}
 }
