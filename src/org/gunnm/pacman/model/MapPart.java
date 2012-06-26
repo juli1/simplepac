@@ -5,7 +5,7 @@ public class MapPart {
 	private boolean rightBorder;
 	private boolean topBorder;
 	private boolean bottomBorder;
-	
+	private boolean hasPoint;
 	
 	public MapPart ()
 	{
@@ -13,12 +13,33 @@ public class MapPart {
 		rightBorder = false;
 		topBorder = false;
 		bottomBorder = false;
+		hasPoint = false;
 	}
 	
 	
 	public boolean hasBorderTop ()
 	{
 		return this.topBorder;
+	}
+	
+	public boolean hasPoint ()
+	{
+		return this.hasPoint;
+	}
+	
+	public void setPoint (boolean b)
+	{
+		this.hasPoint = b;
+	}
+	
+	public void enablePoint ()
+	{
+		this.setPoint (true);
+	}
+
+	public void disablePoint ()
+	{
+		this.setPoint (false);
 	}
 	
 	public boolean hasBorderBottom ()

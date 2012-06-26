@@ -11,6 +11,7 @@ public class Game {
 	{
 		map = new Map ();
 		map.initDefaultBorders();
+		map.initDefaultsPoints();
 		hero = new Hero ();
 		hero.setPositionX (Map.MAP_WIDTH / 2);
 		hero.setPositionY (Map.MAP_HEIGHT / 2);
@@ -78,6 +79,12 @@ public class Game {
 				}
 				break;
 			}
+		}
+		
+		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasPoint())
+		{
+			map.getPart(hero.getPositionX(), hero.getPositionY()).disablePoint();
+			hero.addPoint ();
 		}
 	}
 	

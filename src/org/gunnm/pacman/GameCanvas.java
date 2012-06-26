@@ -48,6 +48,7 @@ public class GameCanvas extends View
 		Paint colorRed;
 		Paint colorGreen;
 		Paint colorYellow;
+		Paint colorCyan;
 		int i;
 		int j;
 		int squareSize;
@@ -58,12 +59,15 @@ public class GameCanvas extends View
 		colorGreen = new Paint ();
 		colorRed = new Paint ();
 		colorYellow = new Paint ();
+		colorCyan = new Paint ();
+
 		colorBlack.setColor(Color.BLACK);
 		colorBlue.setColor(Color.BLUE);
 		colorRed.setColor(Color.RED);
 		colorGreen.setColor(Color.GREEN);
 		colorYellow.setColor(Color.YELLOW);
-		
+		colorCyan.setColor(Color.CYAN);
+
 		/*
 		 * Draw a yellow rectangle for Pacman
 		 */
@@ -72,7 +76,7 @@ public class GameCanvas extends View
 						(gameModel.getHero().getPositionX() + 1) * squareSize,
 						(gameModel.getHero().getPositionY() + 1) * squareSize,
 						colorYellow);
-		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
+//		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
 
 		
 		for (i = 0 ; i < Map.MAP_WIDTH ; i++)
@@ -101,6 +105,14 @@ public class GameCanvas extends View
 				{
 				//	Log.i (TAG, "Draw bottom line for part (" + i + "," + j + ")");
 					canvas.drawLine( (i) * squareSize, (j+1) * squareSize, (i+1) * squareSize, (j+1) * squareSize, colorRed);
+				}
+				if (gameModel.getMap().getPart(i, j).hasPoint())
+				{
+					canvas.drawRect(i * squareSize + squareSize / 3, 
+									j * squareSize + squareSize / 3,
+									(i + 1) * squareSize - squareSize / 3,
+									(j + 1) * squareSize - squareSize / 3,
+									colorCyan);
 				}
 			}
 		}

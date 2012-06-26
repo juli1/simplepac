@@ -34,6 +34,29 @@ public class Map {
 			parts[0][j].setBorderLeft (true);
 			parts[MAP_WIDTH - 1][j].setBorderRight (true);
 		}
+		
+		for (int i = MAP_WIDTH / 3  ; i < 2 * (MAP_WIDTH / 3) ; i++)
+		{
+			parts[i][MAP_HEIGHT / 3].setBorderTop (true);
+			parts[i][2 * MAP_HEIGHT / 3].setBorderBottom (true);
+		}
+
+		for (int i = MAP_HEIGHT / 3  ; i < 2*(MAP_HEIGHT / 3) ; i++)
+		{
+			parts[MAP_WIDTH / 3][i].setBorderLeft (true);
+			parts[2 * (MAP_WIDTH / 3)][i].setBorderRight (true);
+		}
+	}
+	
+	public void initDefaultsPoints ()
+	{
+		for (int i = 0 ; i < MAP_WIDTH ; i++)
+		{
+			for (int j = 0 ; j < MAP_HEIGHT ; j++)
+			{
+				parts[i][j].enablePoint();
+			}
+		}
 	}
 	
 	public MapPart getPart (int i, int j)
