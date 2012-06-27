@@ -1,5 +1,6 @@
 package org.gunnm.pacman;
 
+import org.gunnm.pacman.model.Ennemy;
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Map;
 
@@ -49,6 +50,7 @@ public class GameCanvas extends View
 		Paint colorGreen;
 		Paint colorYellow;
 		Paint colorCyan;
+		Paint colorMagenta;
 		int i;
 		int j;
 		int squareSize;
@@ -60,6 +62,7 @@ public class GameCanvas extends View
 		colorRed = new Paint ();
 		colorYellow = new Paint ();
 		colorCyan = new Paint ();
+		colorMagenta = new Paint ();
 
 		colorBlack.setColor(Color.BLACK);
 		colorBlue.setColor(Color.BLUE);
@@ -67,15 +70,28 @@ public class GameCanvas extends View
 		colorGreen.setColor(Color.GREEN);
 		colorYellow.setColor(Color.YELLOW);
 		colorCyan.setColor(Color.CYAN);
-
+		colorMagenta.setColor(Color.MAGENTA);
 		/*
 		 * Draw a yellow rectangle for Pacman
 		 */
-		canvas.drawRect(gameModel.getHero().getPositionX() * squareSize , 
-						gameModel.getHero().getPositionY() * squareSize,
-						(gameModel.getHero().getPositionX() + 1) * squareSize,
-						(gameModel.getHero().getPositionY() + 1) * squareSize,
-						colorYellow);
+		if (gameModel.getHero().isAlive())
+		{
+			canvas.drawRect(gameModel.getHero().getPositionX() * squareSize , 
+							gameModel.getHero().getPositionY() * squareSize,
+							(gameModel.getHero().getPositionX() + 1) * squareSize,
+							(gameModel.getHero().getPositionY() + 1) * squareSize,
+							colorYellow);
+		}
+		
+		
+		for (Ennemy e : gameModel.getEnnemies())
+		{
+			canvas.drawRect(e.getPositionX() * squareSize , 
+					e.getPositionY() * squareSize,
+					(e.getPositionX() + 1) * squareSize,
+					(e.getPositionY() + 1) * squareSize,
+				colorMagenta);
+		}
 //		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
 
 		

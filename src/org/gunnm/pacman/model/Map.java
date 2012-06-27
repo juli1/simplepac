@@ -59,6 +59,8 @@ public class Map {
 		}
 	}
 	
+	
+	
 	public MapPart getPart (int i, int j)
 	{
 		if (i > MAP_WIDTH)

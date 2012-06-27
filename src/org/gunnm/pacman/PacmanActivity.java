@@ -3,7 +3,6 @@ package org.gunnm.pacman;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.gunnm.pacman.controller.MainLoop;
 import org.gunnm.pacman.controller.Touch;
 import org.gunnm.pacman.model.Game;
 
@@ -27,7 +26,6 @@ public class PacmanActivity extends Activity {
         mainLoopTimer = new Timer (true);
         setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(touchController);
-        //mainLoopTimer.schedule(new MainLoop(gameModel, mainCanvas), 0, 300);
         Timer autoUpdate = new Timer();
         autoUpdate.schedule(new TimerTask() {
          public void run() {

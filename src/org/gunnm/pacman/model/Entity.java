@@ -1,6 +1,6 @@
 package org.gunnm.pacman.model;
 
-public class Entity {
+public abstract class Entity {
 	private int positionX;
 	private int positionY;
 	private int direction;
@@ -15,6 +15,8 @@ public class Entity {
 	{
 		this (0,0);
 	}
+	
+	public abstract String getName ();
 	
 	public Entity (int x, int y)
 	{
