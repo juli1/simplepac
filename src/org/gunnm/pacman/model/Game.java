@@ -12,6 +12,9 @@ public class Game {
 	private List<Ennemy> ennemies;
 	private int heroDefaultX;
 	private int heroDefaultY;
+	private int unvulnerableCounter;
+	private int unvulnerableCounterConstant;
+	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	
 	public Game ()
 	{
@@ -19,6 +22,8 @@ public class Game {
 		hero = new Hero ();
 		ennemies = new ArrayList<Ennemy>();
 		this.initDefaultValues();
+		unvulnerableCounter = 0;
+		unvulnerableCounterConstant = DEFAULT_UNVULNERABLE_COUNTER;
 	}
 	
 	
@@ -35,7 +40,7 @@ public class Game {
 		heroDefaultY = Map.MAP_HEIGHT / 2;
 		hero.setPositionX (heroDefaultX);
 		hero.setPositionY (heroDefaultY);
-		
+		unvulnerableCounterConstant = DEFAULT_UNVULNERABLE_COUNTER;
 		for (int i = 0 ; i < 10 ; i++)
 		{
 			this.addEnnemy();
@@ -147,20 +152,25 @@ public class Game {
 				break;
 			}
 		}
-		
-
 	}
 	 
 	public void heroCollision (Ennemy e)
 	{
-		hero.removeLife ();
-		if (hero.isAlive())
+		if (hero.isVulnerable())
 		{
-			hero.setPositionX(heroDefaultX);
-			hero.setPositionY(heroDefaultY);
-			hero.setDirection(Entity.DIRECTION_NONE);
+			hero.removeLife ();
+			if (hero.isAlive())
+			{
+				hero.setPositionX(heroDefaultX);
+				hero.setPositionY(heroDefaultY);
+				hero.setDirection(Entity.DIRECTION_NONE);
+			}
 		}
-		
+		else
+		{
+			e.died ();
+			hero.addPoints (20);
+		}
 	}
 	
 	public void reaction()
@@ -186,6 +196,25 @@ public class Game {
 			map.getPart(hero.getPositionX(), hero.getPositionY()).disablePoint();
 			hero.addPoint ();
 		}
+		
+		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasSuperPoint())
+		{
+			map.getPart(hero.getPositionX(), hero.getPositionY()).disableSuperPoint();
+			hero.setUnVulnerable();
+			hero.addPoints (10);
+			unvulnerableCounter = unvulnerableCounterConstant;
+		}
+		
+		
+		if (unvulnerableCounter > 0)
+		{
+			unvulnerableCounter = unvulnerableCounter - 1;
+		}
+		else
+		{
+			hero.setVulnerable();
+		}
+		
 	}
 	
 }

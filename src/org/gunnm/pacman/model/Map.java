@@ -50,6 +50,10 @@ public class Map {
 	
 	public void initDefaultsPoints ()
 	{
+		int x;
+		int y;
+		int[] tmp;
+		
 		for (int i = 0 ; i < MAP_WIDTH ; i++)
 		{
 			for (int j = 0 ; j < MAP_HEIGHT ; j++)
@@ -57,8 +61,33 @@ public class Map {
 				parts[i][j].enablePoint();
 			}
 		}
+		
+		for (int i = 0 ; i < 10 ; i++)
+		{
+			tmp = getRandomLocation();
+			x = tmp[0];
+			y = tmp[1];
+			
+			while (parts[x][y].hasSuperPoint())
+			{
+				tmp = getRandomLocation();
+				x = tmp[0];
+				y = tmp[1];
+					
+			}
+			Log.e (TAG, "Put super point at (" + x + "," + y + ")");
+			parts[x][y].enableSuperPoint();
+		}
 	}
 	
+	
+	public int[] getRandomLocation ()
+	{
+		int [] ret = new int[2];
+		ret[0] = (int) (Math.random() * 100) % Map.MAP_WIDTH;
+		ret[1] = (int) (Math.random() * 100) % Map.MAP_HEIGHT;
+		return ret;
+	}
 	
 	
 	public MapPart getPart (int i, int j)

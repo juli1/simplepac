@@ -89,8 +89,6 @@ public class Touch implements OnTouchListener {
 			}
 		}
 
-		v.invalidate();
-
 		return true;
 	}
 }

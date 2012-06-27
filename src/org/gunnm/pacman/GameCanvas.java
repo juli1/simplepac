@@ -51,6 +51,7 @@ public class GameCanvas extends View
 		Paint colorYellow;
 		Paint colorCyan;
 		Paint colorMagenta;
+		Paint colorHero;
 		int i;
 		int j;
 		int squareSize;
@@ -76,21 +77,33 @@ public class GameCanvas extends View
 		 */
 		if (gameModel.getHero().isAlive())
 		{
+			if (! gameModel.getHero().isVulnerable())
+			{
+				colorHero = colorRed;
+			}
+			else
+			{
+				colorHero = colorYellow;
+			}
+			
 			canvas.drawRect(gameModel.getHero().getPositionX() * squareSize , 
 							gameModel.getHero().getPositionY() * squareSize,
 							(gameModel.getHero().getPositionX() + 1) * squareSize,
 							(gameModel.getHero().getPositionY() + 1) * squareSize,
-							colorYellow);
+							colorHero);
 		}
 		
 		
 		for (Ennemy e : gameModel.getEnnemies())
 		{
-			canvas.drawRect(e.getPositionX() * squareSize , 
-					e.getPositionY() * squareSize,
-					(e.getPositionX() + 1) * squareSize,
-					(e.getPositionY() + 1) * squareSize,
-				colorMagenta);
+			if (e.isAlive())
+			{
+				canvas.drawRect(e.getPositionX() * squareSize , 
+						e.getPositionY() * squareSize,
+						(e.getPositionX() + 1) * squareSize,
+						(e.getPositionY() + 1) * squareSize,
+					colorMagenta);
+			}
 		}
 //		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
 
@@ -130,6 +143,16 @@ public class GameCanvas extends View
 									(j + 1) * squareSize - squareSize / 3,
 									colorCyan);
 				}
+				
+				if (gameModel.getMap().getPart(i, j).hasSuperPoint())
+				{
+					canvas.drawRect(i * squareSize + squareSize / 6, 
+									j * squareSize + squareSize / 6,
+									(i + 1) * squareSize - squareSize / 6,
+									(j + 1) * squareSize - squareSize / 6,
+									colorCyan);
+				}
+				
 			}
 		}
 		

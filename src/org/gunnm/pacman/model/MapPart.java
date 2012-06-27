@@ -6,6 +6,7 @@ public class MapPart {
 	private boolean topBorder;
 	private boolean bottomBorder;
 	private boolean hasPoint;
+	private boolean hasSuperPoint;
 	
 	public MapPart ()
 	{
@@ -14,6 +15,7 @@ public class MapPart {
 		topBorder = false;
 		bottomBorder = false;
 		hasPoint = false;
+		hasSuperPoint = false;
 	}
 	
 	
@@ -27,19 +29,41 @@ public class MapPart {
 		return this.hasPoint;
 	}
 	
+	public boolean hasSuperPoint ()
+	{
+		return this.hasSuperPoint;
+	}
+	
 	public void setPoint (boolean b)
 	{
 		this.hasPoint = b;
 	}
 	
+	public void setSuperPoint (boolean b)
+	{
+		this.hasSuperPoint = b;
+	}
+	
 	public void enablePoint ()
 	{
 		this.setPoint (true);
+		this.disableSuperPoint();
 	}
 
 	public void disablePoint ()
 	{
 		this.setPoint (false);
+	}
+
+	public void enableSuperPoint ()
+	{
+		this.setSuperPoint (true);
+		this.disablePoint();
+	}
+
+	public void disableSuperPoint ()
+	{
+		this.setSuperPoint (false);
 	}
 	
 	public boolean hasBorderBottom ()
