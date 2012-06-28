@@ -262,13 +262,15 @@ public class Game {
 	
 	public void reaction()
 	{
-		if (hero.getLifes() == 0)
-		{
-			return;
-		}
+		
 		if (hero.isDying ())
 		{
 			this.heroDying();
+			return;
+		}
+		
+		if (hero.getLifes() == 0)
+		{
 			return;
 		}
 		

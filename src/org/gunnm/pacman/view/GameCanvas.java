@@ -107,6 +107,7 @@ public class GameCanvas extends View
 						}
 						break;
 					}
+					case Entity.DIRECTION_NONE:
 					case Entity.DIRECTION_DOWN:
 					{
 						if ((e.getState() % 2) == 1)
@@ -127,131 +128,174 @@ public class GameCanvas extends View
 		{
 			canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5, e.getPositionY() * squareSize + 5, new Paint());
 		}
+		else
+		{
+			Log.e(TAG,"Mo bitmap for the ennemy, direction=" + e.getDirection() + "coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
+		}
 	}
 	
 	private void drawHero (Canvas canvas)
 	{
 		Bitmap bitmapToLoad;
-		if (gameModel.getHero().isAlive())
+		bitmapToLoad = null;
+		
+		if (gameModel.getHero().isDying())
 		{
-			bitmapToLoad = skin.getPacmanFull ();
-			switch (gameModel.getHero().getDirection())
+			switch (gameModel.getHero().getState())
 			{
-				case Entity.DIRECTION_DOWN:
+				case 0:
 				{
-					switch (gameModel.getHero().getState() % 3)
-					{
-						case 0:
-						{
-							bitmapToLoad = skin.getPacmanDown1 ();
-							break;
-						}
-						case 1:
-						{
-							bitmapToLoad = skin.getPacmanDown2 ();
-							break;
-						}
-						case 2:
-						{
-							bitmapToLoad = skin.getPacmanDown3 ();
-							break;
-						}
-					}
+					bitmapToLoad = skin.getPacmanDie1();
 					break;
 				}
-				case Entity.DIRECTION_UP:
+				case 1:
 				{
-					switch (gameModel.getHero().getState() % 3)
-					{
-						case 0:
-						{
-							bitmapToLoad = skin.getPacmanUp1 ();
-							break;
-						}
-						case 1:
-						{
-							bitmapToLoad = skin.getPacmanUp2 ();
-							break;
-						}
-						case 2:
-						{
-							bitmapToLoad = skin.getPacmanUp3 ();
-							break;
-						}
-					}
+					bitmapToLoad = skin.getPacmanDie2();
 					break;
 				}
-				case Entity.DIRECTION_LEFT:
+				case 2:
 				{
-					switch (gameModel.getHero().getState() % 3)
-					{
-						case 0:
-						{
-							bitmapToLoad = skin.getPacmanLeft1 ();
-							break;
-						}
-						case 1:
-						{
-							bitmapToLoad = skin.getPacmanLeft2 ();
-							break;
-						}
-						case 2:
-						{
-							bitmapToLoad = skin.getPacmanLeft3 ();
-							break;
-						}
-					}
+					bitmapToLoad = skin.getPacmanDie3();
 					break;
 				}
-				case Entity.DIRECTION_RIGHT:
+				case 3:
 				{
-					switch (gameModel.getHero().getState() % 3)
-					{
-						case 0:
-						{
-							bitmapToLoad = skin.getPacmanRight1 ();
-							break;
-						}
-						case 1:
-						{
-							bitmapToLoad = skin.getPacmanRight2 ();
-							break;
-						}
-						case 2:
-						{
-							bitmapToLoad = skin.getPacmanRight3 ();
-							break;
-						}
-					}
+					bitmapToLoad = skin.getPacmanDie4();
+					break;
+				}
+				case 4:
+				{
+					bitmapToLoad = skin.getPacmanDie5();
+					break;
+				}
+				case 5:
+				{
+					bitmapToLoad = skin.getPacmanDie6();
 					break;
 				}
 			}
+		}
+		else
+		{
+			if (gameModel.getHero().isAlive())
+			{
+				
+				switch (gameModel.getHero().getDirection())
+				{
+					case Entity.DIRECTION_NONE:
+					case Entity.DIRECTION_DOWN:
+					{
+						switch (gameModel.getHero().getState() % 3)
+						{
+							case 0:
+							{
+								bitmapToLoad = skin.getPacmanDown1 ();
+								break;
+							}
+							case 1:
+							{
+								bitmapToLoad = skin.getPacmanDown2 ();
+								break;
+							}
+							case 2:
+							{
+								bitmapToLoad = skin.getPacmanDown3 ();
+								break;
+							}
+						}
+						break;
+					}
+					case Entity.DIRECTION_UP:
+					{
+						switch (gameModel.getHero().getState() % 3)
+						{
+							case 0:
+							{
+								bitmapToLoad = skin.getPacmanUp1 ();
+								break;
+							}
+							case 1:
+							{
+								bitmapToLoad = skin.getPacmanUp2 ();
+								break;
+							}
+							case 2:
+							{
+								bitmapToLoad = skin.getPacmanUp3 ();
+								break;
+							}
+						}
+						break;
+					}
+					case Entity.DIRECTION_LEFT:
+					{
+						switch (gameModel.getHero().getState() % 3)
+						{
+							case 0:
+							{
+								bitmapToLoad = skin.getPacmanLeft1 ();
+								break;
+							}
+							case 1:
+							{
+								bitmapToLoad = skin.getPacmanLeft2 ();
+								break;
+							}
+							case 2:
+							{
+								bitmapToLoad = skin.getPacmanLeft3 ();
+								break;
+							}
+						}
+						break;
+					}
+					case Entity.DIRECTION_RIGHT:
+					{
+						switch (gameModel.getHero().getState() % 3)
+						{
+							case 0:
+							{
+								bitmapToLoad = skin.getPacmanRight1 ();
+								break;
+							}
+							case 1:
+							{
+								bitmapToLoad = skin.getPacmanRight2 ();
+								break;
+							}
+							case 2:
+							{
+								bitmapToLoad = skin.getPacmanRight3 ();
+								break;
+							}
+						}
+						break;
+					}
+				}
+			}
+		}	
+		
+		if (bitmapToLoad != null)
+		{
 			canvas.drawBitmap(bitmapToLoad, 
 					          gameModel.getHero().getPositionX() * squareSize + 5, 
 					          gameModel.getHero().getPositionY() * squareSize + 5, 
 					          new Paint());
-					
-		}		
+		}
+		else
+		{
+			Log.e(TAG,"Mo bitmap for the hero");
+		}
 	}
 	
-	public void draw (Canvas canvas)
+	public void drawGrid (Canvas canvas)
 	{
-
 		int i;
 		int j;
 		Paint colorRed;
 		Bitmap bitmapToLoad;
 		colorRed = new Paint();
 		colorRed.setColor(Color.RED);
-
-	
-		for (Ennemy e : gameModel.getEnnemies())
-		{
-			drawEnnemy (e, canvas);
-		}
-	
-		drawHero (canvas);
-		
 		
 		for (i = 0 ; i < gameModel.getMap().getWidth() ; i++)
 		{
@@ -298,7 +342,22 @@ public class GameCanvas extends View
 				
 			}
 		}
-		
+	}
+	
+	public void draw (Canvas canvas)
+	{		
+		drawGrid (canvas);
+	
+		for (Ennemy e : gameModel.getEnnemies())
+		{
+			if ((e.getPositionX() != gameModel.getHero().getPositionX()) &&
+			    (e.getPositionY() != gameModel.getHero().getPositionY()))
+			{
+				drawEnnemy (e, canvas);
+			}
+		}
+	
+		drawHero (canvas);	
 	}
 	
 	public void setModel (Game model)
