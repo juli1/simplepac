@@ -40,7 +40,7 @@ public class PacmanActivity extends Activity {
            }
           });
          }
-        }, 0, 40); // updates each 40 msec
+        }, 0, 400); // updates each 40 msec
         mainCanvas.setFocusable(true);
         //setContentView(R.layout.main);
     }

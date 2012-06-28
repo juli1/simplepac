@@ -24,11 +24,11 @@ public class Map1 implements MapInterface
 	int[][] map = new int[][]
 	{
 		{borderTop | borderLeft,borderTop,borderTop|borderBottom,borderTop|borderBottom,borderTop,borderTop,borderTop,borderTop,borderTop,borderTop|borderRight},
-		{borderLeft,borderRight,borderTop | borderLeft,borderTop | borderRight,borderLeft,0,0,0,0,borderRight},
-		{borderLeft,borderRight,borderLeft,borderRight,borderLeft,0,0,hasEnnemy,0,borderRight},
-		{borderLeft,borderRight,borderLeft,borderRight,borderLeft,0,hasSuperPoint,0,0,borderRight},
-		{borderLeft,borderRight,borderLeft|borderBottom,borderRight|borderBottom,borderLeft,0,0,0,0,borderRight},
-		{borderLeft,0,borderTop,borderTop|hasSuperPoint,hasSuperPoint,0,0,0,0,borderRight},
+		{borderLeft,0,borderTop | borderLeft,borderTop | borderRight,borderLeft,0,0,0,0,borderRight},
+		{borderLeft,0,borderLeft,borderRight,borderLeft,0,0,hasEnnemy,0,borderRight},
+		{borderLeft,0,borderLeft,borderRight,borderLeft,0,hasSuperPoint,0,0,borderRight},
+		{borderLeft,0,0,0,0,0,0,0,0,borderRight},
+		{borderLeft,0,0,hasSuperPoint,hasSuperPoint,0,0,0,0,borderRight},
 		{borderLeft,0,0,hasEnnemy,0,0,hasPoint,0,0,borderRight},
 		{borderLeft,0,hasEnnemy,0,0,0,hasPoint,hasEnnemy,0,borderRight},
 		{borderLeft,0,hasSuperPoint,0,0,0,hasPoint,0,0,borderRight},

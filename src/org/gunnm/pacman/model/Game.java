@@ -159,6 +159,9 @@ public class Game {
 	
 	public void reactionEntity(Entity entity)
 	{
+		entity.react();
+
+		
 		if ( (entity.getPositionX() < 0) || (entity.getPositionX() > map.getWidth()))
 		{
 			return;
@@ -226,17 +229,29 @@ public class Game {
 		}
 	}
 	 
-	public void heroCollision (Ennemy e)
+	
+	public void heroDying ()
 	{
-		if (hero.isVulnerable())
+		if (hero.getState() == 5)
 		{
-			hero.removeLife ();
+			hero.isDying (false);
+			
 			if (hero.isAlive())
 			{
 				hero.setPositionX(heroDefaultX);
 				hero.setPositionY(heroDefaultY);
 				hero.setDirection(Entity.DIRECTION_NONE);
-			}
+			}	
+		}
+		hero.react();
+	}
+	
+	public void heroCollision (Ennemy e)
+	{
+		if (hero.isVulnerable())
+		{
+			hero.removeLife ();
+			hero.isDying (true);
 		}
 		else
 		{
@@ -247,7 +262,18 @@ public class Game {
 	
 	public void reaction()
 	{
+		if (hero.getLifes() == 0)
+		{
+			return;
+		}
+		if (hero.isDying ())
+		{
+			this.heroDying();
+			return;
+		}
+		
 		reactionEntity(hero);
+
 		
 		for (Ennemy e : ennemies)
 		{
@@ -280,14 +306,7 @@ public class Game {
 			reactionEntity (e);
 		}
 		
-		for (Ennemy e : ennemies)
-		{
-			if ((e.getPositionX() == hero.getPositionX()) &&
-				(e.getPositionY() == hero.getPositionY()))
-			{
-				heroCollision (e);
-			}
-		}
+
 		
 		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasPoint())
 		{
@@ -311,6 +330,15 @@ public class Game {
 		else
 		{
 			hero.setVulnerable();
+		}
+		
+		for (Ennemy e : ennemies)
+		{
+			if ((e.getPositionX() == hero.getPositionX()) &&
+				(e.getPositionY() == hero.getPositionY()))
+			{
+				heroCollision (e);
+			}
 		}
 		
 	}

@@ -7,13 +7,27 @@ public abstract class Entity {
 	
 	public static final int DIRECTION_UP 		= 1;
 	public static final int DIRECTION_DOWN		= 2;
-	public static final int DIRECTION_LEFT 	= 3;
+	public static final int DIRECTION_LEFT 		= 3;
 	public static final int DIRECTION_RIGHT 	= 4;
 	public static final int DIRECTION_NONE		= 5;
+	protected int state;
+	
+	
 	
 	public Entity ()
 	{
 		this (0,0);
+		this.state = 0;
+	}
+	
+	public void react ()
+	{
+		this.state = (this.state + 1) % 6;
+	}
+	
+	public int getState ()
+	{
+		return this.state;
 	}
 	
 	public abstract String getName ();
