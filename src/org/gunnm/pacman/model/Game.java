@@ -27,6 +27,65 @@ public class Game {
 	}
 	
 	
+	public Game (MapInterface customMap)
+	{
+		map = new Map (customMap.getWidth(), customMap.getHeight());
+		hero = new Hero ();
+		ennemies = new ArrayList<Ennemy>();
+		initMap (customMap);
+		unvulnerableCounter = 0;
+
+		hero.setPositionX (heroDefaultX);
+		hero.setPositionY (heroDefaultY);
+		
+		for (int i = 0 ; i < customMap.getWidth() ; i++)
+		{
+			for (int j = 0 ; j < customMap.getHeight() ; j++)
+			{
+				map.setBorderBottom (i,j, customMap.hasBorderBottom(i, j));
+				map.setBorderLeft (i,j, customMap.hasBorderLeft(i, j));
+				map.setBorderRight (i,j, customMap.hasBorderRight(i, j));
+				map.setBorderTop (i,j, customMap.hasBorderTop(i, j));			
+			}
+		}
+		
+	}
+	
+	public void initMap (MapInterface custom)
+	{
+		int[] tmp;
+		
+		tmp = custom.getHeroPosition();
+		
+		this.heroDefaultX = tmp[0];
+		this.heroDefaultY = tmp[1];
+		
+		unvulnerableCounterConstant = custom.getUnvulnerableCounter();
+		
+		for (int i = 0 ; i < custom.getWidth() ; i++)
+		{
+			for (int j = 0 ; j < custom.getHeight() ; j++)
+			{
+				if (custom.hasPoint(i, j))
+				{
+					map.enablePoint (i, j);
+				}
+			}
+		}
+		
+		for (int i = 0 ; i < custom.getNbEnnemies() ; i++)
+		{
+			tmp = custom.getEnnemyPosition(i);
+			this.addEnnemy(tmp[0], tmp[1]);
+		}
+		
+		for (int i = 0 ; i < custom.getNbBonuses() ; i++)
+		{
+			tmp = custom.getBonusPosition(i);
+			map.enableSuperPoint (tmp[0], tmp[1]);
+		}
+	}
+	
 	public List<Ennemy> getEnnemies()
 	{
 		return this.ennemies;
@@ -36,10 +95,9 @@ public class Game {
 	{
 		map.initDefaultBorders();
 		map.initDefaultsPoints();
-		heroDefaultX = Map.MAP_WIDTH / 2;
-		heroDefaultY = Map.MAP_HEIGHT / 2;
-		hero.setPositionX (heroDefaultX);
-		hero.setPositionY (heroDefaultY);
+		heroDefaultX = map.getWidth() / 2;
+		heroDefaultY = map.getHeight() / 2;
+		
 		unvulnerableCounterConstant = DEFAULT_UNVULNERABLE_COUNTER;
 		for (int i = 0 ; i < 10 ; i++)
 		{
@@ -66,8 +124,8 @@ public class Game {
 		
 		while (e == null)
 		{
-			x = (int) (Math.random() * 100) % Map.MAP_WIDTH;
-			y = (int) (Math.random() * 100) % Map.MAP_HEIGHT;
+			x = (int) (Math.random() * 100) % map.getWidth();
+			y = (int) (Math.random() * 100) % map.getHeight();
 			e = addEnnemy (x,y);
 		}
 		return e;
@@ -101,25 +159,25 @@ public class Game {
 	
 	public void reactionEntity(Entity entity)
 	{
-		if ( (entity.getPositionX() < 0) || (entity.getPositionX() > Map.MAP_WIDTH))
+		if ( (entity.getPositionX() < 0) || (entity.getPositionX() > map.getWidth()))
 		{
 			return;
 		}
 		
-		if ( (entity.getPositionY() < 0) || (entity.getPositionY() > Map.MAP_HEIGHT))
+		if ( (entity.getPositionY() < 0) || (entity.getPositionY() > map.getHeight()))
 		{
 			return;
 		}
 		
-		MapPart part = map.getPart(hero.getPositionX(), hero.getPositionY());
+		MapPart part = map.getPart(entity.getPositionX(), entity.getPositionY());
 		switch (entity.getDirection())
 		{
 			case Entity.DIRECTION_DOWN:
 			{
 				if (! part.hasBorderBottom())
 				{
-					entity.setPositionY(entity.getPositionY() + 1);
-					Log.i(TAG, "Moving entity down");
+					entity.setPositionY((entity.getPositionY() + 1 )% map.getHeight());
+
 				}
 				break;
 			}
@@ -127,8 +185,16 @@ public class Game {
 			{
 				if (! part.hasBorderTop())
 				{
-					entity.setPositionY(entity.getPositionY() - 1);
-					Log.i(TAG, "Moving entity top");
+					
+					if (entity.getPositionY() == 0)
+					{
+						entity.setPositionY (map.getHeight() - 1);
+					}
+					else
+					{
+						entity.setPositionY (entity.getPositionY() - 1 );
+					}
+					
 
 				}
 				break;
@@ -137,8 +203,15 @@ public class Game {
 			{
 				if (! part.hasBorderLeft())
 				{
-					entity.setPositionX(entity.getPositionX() - 1);
-					Log.i(TAG, "Moving hero left");
+					
+					if (entity.getPositionX() == 0)
+					{
+						entity.setPositionX (map.getWidth() - 1);
+					}
+					else
+					{
+						entity.setPositionX (entity.getPositionX() - 1 );
+					}
 				}
 				break;
 			}
@@ -146,8 +219,7 @@ public class Game {
 			{
 				if (! part.hasBorderRight())
 				{
-					Log.i(TAG, "Moving hero right");
-					entity.setPositionX(entity.getPositionX() + 1);
+					entity.setPositionX( (entity.getPositionX() + 1) % map.getWidth());
 				}
 				break;
 			}
@@ -179,6 +251,32 @@ public class Game {
 		
 		for (Ennemy e : ennemies)
 		{
+			if ( ((int)(Math.random() * 100)) % 7 == 0)
+			{
+				switch ( ((int)(Math.random() * 100) ) % 4)
+				{
+					case 0:
+					{
+						e.setDirection(Entity.DIRECTION_DOWN);
+						break;
+					}
+					case 1:
+					{
+						e.setDirection(Entity.DIRECTION_LEFT);
+						break;
+					}
+					case 2:
+					{
+						e.setDirection(Entity.DIRECTION_RIGHT);
+						break;
+					}
+					case 3:
+					{
+						e.setDirection(Entity.DIRECTION_UP);
+						break;
+					}
+				}
+			}
 			reactionEntity (e);
 		}
 		

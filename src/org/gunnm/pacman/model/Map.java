@@ -3,48 +3,68 @@ package org.gunnm.pacman.model;
 import android.util.Log;
 
 public class Map {
-	public static final int MAP_WIDTH = 10;
-	public static final int MAP_HEIGHT = 11;
+	public static final int DEFAULT_MAP_WIDTH = 10;
+	public static final int DEFAULT_MAP_HEIGHT = 11;
 	private MapPart[][] parts;
+	private int width;
+	private int height;
 	
 	private final String TAG = "Map";
 	
 	public Map ()
 	{
-		parts = new MapPart[MAP_WIDTH][MAP_HEIGHT];
-		for (int i = 0 ; i < MAP_WIDTH ; i++)
+		this (DEFAULT_MAP_WIDTH, DEFAULT_MAP_HEIGHT);
+	}
+	
+	public Map (int w, int h)
+	{
+		this.width = w;
+		this.height = h;
+		parts = new MapPart[this.width][this.height];
+		for (int i = 0 ; i < this.width ; i++)
 		{
-			for (int j = 0 ; j < MAP_HEIGHT ; j++)
+			for (int j = 0 ; j < this.height ; j++)
 			{
 				parts[i][j] = new MapPart ();
 			}
-		}
+		}	
+	}
+
+	
+	public int getWidth()
+	{
+		return this.width;
+	}
+	
+	public int getHeight()
+	{
+		return this.height;
 	}
 	
 	public void initDefaultBorders ()
 	{
-		for (int i = 0 ; i < MAP_WIDTH ; i++)
+		for (int i = 0 ; i < getWidth() ; i++)
 		{
 			parts[i][0].setBorderTop (true);
-			parts[i][MAP_HEIGHT - 1].setBorderBottom (true);
+			parts[i][getHeight() - 1].setBorderBottom (true);
 		}
 
-		for (int j = 0 ; j < MAP_HEIGHT ; j++)
+		for (int j = 0 ; j < getHeight() ; j++)
 		{
 			parts[0][j].setBorderLeft (true);
-			parts[MAP_WIDTH - 1][j].setBorderRight (true);
+			parts[getWidth() - 1][j].setBorderRight (true);
 		}
 		
-		for (int i = MAP_WIDTH / 3  ; i < 2 * (MAP_WIDTH / 3) ; i++)
+		for (int i = getWidth() / 3  ; i < 2 * (getWidth() / 3) ; i++)
 		{
-			parts[i][MAP_HEIGHT / 3].setBorderTop (true);
-			parts[i][2 * MAP_HEIGHT / 3].setBorderBottom (true);
+			parts[i][getHeight() / 3].setBorderTop (true);
+			parts[i][2 * getHeight() / 3].setBorderBottom (true);
 		}
 
-		for (int i = MAP_HEIGHT / 3  ; i < 2*(MAP_HEIGHT / 3) ; i++)
+		for (int i = getHeight() / 3  ; i < 2*(getHeight() / 3) ; i++)
 		{
-			parts[MAP_WIDTH / 3][i].setBorderLeft (true);
-			parts[2 * (MAP_WIDTH / 3)][i].setBorderRight (true);
+			parts[getWidth() / 3][i].setBorderLeft (true);
+			parts[2 * (getWidth() / 3)][i].setBorderRight (true);
 		}
 	}
 	
@@ -54,9 +74,9 @@ public class Map {
 		int y;
 		int[] tmp;
 		
-		for (int i = 0 ; i < MAP_WIDTH ; i++)
+		for (int i = 0 ; i < getWidth() ; i++)
 		{
-			for (int j = 0 ; j < MAP_HEIGHT ; j++)
+			for (int j = 0 ; j < getHeight() ; j++)
 			{
 				parts[i][j].enablePoint();
 			}
@@ -81,29 +101,59 @@ public class Map {
 	}
 	
 	
+	public void enablePoint (int x, int y)
+	{
+		parts[x][y].enablePoint();
+	}
+	
+	
+	public void enableSuperPoint (int x, int y)
+	{
+		parts[x][y].enableSuperPoint();
+	}
+	
 	public int[] getRandomLocation ()
 	{
 		int [] ret = new int[2];
-		ret[0] = (int) (Math.random() * 100) % Map.MAP_WIDTH;
-		ret[1] = (int) (Math.random() * 100) % Map.MAP_HEIGHT;
+		ret[0] = (int) (Math.random() * 100) % getWidth();
+		ret[1] = (int) (Math.random() * 100) % getHeight();
 		return ret;
 	}
 	
 	
 	public MapPart getPart (int i, int j)
 	{
-		if (i > MAP_WIDTH)
+		if (i > getWidth())
 		{
 			Log.e (TAG, "Incorrect size in getPart, i=" + i);
 			return null;
 		}
 		
-		if (j > MAP_HEIGHT)
+		if (j > getHeight())
 		{
 			Log.e (TAG, "Incorrect size in getPart, j=" + j);
 			return null;
 		}
 		return parts[i][j];
+	}
+	
+	public void setBorderTop (int x, int y, boolean v)
+	{
+		parts[x][y].setBorderTop (v);
+	}
+	
+	public void setBorderLeft (int x, int y, boolean v)
+	{
+		parts[x][y].setBorderLeft (v);
+	}
+	public void setBorderRight (int x, int y, boolean v)
+	{
+		parts[x][y].setBorderRight (v);
+	}
+	
+	public void setBorderBottom (int x, int y, boolean v)
+	{
+		parts[x][y].setBorderBottom(v);
 	}
 	
 }

@@ -108,9 +108,9 @@ public class GameCanvas extends View
 //		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
 
 		
-		for (i = 0 ; i < Map.MAP_WIDTH ; i++)
+		for (i = 0 ; i < gameModel.getMap().getWidth() ; i++)
 		{
-			for (j = 0 ; j < Map.MAP_HEIGHT ; j++)
+			for (j = 0 ; j < gameModel.getMap().getHeight() ; j++)
 			{		
 				//canvas.drawRect(i * squareSize + 1, j * squareSize + 1, (i + 1) * squareSize- 1, (j + 1) * squareSize- 1, colorBlack);
 				if (gameModel.getMap().getPart(i, j).hasBorderLeft())
