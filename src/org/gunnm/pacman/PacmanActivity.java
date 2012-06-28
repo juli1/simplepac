@@ -7,6 +7,7 @@ import org.gunnm.pacman.controller.Key;
 import org.gunnm.pacman.controller.Touch;
 import org.gunnm.pacman.maps.Map1;
 import org.gunnm.pacman.model.Game;
+import org.gunnm.pacman.view.GameCanvas;
 
 import android.app.Activity;
 import android.os.Bundle;

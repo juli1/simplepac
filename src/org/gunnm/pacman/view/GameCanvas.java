@@ -1,4 +1,4 @@
-package org.gunnm.pacman;
+package org.gunnm.pacman.view;
 
 import org.gunnm.pacman.model.Ennemy;
 import org.gunnm.pacman.model.Game;
@@ -18,10 +18,13 @@ public class GameCanvas extends View
 	private static String TAG = "GameCanvas";
 	private int size;
 	private Game gameModel;
+	private Resources gameResources;
 	
 	public GameCanvas (Context context)
 	{
 		super (context);
+		
+		gameResources = new Resources (context.getResources().getAssets());
 		setMinimumHeight(100);
 		setMinimumWidth(100);
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -85,12 +88,15 @@ public class GameCanvas extends View
 			{
 				colorHero = colorYellow;
 			}
-			
+			/*
 			canvas.drawRect(gameModel.getHero().getPositionX() * squareSize , 
 							gameModel.getHero().getPositionY() * squareSize,
 							(gameModel.getHero().getPositionX() + 1) * squareSize,
 							(gameModel.getHero().getPositionY() + 1) * squareSize,
 							colorHero);
+							*/
+			canvas.drawBitmap(gameResources.pacmanFull, gameModel.getHero().getPositionX() * squareSize, gameModel.getHero().getPositionY() * squareSize, colorYellow);
+					
 		}
 		
 		
