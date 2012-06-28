@@ -32,7 +32,7 @@ public class Key implements OnKeyListener
 				model.getHero().setDirection(Entity.DIRECTION_LEFT);
 				Log.i(TAG, "Moving left");
 			}
-			
+			 
 			if (event.getKeyCode()  == KeyEvent.KEYCODE_DPAD_RIGHT)
 			{
 				model.getHero().setDirection(Entity.DIRECTION_RIGHT);
