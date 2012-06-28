@@ -21,9 +21,9 @@ public class PacmanActivity extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainCanvas = new GameCanvas (this);
+        
         gameModel = new Game (new Map1());
-        mainCanvas.setModel (gameModel);
+        mainCanvas = new GameCanvas (this, gameModel);
         
         touchController = new Touch(gameModel, mainCanvas);
         mainLoopTimer = new Timer (true);

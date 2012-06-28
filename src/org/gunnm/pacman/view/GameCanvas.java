@@ -1,10 +1,12 @@
 package org.gunnm.pacman.view;
 
 import org.gunnm.pacman.model.Ennemy;
+import org.gunnm.pacman.model.Entity;
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Map;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,13 +20,15 @@ public class GameCanvas extends View
 	private static String TAG = "GameCanvas";
 	private int size;
 	private Game gameModel;
-	private Resources gameResources;
+	private Skin skin;
+	private int squareSize;
 	
-	public GameCanvas (Context context)
+	
+	public GameCanvas (Context context, Game gm)
 	{
 		super (context);
 		
-		gameResources = new Resources (context.getResources().getAssets());
+		gameModel = gm;
 		setMinimumHeight(100);
 		setMinimumWidth(100);
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -38,6 +42,8 @@ public class GameCanvas extends View
 		{
 			size = display.getWidth();
 		}
+		squareSize = size / gameModel.getMap().getWidth();
+		skin = new BasicSkin (context.getResources().getAssets(), squareSize);
 	}
 	
 	public void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
@@ -55,11 +61,10 @@ public class GameCanvas extends View
 		Paint colorCyan;
 		Paint colorMagenta;
 		Paint colorHero;
+		Bitmap bitmapToLoad;
 		int i;
 		int j;
-		int squareSize;
 		
-		squareSize = size / 12;
 		colorBlack = new Paint ();
 		colorBlue = new Paint ();
 		colorGreen = new Paint ();
@@ -95,20 +100,43 @@ public class GameCanvas extends View
 							(gameModel.getHero().getPositionY() + 1) * squareSize,
 							colorHero);
 							*/
-			canvas.drawBitmap(gameResources.pacmanFull, gameModel.getHero().getPositionX() * squareSize, gameModel.getHero().getPositionY() * squareSize, colorYellow);
+			canvas.drawBitmap(skin.getPacmanFull (), 
+					          gameModel.getHero().getPositionX() * squareSize + 5, 
+					          gameModel.getHero().getPositionY() * squareSize + 5, 
+					          colorYellow);
 					
 		}
 		
 		
 		for (Ennemy e : gameModel.getEnnemies())
 		{
+			bitmapToLoad = skin.getPacmanFull ();
 			if (e.isAlive())
 			{
-				canvas.drawRect(e.getPositionX() * squareSize , 
-						e.getPositionY() * squareSize,
-						(e.getPositionX() + 1) * squareSize,
-						(e.getPositionY() + 1) * squareSize,
-					colorMagenta);
+				switch (e.getDirection())
+				{
+					case Entity.DIRECTION_LEFT:
+					{
+						bitmapToLoad = skin.getEnnemyLeft1 ();
+						break;
+					}
+					case Entity.DIRECTION_RIGHT:
+					{
+						bitmapToLoad = skin.getEnnemyRight1 ();
+						break;
+					}
+					case Entity.DIRECTION_UP:
+					{
+						bitmapToLoad = skin.getEnnemyUp1 ();
+						break;
+					}
+					case Entity.DIRECTION_DOWN:
+					{
+						bitmapToLoad = skin.getEnnemyDown1 ();
+						break;
+					}
+				}
+				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5, e.getPositionY() * squareSize + 5, colorYellow);
 			}
 		}
 //		Log.i (TAG, "Draw hero at (" + gameModel.getHero().getPositionX()  + "," + gameModel.getHero().getPositionY()  + ")");
@@ -143,20 +171,18 @@ public class GameCanvas extends View
 				}
 				if (gameModel.getMap().getPart(i, j).hasPoint())
 				{
-					canvas.drawRect(i * squareSize + squareSize / 3, 
-									j * squareSize + squareSize / 3,
-									(i + 1) * squareSize - squareSize / 3,
-									(j + 1) * squareSize - squareSize / 3,
-									colorCyan);
+					bitmapToLoad = skin.getPoint ();
+
+					canvas.drawBitmap(bitmapToLoad, i * squareSize + 5, j * squareSize + 5, colorYellow);
 				}
 				
 				if (gameModel.getMap().getPart(i, j).hasSuperPoint())
 				{
-					canvas.drawRect(i * squareSize + squareSize / 6, 
-									j * squareSize + squareSize / 6,
-									(i + 1) * squareSize - squareSize / 6,
-									(j + 1) * squareSize - squareSize / 6,
-									colorCyan);
+
+					bitmapToLoad = skin.getBonus1 ();
+
+					canvas.drawBitmap(bitmapToLoad, i * squareSize + 5, j * squareSize + 5, colorYellow);
+
 				}
 				
 			}
