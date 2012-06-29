@@ -17,7 +17,8 @@ public class Game {
 	private int unvulnerableCounterConstant;
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	public static final int MAX_ENNEMIES = 100;
-	
+	public static final int INTERNAL_STEP_THRESHOLD = 100;
+	public static final int INTERNAL_STEP_VALUE = 25;
 	public Game ()
 	{
 		map = new Map ();
@@ -212,52 +213,83 @@ public class Game {
 		{
 			case Entity.DIRECTION_DOWN:
 			{
-				if (! part.hasBorderBottom())
+				if (entity.getInternalStepValueY() < INTERNAL_STEP_THRESHOLD)
 				{
-					entity.setPositionY((entity.getPositionY() + 1 )% map.getHeight());
-
+					entity.setInternalStepValueY( entity.getInternalStepValueY() + INTERNAL_STEP_VALUE);
+				}
+				else
+				{
+					if (! part.hasBorderBottom())
+					{
+						entity.setInternalStepValueY( (INTERNAL_STEP_THRESHOLD * -1 ) );
+						entity.setPositionY((entity.getPositionY() + 1 )% map.getHeight());
+					}
 				}
 				break;
 			}
 			case Entity.DIRECTION_UP:
 			{
-				if (! part.hasBorderTop())
+				if (entity.getInternalStepValueY() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
+					entity.setInternalStepValueY( entity.getInternalStepValueY() - INTERNAL_STEP_VALUE);
+				}
+				else
+				{
+						if (! part.hasBorderTop())
+						{
 					
-					if (entity.getPositionY() == 0)
-					{
-						entity.setPositionY (map.getHeight() - 1);
-					}
-					else
-					{
-						entity.setPositionY (entity.getPositionY() - 1 );
-					}
+							if (entity.getPositionY() == 0)
+							{
+								entity.setPositionY (map.getHeight() - 1);
+							}
+							else
+							{
+								entity.setPositionY (entity.getPositionY() - 1 );
+							}
+							entity.setInternalStepValueY( (INTERNAL_STEP_THRESHOLD) );
+						}
 					
-
 				}
 				break;
 			}
 			case Entity.DIRECTION_LEFT:
 			{
-				if (! part.hasBorderLeft())
+				if (entity.getInternalStepValueX() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
+					entity.setInternalStepValueX (entity.getInternalStepValueX() - INTERNAL_STEP_VALUE);
+				}
+				else
+				{
+					if (! part.hasBorderLeft())
+					{
 					
-					if (entity.getPositionX() == 0)
-					{
-						entity.setPositionX (map.getWidth() - 1);
-					}
-					else
-					{
-						entity.setPositionX (entity.getPositionX() - 1 );
+						if (entity.getPositionX() == 0)
+						{
+							entity.setPositionX (map.getWidth() - 1);
+						}
+						else
+						{
+							entity.setPositionX (entity.getPositionX() - 1 );
+						}
+						entity.setInternalStepValueX (INTERNAL_STEP_THRESHOLD);
 					}
 				}
 				break;
 			}
 			case Entity.DIRECTION_RIGHT:
 			{
-				if (! part.hasBorderRight())
+				if (entity.getInternalStepValueX() < (INTERNAL_STEP_THRESHOLD))
 				{
-					entity.setPositionX( (entity.getPositionX() + 1) % map.getWidth());
+					entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
+				}
+				else
+				{
+					if (! part.hasBorderRight())
+					{
+						entity.setPositionX( (entity.getPositionX() + 1) % map.getWidth());
+						entity.setInternalStepValueX (INTERNAL_STEP_THRESHOLD * -1);
+					
+					}
 				}
 				break;
 			}

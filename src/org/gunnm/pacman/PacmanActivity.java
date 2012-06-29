@@ -29,7 +29,7 @@ public class PacmanActivity extends Activity {
         setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
         mainCanvas.setOnKeyListener(new Key (gameModel));
-        Timer autoUpdate = new Timer();
+        Timer autoUpdate = new Timer(); 
         
         autoUpdate.schedule(new TimerTask() {
          public void run() {
@@ -40,7 +40,7 @@ public class PacmanActivity extends Activity {
            }
           });
          }
-        }, 0, 400); // updates each 40 msec
+        }, 0, 60); // updates each 40 msec
         mainCanvas.setFocusable(true);
         //setContentView(R.layout.main);
     }

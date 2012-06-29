@@ -11,6 +11,8 @@ public abstract class Entity {
 	public static final int DIRECTION_RIGHT 	= 4;
 	public static final int DIRECTION_NONE		= 5;
 	protected int state;
+	private int internalStepValueX;
+	private int internalStepValueY;
 	
 	
 	
@@ -18,7 +20,30 @@ public abstract class Entity {
 	{
 		this (0,0);
 		this.state = 0;
+		this.internalStepValueX = 0;
+		this.internalStepValueY = 0;
 	}
+	
+	public int getInternalStepValueX()
+	{
+		return this.internalStepValueX;
+	}
+	
+	public int getInternalStepValueY()
+	{
+		return this.internalStepValueY;
+	}
+	
+	public void setInternalStepValueX (int x)
+	{
+		this.internalStepValueX = x;
+	}
+	
+	public void setInternalStepValueY (int y)
+	{
+		this.internalStepValueY = y;
+	}
+	
 	
 	public void react ()
 	{

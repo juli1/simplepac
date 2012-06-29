@@ -23,6 +23,7 @@ public class GameCanvas extends View
 	private volatile Game gameModel;
 	private Skin skin;
 	private int squareSize;
+	private final static int STEP_DIVIDER = 10;
 	
 	
 	public GameCanvas (Context context, Game gm)
@@ -127,7 +128,7 @@ public class GameCanvas extends View
 			if (bitmapToLoad != null)
 			{
 				//Log.e(TAG,"Draw ennemy "+ e.toString() +"at coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
-				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5, e.getPositionY() * squareSize + 5, new Paint());
+				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5  + e.getInternalStepValueX() / STEP_DIVIDER, e.getPositionY() * squareSize + 5 + e.getInternalStepValueY() / STEP_DIVIDER, new Paint());
 			}
 			else
 			{
@@ -137,7 +138,7 @@ public class GameCanvas extends View
 	}
 	
 	private void drawHero (Canvas canvas)
-	{
+	{ 
 		Bitmap bitmapToLoad;
 		bitmapToLoad = null;
 		
@@ -285,8 +286,8 @@ public class GameCanvas extends View
 		if (bitmapToLoad != null)
 		{
 			canvas.drawBitmap(bitmapToLoad, 
-					          gameModel.getHero().getPositionX() * squareSize + 5, 
-					          gameModel.getHero().getPositionY() * squareSize + 5, 
+					          gameModel.getHero().getPositionX() * squareSize + 5 + gameModel.getHero().getInternalStepValueX() / STEP_DIVIDER, 
+					          gameModel.getHero().getPositionY() * squareSize + 5 + gameModel.getHero().getInternalStepValueY() / STEP_DIVIDER, 
 					          new Paint());
 		}
 		
