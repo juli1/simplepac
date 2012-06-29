@@ -17,6 +17,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -82,7 +83,8 @@ public class PacmanActivity extends Activity {
         }
         else
         {
-        	fl.addView(mainCanvas, size + 2, size + 2);
+        	LayoutParams lp = new LayoutParams(size + 2, size + 2);
+        	fl.addView(mainCanvas, 1, lp);
          	Log.e("Main", "main canvas added");
         }
     }
