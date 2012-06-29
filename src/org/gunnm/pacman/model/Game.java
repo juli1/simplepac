@@ -195,6 +195,8 @@ public class Game {
 	
 	public void reactionEntity(Entity entity)
 	{
+		int nextX;
+		int nextY;
 		entity.react();
 
 		
@@ -209,6 +211,7 @@ public class Game {
 		}
 		
 		MapPart part = map.getPart(entity.getPositionX(), entity.getPositionY());
+		MapPart nextPart;
 		switch (entity.getDirection())
 		{
 			case Entity.DIRECTION_DOWN:
@@ -216,6 +219,10 @@ public class Game {
 				if (entity.getInternalStepValueY() < INTERNAL_STEP_THRESHOLD)
 				{
 					entity.setInternalStepValueY( entity.getInternalStepValueY() + INTERNAL_STEP_VALUE);
+					if ((part.hasBorderBottom()) && (entity.getInternalStepValueY() > 0))
+					{
+						entity.setInternalStepValueY (0);
+					}
 				}
 				else
 				{
@@ -229,25 +236,37 @@ public class Game {
 			}
 			case Entity.DIRECTION_UP:
 			{
+				nextX = entity.getPositionX();
+				nextY = entity.getPositionY() - 1;
+				if (nextY < 0)
+				{
+					nextY = 0;
+				}
+				nextPart = map.getPart(nextX, nextY);
+
 				if (entity.getInternalStepValueY() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
 					entity.setInternalStepValueY( entity.getInternalStepValueY() - INTERNAL_STEP_VALUE);
+					if ((part.hasBorderTop()) && (entity.getInternalStepValueY() < ((INTERNAL_STEP_THRESHOLD * -1))/10 ))
+					{
+						entity.setInternalStepValueY ((INTERNAL_STEP_THRESHOLD * -1 )/10);
+					}
 				}
 				else
 				{
-						if (! part.hasBorderTop())
+					if (! part.hasBorderTop())
+					{
+				
+						if (entity.getPositionY() == 0)
 						{
-					
-							if (entity.getPositionY() == 0)
-							{
-								entity.setPositionY (map.getHeight() - 1);
-							}
-							else
-							{
-								entity.setPositionY (entity.getPositionY() - 1 );
-							}
-							entity.setInternalStepValueY( (INTERNAL_STEP_THRESHOLD) );
+							entity.setPositionY (map.getHeight() - 1);
 						}
+						else
+						{
+							entity.setPositionY (entity.getPositionY() - 1 );
+						}
+						entity.setInternalStepValueY( (INTERNAL_STEP_THRESHOLD) );
+					}
 					
 				}
 				break;
@@ -257,6 +276,10 @@ public class Game {
 				if (entity.getInternalStepValueX() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
 					entity.setInternalStepValueX (entity.getInternalStepValueX() - INTERNAL_STEP_VALUE);
+					if ((part.hasBorderLeft()) && (entity.getInternalStepValueX() < ((INTERNAL_STEP_THRESHOLD * -1))/10 ))
+					{
+						entity.setInternalStepValueX ((INTERNAL_STEP_THRESHOLD * -1 )/10);
+					}
 				}
 				else
 				{
@@ -281,6 +304,10 @@ public class Game {
 				if (entity.getInternalStepValueX() < (INTERNAL_STEP_THRESHOLD))
 				{
 					entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
+					if ((part.hasBorderRight()) && (entity.getInternalStepValueX() >0  ))
+					{
+						entity.setInternalStepValueX (0);
+					}
 				}
 				else
 				{
@@ -311,6 +338,8 @@ public class Game {
 			{
 				hero.setPositionX(heroDefaultX);
 				hero.setPositionY(heroDefaultY);
+				hero.setInternalStepValueX(0);
+				hero.setInternalStepValueY(0);
 				hero.setDirection(Entity.DIRECTION_NONE);
 			}	
 		}
@@ -323,7 +352,7 @@ public class Game {
 	
 	public void heroCollision (Ennemy e)
 	{
-		if (hero.isVulnerable())
+		if (hero.isVulnerable() && e.isAlive())
 		{
 			if ( (e.getPositionX() == this.heroDefaultX) &&
 			     (e.getPositionY() == this.heroDefaultY))

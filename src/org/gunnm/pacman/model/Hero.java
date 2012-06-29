@@ -50,8 +50,11 @@ public class Hero extends Entity{
 
 	public void removeLife() {
 		Log.i(TAG, "Number of lifes" + this.lifes);
-
-		this.lifes = this.lifes - 1;
+		if (this.lifes > 0)
+		{
+			this.lifes = this.lifes - 1;
+		}
+		
 	}
 
 	public int getLifes()

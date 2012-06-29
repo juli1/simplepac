@@ -23,14 +23,14 @@ public class Map1 implements MapInterface
 	int[][] bonusesTable = new int[NB_BONUSES][2];
 	int[][] map = new int[][]
 	{
-		{borderTop | borderLeft,borderTop,borderTop|borderBottom,borderTop|borderBottom,borderTop,borderTop,borderTop,borderTop,borderTop,borderTop|borderRight},
-		{borderLeft,borderRight,borderTop | borderLeft,borderTop | borderRight,borderLeft,0,0,0,0,borderRight},
-		{borderLeft,borderRight,borderLeft,borderRight,borderLeft,0,0,hasEnnemy,0,borderRight},
-		{borderLeft,borderRight,borderLeft,borderRight,borderLeft,0,hasSuperPoint,0,0,borderRight},
-		{borderLeft,0,0,0,0,0,0,0,0,borderRight},
-		{borderLeft,0,0,hasSuperPoint,hasSuperPoint,0,0,0,0,borderRight},
-		{borderLeft,0,0,hasEnnemy,0,0,hasPoint,0,0,borderRight},
-		{borderLeft,0,hasEnnemy,0,0,0,hasPoint,hasEnnemy,0,borderRight},
+		{borderTop | borderLeft ,  borderTop                   , borderTop|borderBottom                    , borderTop   ,    borderTop,borderTop,borderTop,borderTop,borderTop,borderTop|borderRight},
+		{borderLeft|borderRight ,  borderLeft|borderRight      , borderTop | borderLeft |borderRight       , borderLeft | borderRight,borderLeft,0,0,0,0,borderRight},
+		{borderLeft|borderRight ,  borderLeft|borderRight      , borderLeft | borderRight                  , borderLeft |borderRight,borderLeft,0,0,hasEnnemy,0,borderRight},
+		{borderLeft|borderRight ,  borderLeft|borderRight      , borderLeft | borderRight | borderBottom   ,borderLeft |borderRight,borderLeft,0,hasSuperPoint,0,0,borderRight},
+		{borderLeft|borderRight ,  0                           , borderTop                                 ,0,0,0,0,0,0,borderRight},
+		{borderLeft|borderRight ,  borderBottom                ,borderBottom                               ,hasSuperPoint,hasSuperPoint,0,0,0,0,borderRight},
+		{borderLeft|borderBottom,  borderTop                   ,borderTop                                  ,hasEnnemy,0,0,hasPoint,0,0,borderRight},
+		{borderLeft|borderTop   ,  0                           ,hasEnnemy                                  ,0,0,0,hasPoint,hasEnnemy,0,borderRight},
 		{borderLeft,0,hasSuperPoint,0,0,0,hasPoint,0,0,borderRight},
 		{borderLeft,0,hasEnnemy,0,hasSuperPoint,0,0,hasSuperPoint,0,borderRight},
 		{borderLeft|borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderRight|borderBottom},

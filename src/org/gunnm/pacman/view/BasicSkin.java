@@ -45,6 +45,8 @@ public class BasicSkin implements Skin
 	private Bitmap bonus1;
 	private Bitmap bonus2;
 	private Bitmap gameOver;
+	private Bitmap wallVertical;
+	private Bitmap wallHorizontal;
 	private int partSize;
 	
 	public BasicSkin (AssetManager manager, int ps)
@@ -64,6 +66,44 @@ public class BasicSkin implements Skin
 		float scaleWidth = ((float) newWidth) / width;
 		float ratio = ((float) bitmap.getWidth()) / newWidth;
 		int newHeight = (int) (height / ratio);
+		float scaleHeight = ((float) newHeight) / height;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+
+		newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+		return newBitmap;
+	}
+	
+	private Bitmap scaleImageWidth(Bitmap bitmap, int newWidth) 
+	{
+		Bitmap newBitmap;
+		
+		int width = bitmap.getWidth();
+		int height = bitmap.getHeight();
+
+		float scaleWidth = ((float) newWidth) / width;
+		float ratio = ((float) bitmap.getWidth()) / newWidth;
+		int newHeight = (int) height;
+		float scaleHeight = ((float) newHeight) / height;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+
+		newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+		return newBitmap;
+	}
+	
+	private Bitmap scaleImageHeight(Bitmap bitmap, int nh) 
+	{
+		Bitmap newBitmap;
+		
+		int width = bitmap.getWidth();
+		int height = bitmap.getHeight();
+
+		float scaleWidth = ((float) width) / width;
+		
+		int newHeight = (int) nh;
 		float scaleHeight = ((float) newHeight) / height;
 
 		Matrix matrix = new Matrix();
@@ -121,7 +161,8 @@ public class BasicSkin implements Skin
 			ennemyVulnerable1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue1.png")), entitySize);
 			ennemyVulnerable2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue2.png")), entitySize);
 			point 			= scaleImage (BitmapFactory.decodeStream(manager.open("point.png")), entitySize);
-
+			wallVertical    = scaleImageHeight (BitmapFactory.decodeStream(manager.open("wallv.png")), partSize);
+			wallHorizontal  = scaleImageWidth (BitmapFactory.decodeStream(manager.open("wallh.png")), partSize);
 		}
 		catch(IOException ex)
 		{
@@ -271,6 +312,35 @@ public class BasicSkin implements Skin
 
 	public Bitmap getGameOver() {
 		return gameOver;
+	}
+	
+	public Bitmap getWallHorizontal() {
+		return wallHorizontal;
+	}
+	
+	public Bitmap getWallVertical() {
+		return wallVertical;
+	}
+	
+	public String getSoundIntro ()
+	{
+		return "intro.ogg";
+	}
+
+	public String getSoundEat() {
+		return "eat.ogg";
+	}
+
+	public String getSoundEatBonus() {
+		return "eatbonus.ogg";
+	}
+
+	public String getSoundDying() {
+		return "dying.ogg";
+	}
+
+	public String getSoundIntermission() {
+		return "intermission.ogg";
 	}
 	
 }

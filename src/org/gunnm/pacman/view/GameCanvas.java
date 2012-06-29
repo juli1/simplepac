@@ -14,7 +14,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.WindowManager; 
 
 public class GameCanvas extends View
 {
@@ -23,10 +23,11 @@ public class GameCanvas extends View
 	private volatile Game gameModel;
 	private Skin skin;
 	private int squareSize;
-	private final static int STEP_DIVIDER = 10;
+	private final static float STEP_INCR = 0.17f;
+	private Paint defaultPaint;
+	 
 	
-	
-	public GameCanvas (Context context, Game gm)
+	public GameCanvas (Context context, Game gm, Skin s)
 	{
 		super (context);
 		
@@ -35,7 +36,7 @@ public class GameCanvas extends View
 		setMinimumWidth(100);
 		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-	
+		defaultPaint = new Paint();
 		if (display.getHeight() < display.getWidth())
 		{
 			size = display.getHeight();
@@ -45,7 +46,7 @@ public class GameCanvas extends View
 			size = display.getWidth();
 		}
 		squareSize = size / gameModel.getMap().getWidth();
-		skin = new BasicSkin (context.getResources().getAssets(), squareSize);
+		skin = s;
 	}
 	
 	public void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
@@ -128,7 +129,7 @@ public class GameCanvas extends View
 			if (bitmapToLoad != null)
 			{
 				//Log.e(TAG,"Draw ennemy "+ e.toString() +"at coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
-				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5  + e.getInternalStepValueX() / STEP_DIVIDER, e.getPositionY() * squareSize + 5 + e.getInternalStepValueY() / STEP_DIVIDER, new Paint());
+				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5  + e.getInternalStepValueX() * STEP_INCR, e.getPositionY() * squareSize + 5 + e.getInternalStepValueY() * STEP_INCR, defaultPaint);
 			}
 			else
 			{
@@ -286,9 +287,9 @@ public class GameCanvas extends View
 		if (bitmapToLoad != null)
 		{
 			canvas.drawBitmap(bitmapToLoad, 
-					          gameModel.getHero().getPositionX() * squareSize + 5 + gameModel.getHero().getInternalStepValueX() / STEP_DIVIDER, 
-					          gameModel.getHero().getPositionY() * squareSize + 5 + gameModel.getHero().getInternalStepValueY() / STEP_DIVIDER, 
-					          new Paint());
+					          gameModel.getHero().getPositionX() * squareSize + 5 + gameModel.getHero().getInternalStepValueX() * STEP_INCR, 
+					          gameModel.getHero().getPositionY() * squareSize + 5 + gameModel.getHero().getInternalStepValueY() * STEP_INCR, 
+					          defaultPaint);
 		}
 		
 	}
@@ -310,24 +311,29 @@ public class GameCanvas extends View
 				if (gameModel.getMap().getPart(i, j).hasBorderLeft())
 				{
 					//Log.i (TAG, "Draw left line for part (" + i + "," + j + ")");
-					canvas.drawLine(i * squareSize, j * squareSize, (i) * squareSize, (j + 1) * squareSize, colorRed);
+					//canvas.drawLine(i * squareSize, j * squareSize, (i) * squareSize, (j + 1) * squareSize, colorRed);
+					canvas.drawBitmap(skin.getWallVertical(), (i) * squareSize, (j) * squareSize, defaultPaint);
 				}
 				if (gameModel.getMap().getPart(i, j).hasBorderTop())
 				{
 					//Log.i (TAG, "Draw top line for part (" + i + "," + j + ")");
-					canvas.drawLine( (i) * squareSize, (j) * squareSize + 1, (i+1) * squareSize, (j) * squareSize + 1, colorRed);
+					//canvas.drawLine( (i) * squareSize, (j) * squareSize + 1, (i+1) * squareSize, (j) * squareSize + 1, colorRed);
 
-					canvas.drawLine(i * squareSize, j * squareSize, (i + 1) * squareSize, j * squareSize, colorRed);
+					//canvas.drawLine(i * squareSize, j * squareSize, (i + 1) * squareSize, j * squareSize, colorRed);
+					canvas.drawBitmap(skin.getWallHorizontal(), (i) * squareSize, (j) * squareSize, defaultPaint);
 				}
 				if (gameModel.getMap().getPart(i, j).hasBorderRight())
 				{
 					//Log.i (TAG, "Draw right line for part (" + i + "," + j + ")");
-					canvas.drawLine( (i + 1) * squareSize , j * squareSize, (i + 1) * squareSize - 1, (j + 1 ) * squareSize, colorRed);
+					//canvas.drawLine( (i + 1) * squareSize , j * squareSize, (i + 1) * squareSize - 1, (j + 1 ) * squareSize, colorRed);
+					canvas.drawBitmap(skin.getWallVertical(), (i + 1) * squareSize - 1, (j) * squareSize, defaultPaint);
+
 				}
 				if (gameModel.getMap().getPart(i, j).hasBorderBottom())
 				{
 				//	Log.i (TAG, "Draw bottom line for part (" + i + "," + j + ")");
-					canvas.drawLine( (i) * squareSize, (j+1) * squareSize, (i+1) * squareSize, (j+1) * squareSize, colorRed);
+					//canvas.drawLine( (i) * squareSize, (j+1) * squareSize, (i+1) * squareSize, (j+1) * squareSize, colorRed);
+					canvas.drawBitmap(skin.getWallHorizontal(), (i) * squareSize, (j+1) * squareSize, defaultPaint);
 				}
 				if (gameModel.getMap().getPart(i, j).hasPoint())
 				{

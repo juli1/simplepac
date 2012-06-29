@@ -37,5 +37,14 @@ public interface Skin {
 	public Bitmap getPacmanDie5();
 	public Bitmap getPacmanDie6();
 	
+	public Bitmap getWallHorizontal();
+	public Bitmap getWallVertical();
+	
 	public Bitmap getGameOver();
+	
+	public String getSoundIntro();
+	public String getSoundEat();
+	public String getSoundEatBonus();
+	public String getSoundDying();
+	public String getSoundIntermission();
 }
