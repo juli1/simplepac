@@ -8,18 +8,22 @@ import org.gunnm.pacman.controller.Touch;
 import org.gunnm.pacman.maps.Map1;
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.view.BasicSkin;
+import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.GameCanvas;
 import org.gunnm.pacman.view.Skin;
 import org.gunnm.pacman.view.Sound;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class PacmanActivity extends Activity {
 	
@@ -66,6 +70,11 @@ public class PacmanActivity extends Activity {
            public void run() {
             gameModel.reaction();
             sound.reaction();
+            TextView tv;
+            tv = (TextView) findViewById (R.id.textScore);
+            tv.setText("" + gameModel.getHero().getScore());
+            tv = (TextView) findViewById (R.id.textLifes);
+            tv.setText("" + gameModel.getHero().getLifes());
             mainCanvas.invalidate();
            }
           });
@@ -83,8 +92,14 @@ public class PacmanActivity extends Activity {
         }
         else
         {
-        	LayoutParams lp = new LayoutParams(size + 2, size + 2);
-        	fl.addView(mainCanvas, 1, lp);
+        	LayoutParams lp;
+        	int w;
+        	w = (size - skin.getLogo().getWidth()) / 2;
+        	lp = new LayoutParams(size, skin.getLogo().getHeight());
+        	
+        	fl.addView (new BitmapView (this, skin.getLogo(), w, 0), 1, lp);
+        	lp = new LayoutParams(size + 2, size + 2);
+        	fl.addView(mainCanvas, 2, lp);
          	Log.e("Main", "main canvas added");
         }
     }

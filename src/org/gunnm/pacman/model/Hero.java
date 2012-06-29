@@ -73,6 +73,11 @@ public class Hero extends Entity{
 		Log.i(TAG, "Current score=" + this.score);
 	}
 	
+	public int getScore()
+	{
+		return this.score;
+	}
+	
 	public boolean isDying ()
 	{
 		return this.dying;

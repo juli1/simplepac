@@ -33,6 +33,7 @@ public class BasicSkin implements Skin
 	private Bitmap pacmanDie4;
 	private Bitmap pacmanDie5;
 	private Bitmap pacmanDie6;
+	private Bitmap logo;
 	private Bitmap ennemyUp1;
 	private Bitmap ennemyUp2;
 	private Bitmap ennemyDown1;
@@ -144,7 +145,7 @@ public class BasicSkin implements Skin
 			pacmanDie5 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die5.png")), entitySize);
 			pacmanDie6 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die6.png")), entitySize);
 
-			
+			logo 			= BitmapFactory.decodeStream(manager.open("logo.png"));
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
 
 			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
@@ -323,6 +324,11 @@ public class BasicSkin implements Skin
 	
 	public Bitmap getWallHorizontal() {
 		return wallHorizontal;
+	}
+
+	
+	public Bitmap getLogo() {
+		return logo;
 	}
 	
 	public Bitmap getWallVertical() {
