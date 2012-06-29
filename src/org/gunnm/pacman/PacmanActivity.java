@@ -14,10 +14,11 @@ import org.gunnm.pacman.view.Sound;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 public class PacmanActivity extends Activity {
 	
@@ -53,7 +54,7 @@ public class PacmanActivity extends Activity {
         mainCanvas = new GameCanvas (this, gameModel, skin);
         sound      = new Sound (this, gameModel, skin);
         
-        setContentView(mainCanvas);
+       // setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
         mainCanvas.setOnKeyListener(new Key (gameModel));
         Timer autoUpdate = new Timer(); 
@@ -70,6 +71,19 @@ public class PacmanActivity extends Activity {
          }
         }, 0, 60); // updates each 40 msec
         mainCanvas.setFocusable(true);
-        //setContentView(R.layout.main);
+        //ArrayList<View> views = new ArrayList<View>();
+        //views.add(mainCanvas);
+
+        setContentView(R.layout.main);
+        LinearLayout fl = (LinearLayout) findViewById (R.id.GamePlace);
+        if (fl == null)
+        {
+        	Log.e("Main", "null linearlayout");
+        }
+        else
+        {
+        	fl.addView(mainCanvas, size + 2, size + 2);
+         	Log.e("Main", "main canvas added");
+        }
     }
 }
