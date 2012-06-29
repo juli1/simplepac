@@ -88,7 +88,7 @@ public class Sound {
 	
 	public void reaction ()
 	{
-		playEat();
+		//playEat();
 	}
 	
 }
