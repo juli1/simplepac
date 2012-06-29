@@ -3,6 +3,7 @@ package org.gunnm.pacman.view;
 import org.gunnm.pacman.model.Ennemy;
 import org.gunnm.pacman.model.Entity;
 import org.gunnm.pacman.model.Game;
+import org.gunnm.pacman.model.Hero;
 import org.gunnm.pacman.model.Map;
 
 import android.content.Context;
@@ -19,7 +20,7 @@ public class GameCanvas extends View
 {
 	private static String TAG = "GameCanvas";
 	private int size;
-	private Game gameModel;
+	private volatile Game gameModel;
 	private Skin skin;
 	private int squareSize;
 	
@@ -53,6 +54,8 @@ public class GameCanvas extends View
 	
 	private void drawEnnemy (Ennemy e, Canvas canvas)
 	{
+	//	Log.e(TAG,"Intent to draw ennemy "+ e.toString() +"at coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
+
 		Bitmap bitmapToLoad = null;
 		if (e.isAlive())
 		{
@@ -107,8 +110,7 @@ public class GameCanvas extends View
 						}
 						break;
 					}
-					case Entity.DIRECTION_NONE:
-					case Entity.DIRECTION_DOWN:
+					default:
 					{
 						if ((e.getState() % 2) == 1)
 						{
@@ -122,15 +124,15 @@ public class GameCanvas extends View
 					}
 				}
 			}
-		}
-		
-		if (bitmapToLoad != null)
-		{
-			canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5, e.getPositionY() * squareSize + 5, new Paint());
-		}
-		else
-		{
-			Log.e(TAG,"Mo bitmap for the ennemy, direction=" + e.getDirection() + "coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
+			if (bitmapToLoad != null)
+			{
+				//Log.e(TAG,"Draw ennemy "+ e.toString() +"at coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
+				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5, e.getPositionY() * squareSize + 5, new Paint());
+			}
+			else
+			{
+				Log.e(TAG,"Mo bitmap for the ennemy, direction=" + e.getDirection() + "coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
+			}
 		}
 	}
 	
@@ -141,7 +143,7 @@ public class GameCanvas extends View
 		
 		if (gameModel.getHero().isDying())
 		{
-			switch (gameModel.getHero().getState())
+			switch (gameModel.getDyingCounter())
 			{
 				case 0:
 				{
@@ -185,7 +187,7 @@ public class GameCanvas extends View
 					case Entity.DIRECTION_NONE:
 					case Entity.DIRECTION_DOWN:
 					{
-						switch (gameModel.getHero().getState() % 3)
+						switch (gameModel.getHero().getState())
 						{
 							case 0:
 							{
@@ -193,6 +195,7 @@ public class GameCanvas extends View
 								break;
 							}
 							case 1:
+							case 3:
 							{
 								bitmapToLoad = skin.getPacmanDown2 ();
 								break;
@@ -202,6 +205,7 @@ public class GameCanvas extends View
 								bitmapToLoad = skin.getPacmanDown3 ();
 								break;
 							}
+
 						}
 						break;
 					}
@@ -215,6 +219,7 @@ public class GameCanvas extends View
 								break;
 							}
 							case 1:
+							case 3:
 							{
 								bitmapToLoad = skin.getPacmanUp2 ();
 								break;
@@ -237,6 +242,7 @@ public class GameCanvas extends View
 								break;
 							}
 							case 1:
+							case 3:
 							{
 								bitmapToLoad = skin.getPacmanLeft2 ();
 								break;
@@ -259,6 +265,7 @@ public class GameCanvas extends View
 								break;
 							}
 							case 1:
+							case 3:
 							{
 								bitmapToLoad = skin.getPacmanRight2 ();
 								break;
@@ -282,10 +289,7 @@ public class GameCanvas extends View
 					          gameModel.getHero().getPositionY() * squareSize + 5, 
 					          new Paint());
 		}
-		else
-		{
-			Log.e(TAG,"Mo bitmap for the hero");
-		}
+		
 	}
 	
 	public void drawGrid (Canvas canvas)
@@ -345,23 +349,24 @@ public class GameCanvas extends View
 	}
 	
 	public void draw (Canvas canvas)
-	{		
+	{
+
 		drawGrid (canvas);
-	
 		for (Ennemy e : gameModel.getEnnemies())
 		{
-			if ((e.getPositionX() != gameModel.getHero().getPositionX()) &&
-			    (e.getPositionY() != gameModel.getHero().getPositionY()))
-			{
-				drawEnnemy (e, canvas);
-			}
+			drawEnnemy (e, canvas);
+		
 		}
-	
-		drawHero (canvas);	
+
+		drawHero (canvas);
+
+		if (gameModel.getHero().getLifes() == 0)
+		{
+			canvas.drawBitmap(skin.getGameOver(), 
+			          (this.size - skin.getGameOver().getWidth()) / 2, 
+			          (this.size - skin.getGameOver().getHeight()) / 2, 
+			          new Paint());
+		}	
 	}
 	
-	public void setModel (Game model)
-	{
-		this.gameModel = model;
-	}
 }

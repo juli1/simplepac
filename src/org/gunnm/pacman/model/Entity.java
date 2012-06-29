@@ -22,7 +22,7 @@ public abstract class Entity {
 	
 	public void react ()
 	{
-		this.state = (this.state + 1) % 6;
+		this.state = (this.state + 1) % 4;
 	}
 	
 	public int getState ()
@@ -57,6 +57,12 @@ public abstract class Entity {
 	public void setPositionY (int y)
 	{
 		this.positionY = y;
+	}
+	
+	public void setPosition (int[] tab)
+	{
+		this.positionX = tab[0];
+		this.positionY = tab[1];
 	}
 	
 	public int getPositionX()

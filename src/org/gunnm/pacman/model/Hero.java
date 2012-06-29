@@ -49,6 +49,8 @@ public class Hero extends Entity{
 	}
 
 	public void removeLife() {
+		Log.i(TAG, "Number of lifes" + this.lifes);
+
 		this.lifes = this.lifes - 1;
 	}
 

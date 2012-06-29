@@ -30,25 +30,21 @@ public class Key implements OnKeyListener
 			if (event.getKeyCode()  == KeyEvent.KEYCODE_DPAD_LEFT)
 			{
 				model.getHero().setDirection(Entity.DIRECTION_LEFT);
-				Log.i(TAG, "Moving left");
 			}
 			 
 			if (event.getKeyCode()  == KeyEvent.KEYCODE_DPAD_RIGHT)
 			{
 				model.getHero().setDirection(Entity.DIRECTION_RIGHT);
-				Log.i(TAG, "Moving right");
 			}
 
 			if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP)
 			{
 				model.getHero().setDirection(Entity.DIRECTION_UP);
-				Log.i(TAG, "Moving up");
 			}
 			
 			if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_DOWN)
 			{
 				model.getHero().setDirection(Entity.DIRECTION_DOWN);
-				Log.i(TAG, "Moving down");
 			}
 		}
 		return true;

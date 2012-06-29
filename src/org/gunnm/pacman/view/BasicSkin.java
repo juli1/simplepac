@@ -44,6 +44,7 @@ public class BasicSkin implements Skin
 	private Bitmap point;
 	private Bitmap bonus1;
 	private Bitmap bonus2;
+	private Bitmap gameOver;
 	private int partSize;
 	
 	public BasicSkin (AssetManager manager, int ps)
@@ -101,6 +102,9 @@ public class BasicSkin implements Skin
 			pacmanDie4 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die4.png")), entitySize);
 			pacmanDie5 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die5.png")), entitySize);
 			pacmanDie6 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die6.png")), entitySize);
+
+			
+			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
 
 			
 			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
@@ -262,9 +266,11 @@ public class BasicSkin implements Skin
 	}
 
 	public Bitmap getPacmanDie6() {
-		
 		return pacmanDie6;
 	}
-	
+
+	public Bitmap getGameOver() {
+		return gameOver;
+	}
 	
 }

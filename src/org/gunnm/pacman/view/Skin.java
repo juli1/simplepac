@@ -36,4 +36,6 @@ public interface Skin {
 	public Bitmap getPacmanDie4();
 	public Bitmap getPacmanDie5();
 	public Bitmap getPacmanDie6();
+	
+	public Bitmap getGameOver();
 }

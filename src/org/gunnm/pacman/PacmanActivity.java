@@ -25,12 +25,12 @@ public class PacmanActivity extends Activity {
         gameModel = new Game (new Map1());
         mainCanvas = new GameCanvas (this, gameModel);
         
-        touchController = new Touch(gameModel, mainCanvas);
-        mainLoopTimer = new Timer (true);
+        
         setContentView(mainCanvas);
-        mainCanvas.setOnTouchListener(touchController);
+        mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
         mainCanvas.setOnKeyListener(new Key (gameModel));
         Timer autoUpdate = new Timer();
+        
         autoUpdate.schedule(new TimerTask() {
          public void run() {
           runOnUiThread(new Runnable() {

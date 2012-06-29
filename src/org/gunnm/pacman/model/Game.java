@@ -12,9 +12,11 @@ public class Game {
 	private List<Ennemy> ennemies;
 	private int heroDefaultX;
 	private int heroDefaultY;
+	private int dyingCounter;
 	private int unvulnerableCounter;
 	private int unvulnerableCounterConstant;
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
+	public static final int MAX_ENNEMIES = 100;
 	
 	public Game ()
 	{
@@ -23,6 +25,7 @@ public class Game {
 		ennemies = new ArrayList<Ennemy>();
 		this.initDefaultValues();
 		unvulnerableCounter = 0;
+		dyingCounter = 0;
 		unvulnerableCounterConstant = DEFAULT_UNVULNERABLE_COUNTER;
 	}
 	
@@ -34,7 +37,7 @@ public class Game {
 		ennemies = new ArrayList<Ennemy>();
 		initMap (customMap);
 		unvulnerableCounter = 0;
-
+		dyingCounter = 0;
 		hero.setPositionX (heroDefaultX);
 		hero.setPositionY (heroDefaultY);
 		
@@ -131,6 +134,38 @@ public class Game {
 		return e;
 		
 	}
+
+	public int[] getFreePosition ()
+	{
+		int x;
+		int y;
+		int res[];
+		boolean found = false;
+		res = new int[2];
+		
+		while (!found)
+		{
+			x = (int) (Math.random() * 100) % map.getWidth();
+			y = (int) (Math.random() * 100) % map.getHeight();
+			res[0] = x;
+			res[1] = y;
+			found = true;
+			if ( (hero.getPositionX() == x) && (hero.getPositionY() == y))
+			{
+				found = false;
+			}
+			for (Ennemy e : ennemies)
+			{
+				if ( (e.getPositionX() == x) && (e.getPositionY() == y))
+				{
+					found = false;
+				}
+			}
+		}
+
+		return res;
+	}
+	
 	
 	public Ennemy addEnnemy (int i, int j)
 	{
@@ -229,29 +264,45 @@ public class Game {
 		}
 	}
 	 
+	public int getDyingCounter ()
+	{
+		return this.dyingCounter;
+	}
 	
 	public void heroDying ()
 	{
-		if (hero.getState() == 5)
+		if (this.dyingCounter == 5)
 		{
 			hero.isDying (false);
 			
-			if (hero.isAlive())
+			if (hero.getLifes() > 0)
 			{
 				hero.setPositionX(heroDefaultX);
 				hero.setPositionY(heroDefaultY);
 				hero.setDirection(Entity.DIRECTION_NONE);
 			}	
 		}
-		hero.react();
+		else
+		{
+			this.dyingCounter++;
+		}
+		
 	}
 	
 	public void heroCollision (Ennemy e)
 	{
 		if (hero.isVulnerable())
 		{
+			if ( (e.getPositionX() == this.heroDefaultX) &&
+			     (e.getPositionY() == this.heroDefaultY))
+			{
+				int tmp[] = getFreePosition();
+				e.setPosition (tmp);
+			}
 			hero.removeLife ();
 			hero.isDying (true);
+			this.dyingCounter = 0;
+			
 		}
 		else
 		{
@@ -279,6 +330,10 @@ public class Game {
 		
 		for (Ennemy e : ennemies)
 		{
+			if( ! e.isAlive())
+			{
+				continue;
+			}
 			if ( ((int)(Math.random() * 100)) % 7 == 0)
 			{
 				switch ( ((int)(Math.random() * 100) ) % 4)
