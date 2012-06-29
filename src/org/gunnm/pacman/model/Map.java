@@ -6,6 +6,7 @@ public class Map {
 	public static final int DEFAULT_MAP_WIDTH = 10;
 	public static final int DEFAULT_MAP_HEIGHT = 11;
 	private MapPart[][] parts;
+	private int nbPoints;
 	private int width;
 	private int height;
 	
@@ -18,6 +19,7 @@ public class Map {
 	
 	public Map (int w, int h)
 	{
+		this.nbPoints = 0;
 		this.width = w;
 		this.height = h;
 		parts = new MapPart[this.width][this.height];
@@ -104,6 +106,12 @@ public class Map {
 	public void enablePoint (int x, int y)
 	{
 		parts[x][y].enablePoint();
+		this.nbPoints = this.nbPoints + 1;
+	}
+	
+	public int getNbPoints ()
+	{
+		return this.nbPoints;
 	}
 	
 	

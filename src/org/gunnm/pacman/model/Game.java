@@ -15,12 +15,22 @@ public class Game {
 	private int dyingCounter;
 	private int unvulnerableCounter;
 	private int unvulnerableCounterConstant;
+	private int currentAction;
+	private int pointsEaten;
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	public static final int MAX_ENNEMIES = 100;
 	public static final int INTERNAL_STEP_THRESHOLD = 100;
 	public static final int INTERNAL_STEP_VALUE = 25;
+	public static final int ACTION_NONE = 0;
+	public static final int ACTION_EAT = 1;
+	public static final int ACTION_BONUS = 2;
+	public static final int ACTION_UNVULNERABLE = 3;
+	 
+	
 	public Game ()
 	{
+		pointsEaten = 0;
+		currentAction = ACTION_NONE;
 		map = new Map ();
 		hero = new Hero ();
 		ennemies = new ArrayList<Ennemy>();
@@ -33,6 +43,8 @@ public class Game {
 	
 	public Game (MapInterface customMap)
 	{
+		pointsEaten = 0;
+		currentAction = ACTION_NONE;
 		map = new Map (customMap.getWidth(), customMap.getHeight());
 		hero = new Hero ();
 		ennemies = new ArrayList<Ennemy>();
@@ -374,6 +386,13 @@ public class Game {
 	
 	public void reaction()
 	{
+		this.currentAction = ACTION_NONE;
+		
+		if (this.pointsEaten == map.getNbPoints())
+		{
+			hero.canMove(false);
+			return;
+		}
 		
 		if (hero.isDying ())
 		{
@@ -430,6 +449,8 @@ public class Game {
 		{
 			map.getPart(hero.getPositionX(), hero.getPositionY()).disablePoint();
 			hero.addPoint ();
+			this.currentAction = ACTION_EAT;
+			this.pointsEaten = this.pointsEaten + 1;
 		}
 		
 		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasSuperPoint())
@@ -438,6 +459,7 @@ public class Game {
 			hero.setUnVulnerable();
 			hero.addPoints (10);
 			unvulnerableCounter = unvulnerableCounterConstant;
+			this.currentAction = ACTION_BONUS;
 		}
 		
 		
@@ -459,6 +481,16 @@ public class Game {
 			}
 		}
 		
+	}
+	
+	public boolean isFinished ()
+	{
+		return (this.pointsEaten >= map.getNbPoints());
+	}
+	
+	public int getCurrentAction ()
+	{
+		return this.currentAction;
 	}
 	
 }

@@ -373,7 +373,14 @@ public class GameCanvas extends View
 			          (this.size - skin.getGameOver().getWidth()) / 2, 
 			          (this.size - skin.getGameOver().getHeight()) / 2, 
 			          new Paint());
-		}	
+		}
+		if (gameModel.isFinished())
+		{
+			canvas.drawBitmap(skin.getCompleted(), 
+			          (this.size - skin.getCompleted().getWidth()) / 2, 
+			          (this.size - skin.getCompleted().getHeight()) / 2, 
+			          new Paint());
+		}
 	}
 	
 }

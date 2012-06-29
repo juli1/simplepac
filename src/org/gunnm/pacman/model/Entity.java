@@ -13,7 +13,7 @@ public abstract class Entity {
 	protected int state;
 	private int internalStepValueX;
 	private int internalStepValueY;
-	
+	private boolean active;
 	
 	
 	public Entity ()
@@ -22,6 +22,17 @@ public abstract class Entity {
 		this.state = 0;
 		this.internalStepValueX = 0;
 		this.internalStepValueY = 0;
+		this.active = true;
+	}
+	
+	public boolean canMove ()
+	{
+		return this.active;
+	}
+	
+	public void canMove (boolean b)
+	{
+		this.active = b;
 	}
 	
 	public int getInternalStepValueX()
@@ -71,7 +82,10 @@ public abstract class Entity {
 	
 	public void setDirection (int d)
 	{
-		this.direction = d;
+		if (this.canMove ())
+		{	
+			this.direction = d;
+		}
 	}
 	
 	public void setPositionX (int x)

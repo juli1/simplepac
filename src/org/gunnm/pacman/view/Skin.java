@@ -41,6 +41,7 @@ public interface Skin {
 	public Bitmap getWallVertical();
 	
 	public Bitmap getGameOver();
+	public Bitmap getCompleted();
 	
 	public String getSoundIntro();
 	public String getSoundEat();

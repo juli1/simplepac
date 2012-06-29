@@ -45,6 +45,7 @@ public class BasicSkin implements Skin
 	private Bitmap bonus1;
 	private Bitmap bonus2;
 	private Bitmap gameOver;
+	private Bitmap completed;
 	private Bitmap wallVertical;
 	private Bitmap wallHorizontal;
 	private int partSize;
@@ -146,7 +147,8 @@ public class BasicSkin implements Skin
 			
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
 
-			
+			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
+
 			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 			bonus1 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
 			bonus2 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
@@ -312,6 +314,11 @@ public class BasicSkin implements Skin
 
 	public Bitmap getGameOver() {
 		return gameOver;
+	}
+	
+
+	public Bitmap getCompleted() {
+		return completed;
 	}
 	
 	public Bitmap getWallHorizontal() {

@@ -88,7 +88,19 @@ public class Sound {
 	
 	public void reaction ()
 	{
-		//playEat();
+		switch (gameData.getCurrentAction())
+		{
+			case Game.ACTION_EAT:
+			{
+				playEat();
+				break;
+			}
+			case Game.ACTION_BONUS:
+			{
+				playEatBonus();
+				break;
+			}
+		}
 	}
 	
 }
