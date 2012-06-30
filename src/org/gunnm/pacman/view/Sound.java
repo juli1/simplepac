@@ -23,6 +23,21 @@ public class Sound {
 	private int 				eatBonusId;
 	private int 				intermissionId;
 	private static final String	TAG = "Sound";
+	private static Sound		instance;
+	
+	public static Sound getInstance (Context c, Game g, Skin si)
+	{
+		if (Sound.instance == null)
+		{
+			Sound.instance = new Sound (c, g, si);
+		}
+		return Sound.instance;
+	}
+
+	public static Sound getInstance ()
+	{
+		return Sound.instance;
+	}
 	
 	public Sound (Context c, Game g, Skin si)
 	{

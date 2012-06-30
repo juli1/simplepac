@@ -9,7 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.util.Log;
 
-public class BasicSkin implements Skin
+public class BasicSkin extends Skin
 {
 	public final static String TAG = "Resources";
 	private Bitmap pacmanFull;
@@ -34,6 +34,9 @@ public class BasicSkin implements Skin
 	private Bitmap pacmanDie5;
 	private Bitmap pacmanDie6;
 	private Bitmap logo;
+	private Bitmap preferences;
+	private Bitmap highScores;
+	private Bitmap newGame;
 	private Bitmap ennemyUp1;
 	private Bitmap ennemyUp2;
 	private Bitmap ennemyDown1;
@@ -51,11 +54,32 @@ public class BasicSkin implements Skin
 	private Bitmap wallHorizontal;
 	private int partSize;
 	
+	private static Skin instance = null;
+	
+	public static Skin getInstance ()
+	{
+		return BasicSkin.instance;
+	}
+	
+	public static Skin getInstance (AssetManager manager, int ps)
+	{
+		if (BasicSkin.instance == null)
+		{
+			BasicSkin.instance = new BasicSkin (manager, ps);
+		}
+		return BasicSkin.instance;
+	}
+	
 	public BasicSkin (AssetManager manager, int ps)
 	{
+		if (BasicSkin.instance != null)
+		{
+			return;
+		}
+		
 		partSize = ps;
 		this.loadResources(manager);
-		
+		BasicSkin.instance = this; 
 	}
 	
 	private Bitmap scaleImage(Bitmap bitmap, int newWidth) 
@@ -147,6 +171,9 @@ public class BasicSkin implements Skin
 
 			logo 			= BitmapFactory.decodeStream(manager.open("logo.png"));
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
+			newGame 		= BitmapFactory.decodeStream(manager.open("newgame.png"));
+			highScores 		= BitmapFactory.decodeStream(manager.open("highscores.png"));
+			preferences 	= BitmapFactory.decodeStream(manager.open("preferences.png"));
 
 			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
 
@@ -326,6 +353,18 @@ public class BasicSkin implements Skin
 		return wallHorizontal;
 	}
 
+	public Bitmap getNewGame() {
+		return newGame;
+	}	
+
+	public Bitmap getHighScores() {
+		return highScores;
+	}
+	
+
+	public Bitmap getPreferences() {
+		return preferences;
+	}
 	
 	public Bitmap getLogo() {
 		return logo;

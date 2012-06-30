@@ -53,11 +53,11 @@ public class PacmanActivity extends Activity {
 		}
 		gameModel = new Game (new Map1());
 		squareSize = size / gameModel.getMap().getWidth();
-		skin = new BasicSkin (this.getResources().getAssets(), squareSize);
+		skin = BasicSkin.getInstance();
 
         
         mainCanvas = new GameCanvas (this, gameModel, skin);
-        sound      = new Sound (this, gameModel, skin);
+        sound      = Sound.getInstance();
         
        // setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
