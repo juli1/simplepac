@@ -83,6 +83,8 @@ public class TitleScreen extends View implements OnTouchListener
 			if ( (y > highScoresAlignY ) && ( y < (highScoresAlignY + skin.getHighScores().getHeight())))
 			{
 				Log.i(TAG, "High Scores");
+		    	Intent intent = new Intent(context, org.gunnm.pacman.ScoresActivity.class);
+		    	context.startActivity(intent);
 			}
 			
 			if ( (y > preferencesAlignY ) && ( y < (preferencesAlignY + skin.getPreferences().getHeight())))

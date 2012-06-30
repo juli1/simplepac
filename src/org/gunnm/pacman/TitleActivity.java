@@ -28,10 +28,10 @@ import android.widget.TextView;
 
 public class TitleActivity extends Activity {
 	
-	TitleScreen titleCanvas;
-	Game       	gameModel;
-	Skin		skin;
-	Sound		sound;
+	TitleScreen 			titleCanvas;
+	Game   			    	gameModel;
+	public static Skin		skin;
+	Sound					sound;
 	
 	
 	public void onCreate(Bundle savedInstanceState)

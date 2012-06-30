@@ -52,6 +52,7 @@ public class BasicSkin extends Skin
 	private Bitmap completed;
 	private Bitmap wallVertical;
 	private Bitmap wallHorizontal;
+	private Bitmap highScoresLogo;
 	private int partSize;
 	
 	private static Skin instance = null;
@@ -170,6 +171,7 @@ public class BasicSkin extends Skin
 			pacmanDie6 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die6.png")), entitySize);
 
 			logo 			= BitmapFactory.decodeStream(manager.open("logo.png"));
+			highScoresLogo	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
 			newGame 		= BitmapFactory.decodeStream(manager.open("newgame.png"));
 			highScores 		= BitmapFactory.decodeStream(manager.open("highscores.png"));
@@ -395,4 +397,8 @@ public class BasicSkin extends Skin
 		return "intermission.ogg";
 	}
 	
+	public Bitmap getHighScoresLogo()
+	{
+		return this.highScoresLogo;
+	}
 }

@@ -39,6 +39,7 @@ public interface SkinInterface {
 	public Bitmap getPacmanDie6();
 
 	public Bitmap getLogo();
+	public Bitmap getHighScoresLogo();
 	
 	public Bitmap getNewGame();
 	public Bitmap getPreferences();

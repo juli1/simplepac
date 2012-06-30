@@ -12,6 +12,7 @@
         <activity android:name=".PacmanActivity"/>
         
         <activity android:name=".AppPreferences"/>
+        <activity android:name=".ScoresActivity"/>
         
         <activity
             android:name=".TitleActivity"
