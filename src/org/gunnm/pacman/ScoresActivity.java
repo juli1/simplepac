@@ -8,9 +8,12 @@ import org.gunnm.pacman.view.TitleScreen;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -21,6 +24,7 @@ public class ScoresActivity extends Activity {
 	
 	TitleScreen titleCanvas;
 	Scores		scores;
+	public static String SCORE_WEBSITE = "http://www.google.com";
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -51,6 +55,17 @@ public class ScoresActivity extends Activity {
     	fl.addView (new BitmapView (this, TitleActivity.skin.getLogo(), w, 0), 0, lp);
     }
 	
+    public void editPreferences (View view)
+    {
+    	Intent intent = new Intent(getApplicationContext(), org.gunnm.pacman.AppPreferences.class);
+    	startActivity(intent);
+    }
+    
+    public void goOnline (View view)
+    {
+    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(SCORE_WEBSITE));
+    	startActivity(browserIntent);
+    }
     
     private void updateScores ()
     {
