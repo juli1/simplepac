@@ -25,6 +25,7 @@ public class Game {
 	public static final int ACTION_EAT = 1;
 	public static final int ACTION_BONUS = 2;
 	public static final int ACTION_UNVULNERABLE = 3;
+	public static final int ACTION_FINISHED = 4;
 	 
 	
 	public Game ()
@@ -386,11 +387,18 @@ public class Game {
 	
 	public void reaction()
 	{
+		if (this.currentAction == ACTION_FINISHED)
+		{
+			return;
+		}
+		
 		this.currentAction = ACTION_NONE;
 		
 		if (this.pointsEaten == map.getNbPoints())
 		{
 			hero.canMove(false);
+			this.currentAction = ACTION_FINISHED;
+			Scores.getInstance().registerScore(hero.getScore());
 			return;
 		}
 		
@@ -402,6 +410,9 @@ public class Game {
 		
 		if (hero.getLifes() == 0)
 		{
+			hero.canMove(false);
+			this.currentAction = ACTION_FINISHED;
+			Scores.getInstance().registerScore(hero.getScore());
 			return;
 		}
 		
@@ -485,12 +496,11 @@ public class Game {
 	
 	public boolean isFinished ()
 	{
+		
 		return (this.pointsEaten >= map.getNbPoints());
 	}
 	
 	public int getCurrentAction ()
 	{
 		return this.currentAction;
-	}
-	
-}
+	}}

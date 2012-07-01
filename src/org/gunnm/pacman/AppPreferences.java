@@ -1,5 +1,7 @@
 package org.gunnm.pacman;
 
+import org.gunnm.pacman.model.Scores;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +33,7 @@ public class AppPreferences extends PreferenceActivity {
 		{
 
 			public void onClick(View arg0) {
-				//Scores.getInstance().reset();
+				Scores.getInstance().reset();
 			}
 		});
         this.getListView().addFooterView (sendButton);

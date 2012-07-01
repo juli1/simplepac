@@ -7,6 +7,7 @@ import org.gunnm.pacman.controller.Key;
 import org.gunnm.pacman.controller.Touch;
 import org.gunnm.pacman.maps.Map1;
 import org.gunnm.pacman.model.Game;
+import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BasicSkin;
 import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.GameCanvas;
@@ -34,6 +35,62 @@ public class PacmanActivity extends Activity {
 	Skin		skin;
 	Sound		sound;
 	
+	private final static int 	UPDATE_INTERVAL = 60;
+	private final static String TAG = "PacmanActivity";
+	private Timer 				autoUpdate;
+	
+	private void stopTimer ()
+	{
+		this.autoUpdate.cancel();
+		this.autoUpdate.purge ();
+		
+	}
+
+	private void startTimer ()
+	{
+		autoUpdate = new Timer ();
+		autoUpdate.schedule(new TimerTask() 
+		{
+
+			public void run() 
+			{
+				runOnUiThread(new Runnable() 
+				{
+					public void run() 
+					{
+						gameModel.reaction();
+						sound.reaction();
+						TextView tv;
+						tv = (TextView) findViewById (R.id.textScore);
+						if (tv != null)
+						{
+							tv.setText("" + gameModel.getHero().getScore());
+						}
+						tv = (TextView) findViewById (R.id.textLifes);
+						if (tv != null)
+						{
+							tv.setText("" + gameModel.getHero().getLifes());
+						}
+						mainCanvas.invalidate();
+					}
+				});
+			}
+	    }, 0, UPDATE_INTERVAL);
+	}
+	
+	  public void onResume()
+	  {
+		  super.onResume();
+		  startTimer();
+	  }
+
+	  protected void onPause()
+	  {
+		  super.onPause();
+		  stopTimer ();
+	  }
+	
+	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		int size;
@@ -43,6 +100,9 @@ public class PacmanActivity extends Activity {
         
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
+		
+		autoUpdate = new Timer();
+		
 		if (display.getHeight() < display.getWidth())
 		{
 			size = display.getHeight();
@@ -58,28 +118,12 @@ public class PacmanActivity extends Activity {
         
         mainCanvas = new GameCanvas (this, gameModel, skin);
         sound      = Sound.getInstance();
-        
+
        // setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
         mainCanvas.setOnKeyListener(new Key (gameModel));
-        Timer autoUpdate = new Timer(); 
         sound.playIntro();
-        autoUpdate.schedule(new TimerTask() {
-         public void run() {
-          runOnUiThread(new Runnable() {
-           public void run() {
-            gameModel.reaction();
-            sound.reaction();
-            TextView tv;
-            tv = (TextView) findViewById (R.id.textScore);
-            tv.setText("" + gameModel.getHero().getScore());
-            tv = (TextView) findViewById (R.id.textLifes);
-            tv.setText("" + gameModel.getHero().getLifes());
-            mainCanvas.invalidate();
-           }
-          });
-         }
-        }, 0, 60); // updates each 40 msec
+        //startTimer ();
         mainCanvas.setFocusable(true);
         //ArrayList<View> views = new ArrayList<View>();
         //views.add(mainCanvas);
@@ -97,10 +141,22 @@ public class PacmanActivity extends Activity {
         	w = (size - skin.getLogo().getWidth()) / 2;
         	lp = new LayoutParams(size, skin.getLogo().getHeight());
         	
-        	fl.addView (new BitmapView (this, skin.getLogo(), w, 0), 1, lp);
+        	fl.addView (new BitmapView (this, skin.getLogo(), w, 0), 0, lp);
         	lp = new LayoutParams(size + 2, size + 2);
         	fl.addView(mainCanvas, 2, lp);
-         	Log.e("Main", "main canvas added");
+        	
+        	View v = findViewById(R.layout.panel);
+        	if (v == null)
+        	{
+        		Log.i(TAG, "Cannot find the view");
+        	}
+        	else
+        	{
+        		Log.i(TAG, "Other view added");
+
+        		fl.addView(v, 2);
+        	}
+         	Log.e(TAG, "main canvas added");
         }
     }
 }

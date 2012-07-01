@@ -7,6 +7,7 @@ import org.gunnm.pacman.controller.Key;
 import org.gunnm.pacman.controller.Touch;
 import org.gunnm.pacman.maps.Map1;
 import org.gunnm.pacman.model.Game;
+import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BasicSkin;
 import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.GameCanvas;
@@ -32,7 +33,8 @@ public class TitleActivity extends Activity {
 	Game   			    	gameModel;
 	public static Skin		skin;
 	Sound					sound;
-	
+	private Scores			scores;
+
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -40,6 +42,9 @@ public class TitleActivity extends Activity {
 		int squareSize;
 		
         super.onCreate(savedInstanceState);
+        
+    	scores = Scores.getInstance (getApplicationContext());
+
         
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();

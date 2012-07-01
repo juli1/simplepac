@@ -39,6 +39,7 @@ public class ScoresActivity extends Activity {
  
         setContentView(R.layout.scores);
     	scores = Scores.getInstance (getApplicationContext());
+//    	scores.registerScore(100000 + (int)(Math.random() % 100));
     	this.updateScores ();
     	
         LinearLayout fl = (LinearLayout) findViewById (R.id.scores);

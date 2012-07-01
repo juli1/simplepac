@@ -72,8 +72,8 @@ public class Scores extends SQLiteOpenHelper {
 	    	int[] defaultScores = { 0 , 100, 1000, 2000, 65000, 3000,  200, 2000, 4000, 100000};
 	    	String[] defaultScoresNames = { "John Lennon", "Ali Baba", "You mother", "Barrack Obama", "Jacques Chirac", "Saddam Hussein",
 	    			                     "John McEnroe", "Dionysos", "Jesus", "Buddha"};
-	    	String[] defaultScoresDates = { "12/09/1975", "02/06/1977", "02/10/1960", "12/09/2009", "21/08/1990", "23/10/1995",
-                    "11/03/1979", "01/01/19800", "00/00/0000", "Unknown"};
+	    	String[] defaultScoresDates = { "12-09-1975-00-00", "02-06-1977-00-00", "02-10-1960-00-00", "12-09-2009-00-00", "21-08-1990-00-00", "23-10-1995-00-00",
+                    "11-03-1979-00-00", "01-01-1980-00-00", "00-00-0000-00-00", "Unknown"};
 	    	
 	    	for (int i = 0 ; i < nbDefaultScores ; i++)
 	    	{
@@ -164,9 +164,9 @@ public class Scores extends SQLiteOpenHelper {
 		
 		public void reset()
 		{
-			
 			SQLiteDatabase db = this.getWritableDatabase ();
 			db.delete (TABLE_NAME, null, null);
+			this.insertDefaultValues(db);
 		}
 		
 		public void sendAll()
@@ -206,6 +206,7 @@ public class Scores extends SQLiteOpenHelper {
 		{
 			
 			String[] dateStr;
+			String   dateString;
 			Date dateObj;
 	    	String[] scores;
 	    	int i = 0;
@@ -219,24 +220,25 @@ public class Scores extends SQLiteOpenHelper {
     		Log.i(TAG , "nb scores" + count);
 	    	for (i = 0 ; i < count ; i++)
 	    	{
-		    	try 
-		    	{/*
-		    		dateStr = cursor.getString(1).split("-");
-		    		
-		    		dateObj = new Date (Integer.parseInt(dateStr[0]),
-		    				Integer.parseInt(dateStr[1]),
-		    				Integer.parseInt(dateStr[2]),
-		    				Integer.parseInt(dateStr[3]),
-		    				Integer.parseInt(dateStr[4]),
-		    				0);
-		    		*/
-		    		scores[i] = cursor.getInt (0) + " by " + cursor.getString(1) + " on "+ cursor.getString(2);
-		    	}
+		   		dateStr = cursor.getString(2).split("-");
+		   		try
+		   		{
+			   		dateObj = new Date (Integer.parseInt(dateStr[0]),
+			   							Integer.parseInt(dateStr[1]),
+			   							Integer.parseInt(dateStr[2]),
+			   							Integer.parseInt(dateStr[3]),
+			   							Integer.parseInt(dateStr[4]),
+			   							0);
+			    	dateString = dateObj.toString();
+			    	dateString = dateString.substring(0, dateString.lastIndexOf(':'));
+		   		}
 		    	catch (Exception e)
 		    	{
-		    
-			    	scores[i] = "score " + i ;
+		    		Log.i(TAG , "score exception " + e.toString() + " dateStr = " + dateStr + "toparse=" + cursor.getString(2));
+		    		dateString = "Unknown date";
 		    	}
+		   		
+		    	scores[i] = cursor.getInt (0) + " by " + cursor.getString(1) + " on "+ dateString;
 		    	Log.i(TAG , "score " + i + " value" + scores[i]);
 	    		cursor.moveToPrevious();
 	    	}
