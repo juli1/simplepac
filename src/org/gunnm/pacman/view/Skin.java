@@ -5,9 +5,11 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 
 public abstract class Skin implements SkinInterface {
+	protected static Skin instance = null;
+	
 	public static Skin getInstance ()
 	{
-		return null;
+		return instance;
 	}
 	
 	public static Skin getInstance (AssetManager c, int s)

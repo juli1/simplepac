@@ -267,6 +267,7 @@ public class Game {
 				}
 				else
 				{
+					
 					if (! part.hasBorderTop())
 					{
 				
@@ -296,9 +297,10 @@ public class Game {
 				}
 				else
 				{
-					if (! part.hasBorderLeft())
+					if ( (! part.hasBorderLeft()) && ( (entity.getInternalStepValueY() <= 0) &&
+													   (entity.getInternalStepValueY() >= -1 *INTERNAL_STEP_VALUE)))
 					{
-					
+						entity.setInternalStepValueY(0);
 						if (entity.getPositionX() == 0)
 						{
 							entity.setPositionX (map.getWidth() - 1);
@@ -316,7 +318,11 @@ public class Game {
 			{
 				if (entity.getInternalStepValueX() < (INTERNAL_STEP_THRESHOLD))
 				{
-					entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
+					if (! part.hasBorderRight() && (entity.getInternalStepValueY() <=0))
+					{
+						entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
+					}
+
 					if ((part.hasBorderRight()) && (entity.getInternalStepValueX() >0  ))
 					{
 						entity.setInternalStepValueX (0);
@@ -324,10 +330,19 @@ public class Game {
 				}
 				else
 				{
-					if (! part.hasBorderRight())
+					if (! part.hasBorderRight() )
 					{
-						entity.setPositionX( (entity.getPositionX() + 1) % map.getWidth());
-						entity.setInternalStepValueX (INTERNAL_STEP_THRESHOLD * -1);
+						if( (entity.getInternalStepValueY() <= 0) &&
+		   						(entity.getInternalStepValueY() >= -1 *INTERNAL_STEP_VALUE))
+						{
+							if (entity instanceof Hero)
+							{
+								Log.i(TAG, "Going right, X="+ entity.getPositionX() + "Y="+ entity.getPositionY() + " stepX=" +entity.getInternalStepValueX() + "stepY"   + entity.getInternalStepValueY() );
+							}
+							entity.setPositionX( (entity.getPositionX() + 1) % map.getWidth());
+							entity.setInternalStepValueX (INTERNAL_STEP_THRESHOLD * -1);
+							entity.setInternalStepValueY (0);
+						}
 					
 					}
 				}

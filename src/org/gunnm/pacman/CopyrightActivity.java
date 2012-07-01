@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Scores;
+import org.gunnm.pacman.view.BasicSkin;
 import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.Skin;
 import org.gunnm.pacman.view.TitleScreen;
@@ -42,14 +43,29 @@ public class CopyrightActivity extends Activity {
         InputStream is;
 		try {
 			is = getResources().getAssets().open("copyright.txt");
-		
+			
         
-        while ( ( size = is.read(strtmp) ) > 0)
-        {
-        	copyright = copyright + new String (strtmp);
-        }
-        is.close();
-        txt.setText (copyright);
+	        while ( ( size = is.read(strtmp) ) > 0)
+	        {
+	        	copyright = copyright + new String (strtmp).substring(0, size);
+	        }
+	        is.close();
+	        if (Skin.getInstance().getCopyrightFile() !=null)
+			{
+	        	copyright = copyright + "\n";
+	        	is = getResources().getAssets().open(Skin.getInstance().getCopyrightFile());
+		        while ( ( size = is.read(strtmp) ) > 0)
+		        {
+		        	copyright = copyright + new String (strtmp).substring(0, size);
+		        }
+		        is.close();
+			}
+	        
+	        is.close();
+        
+	        txt.setText (copyright);
+	        Log.i(TAG, "set text = " + copyright );
+
 		} catch (IOException e) {
 			
 			Log.e(TAG, e.toString());

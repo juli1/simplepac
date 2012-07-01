@@ -55,7 +55,7 @@ public class BasicSkin extends Skin
 	private Bitmap highScoresLogo;
 	private int partSize;
 	private Bitmap copyright;
-	private static Skin instance = null;
+	
 	
 	public static Skin getInstance ()
 	{
@@ -404,5 +404,10 @@ public class BasicSkin extends Skin
 	public Bitmap getHighScoresLogo()
 	{
 		return this.highScoresLogo;
+	}
+	
+	public String getCopyrightFile ()
+	{
+		return "copyright-skin.txt";
 	}
 }

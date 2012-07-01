@@ -17,6 +17,7 @@ import org.gunnm.pacman.view.TitleScreen;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class TitleActivity extends Activity {
 	public static Skin		skin;
 	Sound					sound;
 	private Scores			scores;
-
+	private final static boolean  debug = true;
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -42,6 +43,8 @@ public class TitleActivity extends Activity {
 		int squareSize;
 		
         super.onCreate(savedInstanceState);
+        
+        
         
     	scores = Scores.getInstance (getApplicationContext());
 
@@ -60,13 +63,18 @@ public class TitleActivity extends Activity {
 		squareSize 		= size / gameModel.getMap().getWidth();
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), squareSize);
 		sound      		= Sound.getInstance (this, gameModel, skin);
-
-        titleCanvas = new TitleScreen (this, skin, display);
-        
-        //title.setOnTouchListener(new);
-         
-        sound.playIntro();
-        
-        setContentView(titleCanvas);
+		
+		if (debug)
+        {
+        	Intent intent = new Intent(this, org.gunnm.pacman.PacmanActivity.class);
+        	startActivity(intent);
+        }
+        else
+        {
+        	titleCanvas = new TitleScreen (this, skin, display);
+        	//title.setOnTouchListener(new);
+        	sound.playIntro();
+        	setContentView(titleCanvas);
+        }
     }
 }

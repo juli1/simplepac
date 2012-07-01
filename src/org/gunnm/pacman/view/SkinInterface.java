@@ -54,9 +54,14 @@ public interface SkinInterface {
 	public Bitmap getGameOver();
 	public Bitmap getCompleted();
 	
+	public String getCopyrightFile ();
+	
 	public String getSoundIntro();
 	public String getSoundEat();
 	public String getSoundEatBonus();
 	public String getSoundDying();
 	public String getSoundIntermission();
+
+
+
 }
