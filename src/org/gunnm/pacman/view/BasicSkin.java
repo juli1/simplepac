@@ -54,7 +54,7 @@ public class BasicSkin extends Skin
 	private Bitmap wallHorizontal;
 	private Bitmap highScoresLogo;
 	private int partSize;
-	
+	private Bitmap copyright;
 	private static Skin instance = null;
 	
 	public static Skin getInstance ()
@@ -177,6 +177,7 @@ public class BasicSkin extends Skin
 			highScores 		= BitmapFactory.decodeStream(manager.open("highscores.png"));
 			preferences 	= BitmapFactory.decodeStream(manager.open("preferences.png"));
 
+			copyright 		= BitmapFactory.decodeStream(manager.open("copyright.png"));
 			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
 
 			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
@@ -201,7 +202,10 @@ public class BasicSkin extends Skin
 			Log.e(TAG, "Exception: " + ex.toString());
 		}
 	}
-	
+	public Bitmap getCopyright ()
+	{
+		return this.copyright;
+	}
 	
 	public Bitmap getPacmanFull ()
 	{

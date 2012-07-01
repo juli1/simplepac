@@ -24,6 +24,8 @@ public class TitleScreen extends View implements OnTouchListener
 	int highScoresAlignY;
 	int preferencesAlignX;
 	int preferencesAlignY;
+	int copyrightAlignX;
+	int copyrightAlignY;
 	private Context context;
 	
 	public TitleScreen (Context c, Skin s, Display d)
@@ -42,7 +44,7 @@ public class TitleScreen extends View implements OnTouchListener
 	
 		Paint paint;
 
-		int margin = display.getHeight() / 10;
+		int margin = display.getHeight() / 20;
 		paint = new Paint();
 		paint.setFilterBitmap(true);
 		logoAlignX = (display.getWidth() - skin.getLogo().getWidth()) / 2;
@@ -57,12 +59,14 @@ public class TitleScreen extends View implements OnTouchListener
 		preferencesAlignX = (display.getWidth() - skin.getPreferences().getWidth()) / 2;
 		preferencesAlignY = highScoresAlignY + margin + skin.getHighScores().getHeight();
 		
+		copyrightAlignX = display.getWidth() - skin.getCopyright().getWidth();
+		copyrightAlignY = preferencesAlignY + skin.getPreferences().getHeight() + margin;
 		
 		canvas.drawBitmap(skin.getLogo(), logoAlignX, logoAlignY, null);
 		canvas.drawBitmap(skin.getNewGame(), newGameAlignX, newGameAlignY, null);
 		canvas.drawBitmap(skin.getHighScores(), highScoresAlignX, highScoresAlignY, null);
 		canvas.drawBitmap(skin.getPreferences(), preferencesAlignX, preferencesAlignY, null);
-		
+		canvas.drawBitmap(skin.getCopyright(), copyrightAlignX, copyrightAlignY, null);
 	}
 
 
@@ -93,6 +97,13 @@ public class TitleScreen extends View implements OnTouchListener
 			{
 				Log.i(TAG, "Preferences");
 		    	Intent intent = new Intent(context, org.gunnm.pacman.AppPreferences.class);
+		    	context.startActivity(intent);
+			}
+			
+			if ( (y > copyrightAlignY ) && ( x > copyrightAlignX))
+			{
+				Log.i(TAG, "Copyright");
+		    	Intent intent = new Intent(context, org.gunnm.pacman.CopyrightActivity.class);
 		    	context.startActivity(intent);
 			}
 		}

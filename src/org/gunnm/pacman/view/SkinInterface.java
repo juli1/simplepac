@@ -49,6 +49,8 @@ public interface SkinInterface {
 	public Bitmap getWallHorizontal();
 	public Bitmap getWallVertical();
 	
+	public Bitmap getCopyright();
+	
 	public Bitmap getGameOver();
 	public Bitmap getCompleted();
 	
