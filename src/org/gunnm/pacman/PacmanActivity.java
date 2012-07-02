@@ -111,7 +111,7 @@ public class PacmanActivity extends Activity {
 		{
 			size = display.getWidth();
 		}
-		gameModel = new Game (new Map1());
+		gameModel = Game.getInstance ();
 		squareSize = size / gameModel.getMap().getWidth();
 		skin = BasicSkin.getInstance();
 

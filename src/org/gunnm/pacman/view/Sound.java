@@ -70,6 +70,7 @@ public class Sound {
 	
 	public void playEat ()
 	{
+		Log.i(TAG, "Play eat");
 		playSound (eatId);
 	}
 	
@@ -103,6 +104,8 @@ public class Sound {
 	
 	public void reaction ()
 	{
+		if (gameData.getCurrentAction() != 0)
+			Log.i(TAG, "current action" + gameData.getCurrentAction());
 		switch (gameData.getCurrentAction())
 		{
 			case Game.ACTION_EAT:

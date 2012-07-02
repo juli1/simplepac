@@ -28,7 +28,7 @@ public class Map1 implements MapInterface
 	int[][] ennemiesTable = new int[NB_ENNEMIES][2];
 	int[][] bonusesTable = new int[NB_BONUSES][2];
 	int[][] map = new int[][]
-	{
+	{ 
 		{BT| BL    , BT       ,   BT|BB       , BT          ,      BB    ,BT|BB          ,    BT | BB       ,    BT|BB      ,    BT|BB     ,   BT|BR},
 		{BL| BR    , BL|BR    ,   BT|BL|BR    , BL | BR     ,   BL|BT    ,   BT|BB       ,    BT|BB         ,    BT         ,    BT|BR|BB  ,   BL|  BR},
 		{BL| BR    , BL|BR    ,   BL|BR       , BL |BR      ,   BL       ,   BT|BB       ,    BT|BB         ,   HE          ,   BB|BT      ,   BR},
@@ -36,7 +36,7 @@ public class Map1 implements MapInterface
 		{BL| BR    , BL       ,   BT|BB       , BB          ,   BT       ,   BT |BB      ,      BT          ,   BT |BR      ,   BB |BL     ,   BR},
 		{    BR    , BB|BR|BL ,   BL|BB|BT    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0},
 		{BL| BB    , BT       ,   BT          , HE|BT|BB    ,   BT|BB    ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BT|BR , BL|BR    ,   HE|BL       , BT|BB       ,   BT|BB    ,   BR          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
+		{BL| BT|BR , BL|BR    ,   HE|BL|BB    , BT|BB       ,   BT|BB    ,   BR          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
 		{BL| BR    , BL|BR    ,   BL|HB|BT    , BB | BT     ,   BB|BT    ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR},
 		{BL| BR    , BL       ,   BT|BB|HE    , BT | BB     ,   HB |BB   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
 		{BL| BB    ,   BB     ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },

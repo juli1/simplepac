@@ -20,13 +20,13 @@ public class Game {
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	public static final int MAX_ENNEMIES = 100;
 	public static final int INTERNAL_STEP_THRESHOLD = 100;
-	public static final int INTERNAL_STEP_VALUE = 25;
+	public static final int INTERNAL_STEP_VALUE = 20;
 	public static final int ACTION_NONE = 0;
 	public static final int ACTION_EAT = 1;
 	public static final int ACTION_BONUS = 2;
 	public static final int ACTION_UNVULNERABLE = 3;
 	public static final int ACTION_FINISHED = 4;
-	 
+	private static Game instance;
 	
 	public Game ()
 	{
@@ -39,6 +39,7 @@ public class Game {
 		unvulnerableCounter = 0;
 		dyingCounter = 0;
 		unvulnerableCounterConstant = DEFAULT_UNVULNERABLE_COUNTER;
+		instance = this;
 	}
 	
 	
@@ -65,7 +66,12 @@ public class Game {
 				map.setBorderTop (i,j, customMap.hasBorderTop(i, j));			
 			}
 		}
-		
+		instance = this;
+	}
+	
+	public static Game getInstance ()
+	{
+		return instance;
 	}
 	
 	public void initMap (MapInterface custom)
@@ -231,30 +237,29 @@ public class Game {
 			{
 				if (entity.getInternalStepValueY() < INTERNAL_STEP_THRESHOLD)
 				{
-					entity.setInternalStepValueY( entity.getInternalStepValueY() + INTERNAL_STEP_VALUE);
-					if ((part.hasBorderBottom()) && (entity.getInternalStepValueY() > 0))
+					if (  (! part.hasBorderBottom()) &&
+					      (entity.getInternalStepValueX() <= INTERNAL_STEP_VALUE) && 
+					      (entity.getInternalStepValueX() >= ((-1 ) * INTERNAL_STEP_VALUE)))
+					{
+						entity.setInternalStepValueY( entity.getInternalStepValueY() + INTERNAL_STEP_VALUE);
+					} 
+					
+					if ((part.hasBorderBottom()) && (entity.getInternalStepValueY() < 0 ))
+					{
+						entity.setInternalStepValueY( entity.getInternalStepValueY() + INTERNAL_STEP_VALUE);
+					}
+					
+					if ((part.hasBorderBottom()) && (entity.getInternalStepValueY() < 0  ))
 					{
 						entity.setInternalStepValueY (0);
 					}
-					
-					
-					if (! part.hasBorderBottom() && (entity.getInternalStepValueX() >= INTERNAL_STEP_VALUE) && (entity.getInternalStepValueX() >= ((-1 ) *INTERNAL_STEP_VALUE)))
-					{
-						entity.setInternalStepValueY( entity.getInternalStepValueY() + INTERNAL_STEP_VALUE);
-
-					}
-
-					if ((part.hasBorderBottom()) && (entity.getInternalStepValueY() >= 2 * INTERNAL_STEP_VALUE  ))
-					{
-						entity.setInternalStepValueY (2 * INTERNAL_STEP_VALUE);
-					}
-					
 					
 				}
 				else
 				{
 					if (! part.hasBorderBottom())
 					{
+						entity.setInternalStepValueX( 0 );
 						entity.setInternalStepValueY( (INTERNAL_STEP_THRESHOLD * -1 ) );
 						entity.setPositionY((entity.getPositionY() + 1 )% map.getHeight());
 					}
@@ -274,15 +279,20 @@ public class Game {
 				if (entity.getInternalStepValueY() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
 					
-					if (! part.hasBorderTop() && (entity.getInternalStepValueX() ==0))
+					if (! part.hasBorderTop() && (entity.getInternalStepValueX() == 0))
 					{
 						entity.setInternalStepValueY( entity.getInternalStepValueY() - INTERNAL_STEP_VALUE);
 
 					}
 
-					if ((part.hasBorderTop()) && (entity.getInternalStepValueY() >= 2 * INTERNAL_STEP_VALUE  ))
+					if ((part.hasBorderTop()) && (entity.getInternalStepValueY() < 0 ))
 					{
-						entity.setInternalStepValueY (2 * INTERNAL_STEP_VALUE);
+						entity.setInternalStepValueY (0);
+					}
+					
+					if ((part.hasBorderTop()) && (entity.getInternalStepValueY() > 0 ))
+					{
+						entity.setInternalStepValueY( entity.getInternalStepValueY() - INTERNAL_STEP_VALUE);
 					}
 					
 					
@@ -303,6 +313,7 @@ public class Game {
 						{
 							entity.setPositionY (entity.getPositionY() - 1 );
 						}
+						entity.setInternalStepValueX(0);
 						entity.setInternalStepValueY( (INTERNAL_STEP_THRESHOLD) );
 					}
 					
@@ -314,7 +325,9 @@ public class Game {
 				if (entity.getInternalStepValueX() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
 					
-					if (! part.hasBorderLeft() && (entity.getInternalStepValueY() <= INTERNAL_STEP_VALUE * 2))
+					if ( (! part.hasBorderLeft()) && 
+					     (entity.getInternalStepValueY() >= (INTERNAL_STEP_VALUE * -1) ) &&
+					     (entity.getInternalStepValueY() <= (INTERNAL_STEP_VALUE ) ))
 					{
 						entity.setInternalStepValueX (entity.getInternalStepValueX() - INTERNAL_STEP_VALUE);
 					}
@@ -324,13 +337,18 @@ public class Game {
 						entity.setInternalStepValueX (0);
 					}
 					
+					if ((part.hasBorderLeft()) && (entity.getInternalStepValueX() > 0  ))
+					{
+						entity.setInternalStepValueX (entity.getInternalStepValueX() - INTERNAL_STEP_VALUE);
+					}
+					 
 				}
 				else
 				{
-					if ( (! part.hasBorderLeft()) && ( (entity.getInternalStepValueY() <= INTERNAL_STEP_VALUE * 2) &&
-													   (entity.getInternalStepValueY() >= -1 *INTERNAL_STEP_VALUE)))
+					if ( (! part.hasBorderLeft()) && ( (entity.getInternalStepValueY() <= INTERNAL_STEP_VALUE ) &&
+													   (entity.getInternalStepValueY() >= (-1 *INTERNAL_STEP_VALUE))))
 					{
-						entity.setInternalStepValueY(0);
+					 	entity.setInternalStepValueY(0);
 						if (entity.getPositionX() == 0)
 						{
 							entity.setPositionX (map.getWidth() - 1);
@@ -346,16 +364,27 @@ public class Game {
 			}
 			case Entity.DIRECTION_RIGHT:
 			{
-				if (entity.getInternalStepValueX() < (INTERNAL_STEP_THRESHOLD))
+				if (entity.getInternalStepValueX() < INTERNAL_STEP_THRESHOLD)
 				{
-					if (! part.hasBorderRight() && (entity.getInternalStepValueY() <=0))
+					if ((entity.getInternalStepValueY() <= INTERNAL_STEP_VALUE) && 
+					    (entity.getInternalStepValueY() >= (-1 * INTERNAL_STEP_VALUE)))
 					{
-						entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
-					}
-
-					if ((part.hasBorderRight()) && (entity.getInternalStepValueX() >0  ))
-					{
-						entity.setInternalStepValueX (0);
+						
+						entity.setInternalStepValueY (0);
+						if (! part.hasBorderRight() && (entity.getInternalStepValueX() <= INTERNAL_STEP_THRESHOLD))
+						{
+							entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
+						}
+	
+						if ((part.hasBorderRight()) && (entity.getInternalStepValueX() >0  ))
+						{
+							entity.setInternalStepValueX (0);	
+						}
+						
+						if ((part.hasBorderRight()) && (entity.getInternalStepValueX() < 0  ))
+						{
+							entity.setInternalStepValueX (entity.getInternalStepValueX() + INTERNAL_STEP_VALUE);
+						}
 					}
 				}
 				else
@@ -462,9 +491,9 @@ public class Game {
 		}
 
 		
-		Log.i(TAG, "BEFORE REACTION, HERO, X="+ hero.getPositionX() + "Y="+ hero.getPositionY() + " stepX=" + hero.getInternalStepValueX() + " stepY="   + hero.getInternalStepValueY() );
+		//Log.i(TAG, "BEFORE REACTION, HERO, X="+ hero.getPositionX() + "Y="+ hero.getPositionY() + " stepX=" + hero.getInternalStepValueX() + " stepY="   + hero.getInternalStepValueY() );
 		reactionEntity(hero);
-		Log.i(TAG, "AFTER REACTION, HERO, X="+ hero.getPositionX() + "Y="+ hero.getPositionY() + " stepX=" + hero.getInternalStepValueX() + " stepY="   + hero.getInternalStepValueY() );
+		//Log.i(TAG, "AFTER REACTION, HERO, X="+ hero.getPositionX() + "Y="+ hero.getPositionY() + " stepX=" + hero.getInternalStepValueX() + " stepY="   + hero.getInternalStepValueY() );
 
 		
 		for (Ennemy e : ennemies)
@@ -539,7 +568,8 @@ public class Game {
 				heroCollision (e);
 			}
 		}
-		
+		if (this.currentAction != 0)
+		Log.i(TAG, "end reaction, action=" + this.currentAction);
 	}
 	
 	public boolean isFinished ()
