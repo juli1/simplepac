@@ -17,24 +17,34 @@ public class Map1 implements MapInterface
 	private final static int hasSuperPoint     = 0x20;
 	private final static int hasEnnemy         = 0x40;
 	
-	
+	private final static int BL = borderLeft;
+	private final static int BR = borderRight;
+	private final static int BT = borderTop;
+	private final static int BB = borderBottom;
+	private final static int HE = hasEnnemy;
+	private final static int HP = hasPoint;
+	private final static int HB = hasSuperPoint;
 	
 	int[][] ennemiesTable = new int[NB_ENNEMIES][2];
 	int[][] bonusesTable = new int[NB_BONUSES][2];
 	int[][] map = new int[][]
 	{
-		{borderTop | borderLeft ,  borderTop                   , borderTop|borderBottom                    , borderTop   ,    borderTop,borderTop,borderTop,borderTop,borderTop,borderTop|borderRight},
-		{borderLeft|borderRight ,  borderLeft|borderRight      , borderTop | borderLeft |borderRight       , borderLeft | borderRight,borderLeft,0,0,0,0,borderRight},
-		{borderLeft|borderRight ,  borderLeft|borderRight      , borderLeft | borderRight                  , borderLeft |borderRight,borderLeft,0,0,hasEnnemy,0,borderRight},
-		{borderLeft|borderRight ,  borderLeft|borderRight      , borderLeft | borderRight | borderBottom   ,borderLeft |borderRight,borderLeft,0,hasSuperPoint,0,0,borderRight},
-		{borderLeft|borderRight ,  0                           , borderTop                                 ,0,0,0,0,0,0,borderRight},
-		{borderLeft|borderRight ,  borderBottom                ,borderBottom                               ,hasSuperPoint,hasSuperPoint,0,0,0,0,borderRight},
-		{borderLeft|borderBottom,  borderTop                   ,borderTop                                  ,hasEnnemy,0,0,hasPoint,0,0,borderRight},
-		{borderLeft|borderTop   ,  0                           ,hasEnnemy                                  ,0,0,0,hasPoint,hasEnnemy,0,borderRight},
-		{borderLeft,0,hasSuperPoint,0,0,0,hasPoint,0,0,borderRight},
-		{borderLeft,0,hasEnnemy,0,hasSuperPoint,0,0,hasSuperPoint,0,borderRight},
-		{borderLeft|borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderBottom,borderRight|borderBottom},
+		{BT| BL    , BT       ,   BT|BB       , BT          ,      BB    ,BT|BB          ,    BT | BB       ,    BT|BB      ,    BT|BB     ,   BT|BR},
+		{BL| BR    , BL|BR    ,   BT|BL|BR    , BL | BR     ,   BL|BT    ,   BT|BB       ,    BT|BB         ,    BT         ,    BT|BR|BB  ,   BL|  BR},
+		{BL| BR    , BL|BR    ,   BL|BR       , BL |BR      ,   BL       ,   BT|BB       ,    BT|BB         ,   HE          ,   BB|BT      ,   BR},
+		{BL| BR    , BL|BR    ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL          ,   BT|BR      ,   BL| BR},
+		{BL| BR    , BL       ,   BT|BB       , BB          ,   BT       ,   BT |BB      ,      BT          ,   BT |BR      ,   BB |BL     ,   BR},
+		{    BR    , BB|BR|BL ,   BL|BB|BT    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0},
+		{BL| BB    , BT       ,   BT          , HE|BT|BB    ,   BT|BB    ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR},
+		{BL| BT|BR , BL|BR    ,   HE|BL       , BT|BB       ,   BT|BB    ,   BR          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
+		{BL| BR    , BL|BR    ,   BL|HB|BT    , BB | BT     ,   BB|BT    ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR},
+		{BL| BR    , BL       ,   BT|BB|HE    , BT | BB     ,   HB |BB   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
+		{BL| BB    ,   BB     ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },
 	};
+	
+	
+	
+	
 	
 	
 	public Map1()

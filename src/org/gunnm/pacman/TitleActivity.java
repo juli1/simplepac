@@ -35,7 +35,7 @@ public class TitleActivity extends Activity {
 	public static Skin		skin;
 	Sound					sound;
 	private Scores			scores;
-	private final static boolean  debug = false;
+	private final static boolean  debug = true;
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
