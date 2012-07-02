@@ -20,12 +20,13 @@ public class Game {
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	public static final int MAX_ENNEMIES = 100;
 	public static final int INTERNAL_STEP_THRESHOLD = 100;
-	public static final int INTERNAL_STEP_VALUE = 20;
+	public static final int INTERNAL_STEP_VALUE = 25;
 	public static final int ACTION_NONE = 0;
 	public static final int ACTION_EAT = 1;
 	public static final int ACTION_BONUS = 2;
 	public static final int ACTION_UNVULNERABLE = 3;
 	public static final int ACTION_FINISHED = 4;
+	public static final int ACTION_DYING = 5;
 	private static Game instance;
 	
 	public Game ()
@@ -62,7 +63,7 @@ public class Game {
 			{
 				map.setBorderBottom (i,j, customMap.hasBorderBottom(i, j));
 				map.setBorderLeft (i,j, customMap.hasBorderLeft(i, j));
-				map.setBorderRight (i,j, customMap.hasBorderRight(i, j));
+		 		map.setBorderRight (i,j, customMap.hasBorderRight(i, j));
 				map.setBorderTop (i,j, customMap.hasBorderTop(i, j));			
 			}
 		}
@@ -279,7 +280,10 @@ public class Game {
 				if (entity.getInternalStepValueY() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
 					
-					if (! part.hasBorderTop() && (entity.getInternalStepValueX() == 0))
+					if ( (! part.hasBorderTop()) && 
+						(entity.getInternalStepValueX() <= INTERNAL_STEP_VALUE) &&
+						(entity.getInternalStepValueX() >= ( -1 * INTERNAL_STEP_VALUE))
+					    )
 					{
 						entity.setInternalStepValueY( entity.getInternalStepValueY() - INTERNAL_STEP_VALUE);
 
@@ -300,7 +304,7 @@ public class Game {
 				
 				}
 				else
-				{
+				{ 
 					
 					if (! part.hasBorderTop())
 					{
@@ -417,7 +421,7 @@ public class Game {
 	
 	public void heroDying ()
 	{
-		if (this.dyingCounter == 5)
+		if (this.dyingCounter == 30)
 		{
 			hero.isDying (false);
 			
@@ -447,6 +451,7 @@ public class Game {
 				int tmp[] = getFreePosition();
 				e.setPosition (tmp);
 			}
+			this.currentAction = ACTION_DYING;
 			hero.removeLife ();
 			hero.isDying (true);
 			this.dyingCounter = 0;

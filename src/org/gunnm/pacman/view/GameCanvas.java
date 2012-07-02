@@ -145,7 +145,7 @@ public class GameCanvas extends View
 		
 		if (gameModel.getHero().isDying())
 		{
-			switch (gameModel.getDyingCounter())
+			switch (gameModel.getDyingCounter() / 4)
 			{
 				case 0:
 				{

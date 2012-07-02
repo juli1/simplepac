@@ -24,6 +24,7 @@ public class Sound {
 	private int 				intermissionId;
 	private static final String	TAG = "Sound";
 	private static Sound		instance;
+	private int					lastAction;
 	
 	public static Sound getInstance (Context c, Game g, Skin si)
 	{
@@ -47,7 +48,9 @@ public class Sound {
 	    skin 		= si;
 	    audioManager = (AudioManager)c.getSystemService(Context.AUDIO_SERVICE);
 	    assetManager = context.getResources().getAssets();
+	    lastAction   = Game.ACTION_NONE;
 	    loadResources();
+	    
 	}
 	
 	public void loadResources ()
@@ -104,18 +107,35 @@ public class Sound {
 	
 	public void reaction ()
 	{
+		int action;
+		action = gameData.getCurrentAction();
+		if (action == lastAction)
+		{
+			return;
+		} 
+		lastAction = action;
 		if (gameData.getCurrentAction() != 0)
 			Log.i(TAG, "current action" + gameData.getCurrentAction());
-		switch (gameData.getCurrentAction())
+		switch (action)
 		{
 			case Game.ACTION_EAT:
 			{
 				playEat();
-				break;
+				break; 
 			}
 			case Game.ACTION_BONUS:
 			{
 				playEatBonus();
+				break;
+			}
+			case Game.ACTION_DYING:
+			{
+				playDying();
+				break;
+			}
+			case Game.ACTION_FINISHED:
+			{
+				playIntermission();
 				break;
 			}
 		}
