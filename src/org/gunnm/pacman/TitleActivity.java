@@ -46,7 +46,7 @@ public class TitleActivity extends Activity {
 		{
 			size = display.getWidth();
 		}
-		gameModel 		= new Game (new Map2());
+		gameModel 		= new Game ();
 		squareSize 		= size / gameModel.getMap().getWidth();
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), squareSize);
 		sound      		= Sound.getInstance (this, gameModel, skin);

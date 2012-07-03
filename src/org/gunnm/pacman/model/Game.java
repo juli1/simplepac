@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
+import org.gunnm.pacman.maps.*;
 
 public class Game {
 	private Map map;
@@ -19,6 +20,7 @@ public class Game {
 	private int pointsEaten;
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	public static final int MAX_ENNEMIES = 100;
+	public static final int COUNTER_NEXT_LEVEL = 60;
 	public static final int INTERNAL_STEP_THRESHOLD = 100;
 	public static final int INTERNAL_STEP_VALUE = 25;
 	public static final int ACTION_NONE = 0;
@@ -28,56 +30,63 @@ public class Game {
 	public static final int ACTION_FINISHED = 4;
 	public static final int ACTION_DYING = 5;
 	private static Game instance;
+	private int currentMapIndex;
+	private final static int NB_MAPS = 2;
+	private final static Class[] mapClasses = {Map1.class,Map2.class};
 	
 	public Game ()
 	{
+		currentMapIndex = 0;
 		pointsEaten = 0;
 		currentAction = ACTION_NONE;
-		map = new Map ();
+		
 		hero = new Hero ();
 		ennemies = new ArrayList<Ennemy>();
-		this.initDefaultValues();
-		unvulnerableCounter = 0;
-		dyingCounter = 0;
-		unvulnerableCounterConstant = DEFAULT_UNVULNERABLE_COUNTER;
-		instance = this;
-	}
-	
-	
-	public Game (MapInterface customMap)
-	{
-		pointsEaten = 0;
-		currentAction = ACTION_NONE;
-		map = new Map (customMap.getWidth(), customMap.getHeight());
-		hero = new Hero ();
-		ennemies = new ArrayList<Ennemy>();
-		initMap (customMap);
+		initMap (currentMapIndex);
 		unvulnerableCounter = 0;
 		dyingCounter = 0;
 		hero.setPositionX (heroDefaultX);
 		hero.setPositionY (heroDefaultY);
-		
-		for (int i = 0 ; i < customMap.getWidth() ; i++)
-		{
-			for (int j = 0 ; j < customMap.getHeight() ; j++)
-			{
-				map.setBorderBottom (i,j, customMap.hasBorderBottom(i, j));
-				map.setBorderLeft (i,j, customMap.hasBorderLeft(i, j));
-		 		map.setBorderRight (i,j, customMap.hasBorderRight(i, j));
-				map.setBorderTop (i,j, customMap.hasBorderTop(i, j));			
-			}
-		}
+	
 		instance = this;
 	}
+	
+	
 	
 	public static Game getInstance ()
 	{
 		return instance;
 	}
 	
-	public void initMap (MapInterface custom)
+	public void initMap (int mapIndex)
 	{
 		int[] tmp;
+		MapInterface custom = null;
+		try 
+		{
+			custom = (MapInterface)mapClasses[mapIndex].newInstance();
+		} 
+		catch (IllegalAccessException e) 
+		{
+			Log.i (TAG, e.toString());
+		} 
+		catch (InstantiationException e) 
+		{
+			Log.i (TAG, e.toString());
+		}	
+		
+		map = new Map (custom.getWidth(), custom.getHeight());
+
+		pointsEaten = 0;
+		currentAction = ACTION_NONE;
+		
+		ennemies.removeAll(ennemies);
+		unvulnerableCounter = 0;
+		dyingCounter = 0;
+		hero.setPositionX (heroDefaultX);
+		hero.setPositionY (heroDefaultY);
+		hero.canMove(true);
+
 		
 		tmp = custom.getHeroPosition();
 		
@@ -107,6 +116,17 @@ public class Game {
 		{
 			tmp = custom.getBonusPosition(i);
 			map.enableSuperPoint (tmp[0], tmp[1]);
+		}
+		
+		for (int i = 0 ; i < custom.getWidth() ; i++)
+		{
+			for (int j = 0 ; j < custom.getHeight() ; j++)
+			{
+				map.setBorderBottom (i,j, custom.hasBorderBottom(i, j));
+				map.setBorderLeft (i,j, custom.hasBorderLeft(i, j));
+		 		map.setBorderRight (i,j, custom.hasBorderRight(i, j));
+				map.setBorderTop (i,j, custom.hasBorderTop(i, j));			
+			}
 		}
 	}
 	
@@ -468,6 +488,26 @@ public class Game {
 	{
 		if (this.currentAction == ACTION_FINISHED)
 		{
+			
+			if (dyingCounter > 0)
+			{
+				dyingCounter = dyingCounter - 1;
+			}
+			else
+			{
+				if (currentMapIndex < (NB_MAPS - 1 ))
+				{
+					currentMapIndex = currentMapIndex + 1;
+					currentAction = ACTION_NONE;
+					
+					initMap (currentMapIndex);
+					unvulnerableCounter = 0;
+					dyingCounter = 0;
+					hero.setPositionX (heroDefaultX);
+					hero.setPositionY (heroDefaultY);	
+				}	
+			}
+			
 			return;
 		}
 		
@@ -477,6 +517,7 @@ public class Game {
 		{
 			hero.canMove(false);
 			this.currentAction = ACTION_FINISHED;
+			dyingCounter = COUNTER_NEXT_LEVEL;
 			Scores.getInstance().registerScore(hero.getScore());
 			return;
 		}

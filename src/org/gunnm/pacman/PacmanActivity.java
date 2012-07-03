@@ -121,7 +121,7 @@ public class PacmanActivity extends Activity {
 
        // setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
-        mainCanvas.setOnKeyListener(new Key (gameModel));
+        mainCanvas.setOnKeyListener(new Key ());
         sound.playIntro();
         //startTimer ();
         mainCanvas.setFocusable(true);

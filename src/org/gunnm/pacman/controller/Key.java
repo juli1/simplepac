@@ -14,17 +14,16 @@ import android.view.View.OnKeyListener;
 
 public class Key implements OnKeyListener
 {
-	private Game model;
 	private static final String TAG = "Key";
 	
-	public Key (Game m)
+	public Key ()
 	{
-		this.model = m;
 	}
 
 
 	public boolean onKey(View v, int keyCode, KeyEvent event) 
 	{
+		Game model = Game.getInstance();
 		if (event.getAction() == KeyEvent.ACTION_DOWN)
 		{
 			if (event.getKeyCode()  == KeyEvent.KEYCODE_DPAD_LEFT)
