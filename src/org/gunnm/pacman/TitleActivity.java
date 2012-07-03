@@ -1,16 +1,9 @@
 package org.gunnm.pacman;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.gunnm.pacman.controller.Key;
-import org.gunnm.pacman.controller.Touch;
-import org.gunnm.pacman.maps.Map1;
+import org.gunnm.pacman.maps.Map2;
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BasicSkin;
-import org.gunnm.pacman.view.BitmapView;
-import org.gunnm.pacman.view.GameCanvas;
 import org.gunnm.pacman.view.Skin;
 import org.gunnm.pacman.view.Sound;
 import org.gunnm.pacman.view.TitleScreen;
@@ -18,15 +11,9 @@ import org.gunnm.pacman.view.TitleScreen;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class TitleActivity extends Activity {
 	
@@ -59,7 +46,7 @@ public class TitleActivity extends Activity {
 		{
 			size = display.getWidth();
 		}
-		gameModel 		= new Game (new Map1());
+		gameModel 		= new Game (new Map2());
 		squareSize 		= size / gameModel.getMap().getWidth();
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), squareSize);
 		sound      		= Sound.getInstance (this, gameModel, skin);
