@@ -120,36 +120,36 @@ public class Scores extends SQLiteOpenHelper {
 	    	{
 	    		//Log.i (TAG, "INSERT SUCCESFUL");
 	    	}
-	    	this.sendScore (score, date);
+	    	sendScore(score, date); 
 
 	    }
 
     	private void sendScore(int score, String date) 
     	{
     		String username;
-    		username = preferences.getString ("username", "F. Fillon");
-    		String location;
-    		location = preferences.getString ("location", "Ef213");
-    		HttpClient httpclient = new DefaultHttpClient();
+    		username = preferences.getString ("username", "Unnamed Player");
     		
-    		HttpPost httppost = new HttpPost("http://pok.safety-critical.net/chronopost.php");
-
+    
+    		Log.i (TAG, "sending score " + score  + " from " + username + " on " + date);
     		try {
-    		
+    			HttpClient httpclient = new DefaultHttpClient();
+        		
+        		HttpPost httppost = new HttpPost("http://games.gunnm.org/cgi/pacman-classic-post.pl");
     			List nameValuePairs = new ArrayList(3);
 
     		
     			nameValuePairs.add(new BasicNameValuePair("score", ""+score));
     			nameValuePairs.add(new BasicNameValuePair("date", date));
-    			nameValuePairs.add(new BasicNameValuePair("user", username + "@" + location));
+    			nameValuePairs.add(new BasicNameValuePair("user", username));
     			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
     			HttpResponse response = httpclient.execute(httppost);
 
 
     		} catch (ClientProtocolException e) {
-    			
+    			Log.i(TAG, "Protocol exception "+ e.toString());
     		} catch (IOException e) {
+    			Log.i(TAG, "IO exception "+ e.toString());
     			
     		}
     	}

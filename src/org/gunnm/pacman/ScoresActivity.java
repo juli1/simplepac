@@ -24,7 +24,7 @@ public class ScoresActivity extends Activity {
 	
 	TitleScreen titleCanvas;
 	Scores		scores;
-	public static String SCORE_WEBSITE = "http://www.google.com";
+	public static String SCORE_WEBSITE = "http://games.gunnm.org/pacman-classic";
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
