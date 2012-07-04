@@ -31,8 +31,10 @@ public class Game {
 	public static final int ACTION_DYING = 5;
 	private static Game instance;
 	private int currentMapIndex;
-	private final static int NB_MAPS = 2;
+	public final static int NB_MAPS = 2;
 	private final static Class[] mapClasses = {Map1.class,Map2.class};
+	
+	
 	
 	public Game ()
 	{
@@ -87,7 +89,7 @@ public class Game {
 		hero.setPositionY (heroDefaultY);
 		hero.canMove(true);
 
-		
+		  
 		tmp = custom.getHeroPosition();
 		
 		this.heroDefaultX = tmp[0];
@@ -627,4 +629,10 @@ public class Game {
 	public int getCurrentAction ()
 	{
 		return this.currentAction;
-	}}
+	}
+	
+	public int getCurrentMapIndex ()
+	{
+		return this.currentMapIndex;
+	}
+}

@@ -376,10 +376,20 @@ public class GameCanvas extends View
 		}
 		if (gameModel.isFinished())
 		{
-			canvas.drawBitmap(skin.getCompleted(), 
-			          (this.size - skin.getCompleted().getWidth()) / 2, 
-			          (this.size - skin.getCompleted().getHeight()) / 2, 
-			          new Paint());
+			if (gameModel.getCurrentMapIndex() >= (Game.NB_MAPS - 1))
+			{
+				canvas.drawBitmap(skin.getCompleted(), 
+				          (this.size - skin.getCompleted().getWidth()) / 2, 
+				          (this.size - skin.getCompleted().getHeight()) / 2, 
+				          new Paint());
+			}
+			else
+			{
+				canvas.drawBitmap(skin.getNextLevel(), 
+						(this.size - skin.getNextLevel().getWidth()) / 2, 
+						(this.size - skin.getNextLevel().getHeight()) / 2, 
+						new Paint());
+			}
 		}
 	}
 	

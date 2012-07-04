@@ -49,6 +49,7 @@ public class BasicSkin extends Skin
 	private Bitmap bonus1;
 	private Bitmap bonus2;
 	private Bitmap gameOver;
+	private Bitmap nextLevel;
 	private Bitmap completed;
 	private Bitmap wallVertical;
 	private Bitmap wallHorizontal;
@@ -173,6 +174,7 @@ public class BasicSkin extends Skin
 			logo 			= BitmapFactory.decodeStream(manager.open("logo.png"));
 			highScoresLogo	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
+			nextLevel 		= BitmapFactory.decodeStream(manager.open("nextlevel.png"));
 			newGame 		= BitmapFactory.decodeStream(manager.open("newgame.png"));
 			highScores 		= BitmapFactory.decodeStream(manager.open("highscores.png"));
 			preferences 	= BitmapFactory.decodeStream(manager.open("preferences.png"));
@@ -350,6 +352,9 @@ public class BasicSkin extends Skin
 		return gameOver;
 	}
 	
+	public Bitmap getNextLevel() {
+		return nextLevel;
+	}
 
 	public Bitmap getCompleted() {
 		return completed;
