@@ -34,7 +34,6 @@ public class TitleActivity extends Activity {
         
         
     	scores = Scores.getInstance (getApplicationContext());
-
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		if (display.getHeight() < display.getWidth())
@@ -42,7 +41,7 @@ public class TitleActivity extends Activity {
 			size = display.getHeight();
 		}
 		else
-		{
+		{ 
 			size = display.getWidth();
 		}
 		gameModel 		= new Game ();
