@@ -7,15 +7,21 @@ public class MapPart {
 	private boolean bottomBorder;
 	private boolean hasPoint;
 	private boolean hasSuperPoint;
+	private boolean hasSpecialSmall;
+	private boolean hasSpecialMedium;
+	private boolean hasSpecialBig;
 	
 	public MapPart ()
 	{
-		leftBorder = false;
-		rightBorder = false;
-		topBorder = false;
-		bottomBorder = false;
-		hasPoint = false;
-		hasSuperPoint = false;
+		leftBorder 			= false;
+		rightBorder 		= false;
+		topBorder 			= false;
+		bottomBorder 		= false;
+		hasPoint 			= false;
+		hasSuperPoint 		= false;
+		hasSpecialSmall 	= false;
+		hasSpecialMedium 	= false;
+		hasSpecialBig   	= false;
 	}
 	
 	
@@ -32,6 +38,21 @@ public class MapPart {
 	public boolean hasSuperPoint ()
 	{
 		return this.hasSuperPoint;
+	}
+	
+	public boolean hasSpecialSmall ()
+	{
+		return this.hasSpecialSmall;
+	}
+	
+	public boolean hasSpecialMedium ()
+	{
+		return this.hasSpecialMedium;
+	}
+	
+	public boolean hasSpecialBig ()
+	{
+		return this.hasSpecialBig;
 	}
 	
 	public void setPoint (boolean b)
@@ -65,6 +86,57 @@ public class MapPart {
 	{
 		this.setSuperPoint (false);
 	}
+	
+	public void setSpecialSmall (boolean b)
+	{
+		this.hasSpecialSmall = b;
+	}
+	
+	public void enableSpecialSmall ()
+	{
+		this.setSpecialSmall (true);
+	}
+
+	public void disableSpecialSmall ()
+	{
+		this.setSpecialSmall (false);
+	}
+
+	
+	public void setSpecialMedium (boolean b)
+	{
+		this.hasSpecialMedium = b;
+	}
+	
+	public void enableSpecialMedium ()
+	{
+		this.setSpecialMedium (true);
+	}
+
+	public void disableSpecialMedium ()
+	{
+		this.setSpecialMedium (false);
+	}
+
+	
+	
+	public void setSpecialBig (boolean b)
+	{
+		this.hasSpecialBig = b;
+	}
+	
+	public void enableSpecialBig ()
+	{
+		this.setSpecialBig (true);
+	}
+
+	public void disableSpecialBig ()
+	{
+		this.setSpecialBig (false);
+	}
+	
+	
+	
 	
 	public boolean hasBorderBottom ()
 	{

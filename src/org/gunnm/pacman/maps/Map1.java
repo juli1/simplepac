@@ -4,18 +4,24 @@ import org.gunnm.pacman.model.MapInterface;
 
 public class Map1 implements MapInterface
 {
-	private final static int NB_ENNEMIES = 5;
-	private final static int MAP_WIDTH = 10;
-	private final static int MAP_HEIGHT = 11;
-	private final static int NB_BONUSES  = 6;
+	private final static int NB_ENNEMIES 			= 5;
+	private final static int MAP_WIDTH 				= 10;
+	private final static int MAP_HEIGHT 			= 11;
+	private final static int NB_SUPERPOINTS  		= 6;
+	private final static int NB_SPECIAL_SMALL  		= 4;
+	private final static int NB_SPECIAL_MEDIUM  	= 2;
+	private final static int NB_SPECIAL_BIG  		= 1;
 	
-	private final static int borderLeft        = 0x01;
-	private final static int borderRight       = 0x02;
-	private final static int borderTop         = 0x04;
-	private final static int borderBottom      = 0x08;
-	private final static int hasPoint          = 0x10;
-	private final static int hasSuperPoint     = 0x20;
-	private final static int hasEnnemy         = 0x40;
+	private final static int borderLeft        = 0x0001;
+	private final static int borderRight       = 0x0002;
+	private final static int borderTop         = 0x0004;
+	private final static int borderBottom      = 0x0008;
+	private final static int hasPoint          = 0x0010;
+	private final static int hasSuperPoint     = 0x0020;
+	private final static int hasEnnemy         = 0x0040;
+	private final static int hasSpecialSmall   = 0x0080;
+	private final static int hasSpecialMedium  = 0x0100;
+	private final static int hasSpecialBig     = 0x0200;
 	
 	private final static int BL = borderLeft;
 	private final static int BR = borderRight;
@@ -24,22 +30,28 @@ public class Map1 implements MapInterface
 	private final static int HE = hasEnnemy;
 	private final static int HP = hasPoint;
 	private final static int HB = hasSuperPoint;
+	private final static int SS = hasSpecialSmall;
+	private final static int SM = hasSpecialMedium;
+	private final static int SB = hasSpecialMedium;
 	
-	int[][] ennemiesTable = new int[NB_ENNEMIES][2];
-	int[][] bonusesTable = new int[NB_BONUSES][2];
-	int[][] map = new int[][]
+	int[][] ennemiesTable 		= new int[NB_ENNEMIES][2];
+	int[][] superPointsTable 	= new int[NB_SUPERPOINTS][2];
+	int[][] specialSmallTable 	= new int[NB_SPECIAL_SMALL][2];
+	int[][] specialMediumTable 	= new int[NB_SPECIAL_MEDIUM][2];
+	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
+	int[][] map 				= new int[][]
 	{ 
-		{BT| BL    , BT       ,   BT|BB       , BT          ,      BB    ,BT|BB          ,    BT | BB       ,    BT|BB      ,    BT|BB     ,   BT|BR},
+		{BT| BL    , BT|SS       ,   BT|BB       , BT          ,      BB    ,BT|BB          ,    BT | BB       ,    BT|BB      ,    BT|BB     ,   BT|BR},
 		{BL| BR    , BL|BR    ,   BT|BL|BR    , BL | BR     ,   BL|BT    ,   BT|BB       ,    BT|BB         ,    BT         ,    BT|BR|BB  ,   BL|  BR},
 		{BL| BR    , BL|BR    ,   BL|BR       , BL |BR      ,   BL       ,   BT|BB       ,    BT|BB         ,   HE          ,   BB|BT      ,   BR},
-		{BL| BR    , BL|BR    ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL          ,   BT|BR      ,   BL| BR},
-		{BL| BR    , BL       ,   BT|BB       , BB          ,   BT       ,   BT |BB      ,      BT          ,   BT |BR      ,   BB |BL     ,   BR},
+		{BL| BR    , BL|BR    ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL|BB          ,   BT|BR      ,   BL| BR},
+		{BL| BR    , BL |SM      ,   BT|BB       , BB |SS      ,  SB| BT       ,   BT |BB      ,      BT          ,   BT |BR      ,   BB |BL     ,   BR},
 		{    BR    , BB|BR|BL ,   BL|BB|BT    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0},
 		{BL| BB    , BT       ,   BT          , HE|BT|BB    ,   BT|BB    ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BT|BR , BL|BR    ,   HE|BL|BB    , BT|BB       ,   BT|BB    ,   BR          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
+		{BL| BT|BR , BL|BR    ,   HE|BL|BB    , BT|BB       ,   BT|BB    ,   BR  |SS     ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
 		{BL| BR    , BL|BR    ,   BL|HB|BT    , BB | BT     ,   BB|BT    ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BR    , BL       ,   BT|BB|HE    , BT | BB     ,   HB |BB   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
-		{BL| BB    ,   BB     ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },
+		{BL| BR    , BL|SS       ,   BT|BB|HE    , BT | BB     ,   HB |BB   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
+		{BL| BB    ,   BB |SM    ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },
 	};
 	
 	
@@ -61,13 +73,64 @@ public class Map1 implements MapInterface
 			{
 				if ((map[y][x] & hasSuperPoint ) != 0)
 				{
-					bonusesTable[ind][0] = x;
-					bonusesTable[ind][1] = y;
-					ind = (ind + 1) % NB_BONUSES;
+					superPointsTable[ind][0] = x;
+					superPointsTable[ind][1] = y;
+					ind = (ind + 1) % NB_SUPERPOINTS;
 				}
 			}			
 		}
 		
+		
+		/*
+		 * Bonuses table definition
+		 */
+		ind = 0;
+		for (int x = 0 ; x < MAP_WIDTH ; x++)
+		{
+			for (int y = 0 ; y < MAP_WIDTH ; y++)
+			{
+				if ((map[y][x] & hasSpecialSmall ) != 0)
+				{
+					specialSmallTable[ind][0] = x;
+					specialSmallTable[ind][1] = y;
+					ind = (ind + 1) % NB_SPECIAL_SMALL;
+				}
+			}			
+		}
+		
+		/*
+		 * Bonuses table definition
+		 */
+		ind = 0;
+		for (int x = 0 ; x < MAP_WIDTH ; x++)
+		{
+			for (int y = 0 ; y < MAP_WIDTH ; y++)
+			{
+				if ((map[y][x] & hasSpecialMedium ) != 0)
+				{
+					specialMediumTable[ind][0] = x;
+					specialMediumTable[ind][1] = y;
+					ind = (ind + 1) % NB_SPECIAL_MEDIUM;
+				}
+			}			
+		}
+		
+		/*
+		 * Bonuses table definition
+		 */
+		ind = 0;
+		for (int x = 0 ; x < MAP_WIDTH ; x++)
+		{
+			for (int y = 0 ; y < MAP_WIDTH ; y++)
+			{
+				if ((map[y][x] & hasSpecialBig ) != 0)
+				{
+					specialBigTable[ind][0] = x;
+					specialBigTable[ind][1] = y;
+					ind = (ind + 1) % NB_SPECIAL_BIG;
+				}
+			}			
+		}
 
 		/*
 		 * Ennemy table definition
@@ -155,14 +218,14 @@ public class Map1 implements MapInterface
 		return NB_ENNEMIES;
 	}
 
-	public int getNbBonuses()
+	public int getNbSuperPoints()
 	{
-		return NB_BONUSES;
+		return NB_SUPERPOINTS;
 	}
 
-	public int[] getBonusPosition(int index)
+	public int[] getSuperPointPosition(int index)
 	{
-		return bonusesTable[index];
+		return superPointsTable[index];
 	}
 
 	public int[] getHeroPosition()
@@ -174,5 +237,33 @@ public class Map1 implements MapInterface
 	{
 		return 50;
 	}
-
+	public int getNbSpecialSmall ()
+	{
+		return NB_SPECIAL_SMALL;
+	}
+	
+	public int[] getSpecialSmallPosition (int index)
+	{
+		return specialSmallTable[index];
+	}
+	
+	public int getNbSpecialMedium ()
+	{
+		return NB_SPECIAL_MEDIUM;
+	}
+	
+	public int[] getSpecialMediumPosition (int index)
+	{
+		return specialMediumTable[index];
+	}
+	
+	public int getNbSpecialBig ()
+	{
+		return NB_SPECIAL_BIG;
+	}
+	
+	public int[] getSpecialBigPosition (int index)
+	{
+		return specialBigTable[index];
+	}
 }

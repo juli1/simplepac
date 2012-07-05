@@ -4,18 +4,25 @@ import org.gunnm.pacman.model.MapInterface;
 
 public class Map2 implements MapInterface
 {
-	private final static int NB_ENNEMIES = 5;
-	private final static int MAP_WIDTH = 10;
-	private final static int MAP_HEIGHT = 11;
-	private final static int NB_BONUSES  = 6;
+	private final static int NB_ENNEMIES 			= 5;
+	private final static int MAP_WIDTH 				= 10;
+	private final static int MAP_HEIGHT 			= 11;
+	private final static int NB_SUPERPOINTS  		= 6;
+	private final static int NB_SPECIAL_SMALL  		= 0;
+	private final static int NB_SPECIAL_MEDIUM  	= 0;
+	private final static int NB_SPECIAL_BIG  		= 0;
 	
-	private final static int borderLeft        = 0x01;
-	private final static int borderRight       = 0x02;
-	private final static int borderTop         = 0x04;
-	private final static int borderBottom      = 0x08;
-	private final static int hasPoint          = 0x10;
-	private final static int hasSuperPoint     = 0x20;
-	private final static int hasEnnemy         = 0x40;
+	
+	private final static int borderLeft        = 0x0001;
+	private final static int borderRight       = 0x0002;
+	private final static int borderTop         = 0x0004;
+	private final static int borderBottom      = 0x0008;
+	private final static int hasPoint          = 0x0010;
+	private final static int hasSuperPoint     = 0x0020;
+	private final static int hasEnnemy         = 0x0040;
+	private final static int hasSpecialSmall   = 0x0080;
+	private final static int hasSpecialMedium  = 0x0100;
+	private final static int hasSpecialBig     = 0x0200;
 	
 	private final static int BL = borderLeft;
 	private final static int BR = borderRight;
@@ -24,9 +31,15 @@ public class Map2 implements MapInterface
 	private final static int HE = hasEnnemy;
 	private final static int HP = hasPoint;
 	private final static int HB = hasSuperPoint;
+	private final static int SS = hasSpecialSmall;
+	private final static int SM = hasSpecialMedium;
+	private final static int SB = hasSpecialMedium;
 	
-	int[][] ennemiesTable = new int[NB_ENNEMIES][2];
-	int[][] bonusesTable = new int[NB_BONUSES][2];
+	int[][] ennemiesTable 		= new int[NB_ENNEMIES][2];
+	int[][] superPointsTable 	= new int[NB_SUPERPOINTS][2];
+	int[][] specialSmallTable 	= new int[NB_SPECIAL_SMALL][2];
+	int[][] specialMediumTable 	= new int[NB_SPECIAL_MEDIUM][2];
+	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
 	int[][] map = new int[][]
 	{ 
 		{BT| BL       , BT|BB        ,   BT          , BT|BB           ,      BB       ,   BT          ,    BL|BT         ,   BT|BB       ,    BT  |BB   ,   BT|BR      },
@@ -61,9 +74,9 @@ public class Map2 implements MapInterface
 			{
 				if ((map[y][x] & hasSuperPoint ) != 0)
 				{
-					bonusesTable[ind][0] = x;
-					bonusesTable[ind][1] = y;
-					ind = (ind + 1) % NB_BONUSES;
+					superPointsTable[ind][0] = x;
+					superPointsTable[ind][1] = y;
+					ind = (ind + 1) % NB_SUPERPOINTS;
 				}
 			}			
 		}
@@ -155,14 +168,14 @@ public class Map2 implements MapInterface
 		return NB_ENNEMIES;
 	}
 
-	public int getNbBonuses()
+	public int getNbSuperPoints()
 	{
-		return NB_BONUSES;
+		return NB_SUPERPOINTS;
 	}
 
-	public int[] getBonusPosition(int index)
+	public int[] getSuperPointPosition(int index)
 	{
-		return bonusesTable[index];
+		return superPointsTable[index];
 	}
 
 	public int[] getHeroPosition()
@@ -174,5 +187,37 @@ public class Map2 implements MapInterface
 	{
 		return 50;
 	}
+
+	
+	public int getNbSpecialSmall ()
+	{
+		return NB_SPECIAL_SMALL;
+	}
+	
+	public int[] getSpecialSmallPosition (int index)
+	{
+		return specialSmallTable[index];
+	}
+	
+	public int getNbSpecialMedium ()
+	{
+		return NB_SPECIAL_MEDIUM;
+	}
+	
+	public int[] getSpecialMediumPosition (int index)
+	{
+		return specialMediumTable[index];
+	}
+	
+	public int getNbSpecialBig ()
+	{
+		return NB_SPECIAL_BIG;
+	}
+	
+	public int[] getSpecialBigPosition (int index)
+	{
+		return specialBigTable[index];
+	}
+
 
 }

@@ -18,6 +18,13 @@ public class Game {
 	private int unvulnerableCounterConstant;
 	private int currentAction;
 	private int pointsEaten;
+	
+	
+	public static final int POINTS_SUPERPOINT 		= 10;
+	public static final int POINTS_SPECIAL_SMALL 	= 20;
+	public static final int POINTS_SPECIAL_MEDIUM 	= 50;
+	public static final int POINTS_SPECIAL_BIG    	= 100;
+
 	public static final int DEFAULT_UNVULNERABLE_COUNTER = 100;
 	public static final int MAX_ENNEMIES = 100;
 	public static final int COUNTER_NEXT_LEVEL = 60;
@@ -38,15 +45,15 @@ public class Game {
 	
 	public Game ()
 	{
-		currentMapIndex = 0;
-		pointsEaten = 0;
-		currentAction = ACTION_NONE;
+		currentMapIndex 	= 0;
+		pointsEaten 		= 0;
+		currentAction 		= ACTION_NONE;
 		
-		hero = new Hero ();
-		ennemies = new ArrayList<Ennemy>();
+		hero 				= new Hero ();
+		ennemies 			= new ArrayList<Ennemy>();
 		initMap (currentMapIndex);
 		unvulnerableCounter = 0;
-		dyingCounter = 0;
+		dyingCounter 		= 0;
 		hero.setPositionX (heroDefaultX);
 		hero.setPositionY (heroDefaultY);
 	
@@ -114,11 +121,31 @@ public class Game {
 			this.addEnnemy(tmp[0], tmp[1]);
 		}
 		
-		for (int i = 0 ; i < custom.getNbBonuses() ; i++)
+		for (int i = 0 ; i < custom.getNbSuperPoints() ; i++)
 		{
-			tmp = custom.getBonusPosition(i);
+			tmp = custom.getSuperPointPosition(i);
 			map.enableSuperPoint (tmp[0], tmp[1]);
 		}
+		
+		for (int i = 0 ; i < custom.getNbSpecialSmall() ; i++)
+		{
+			tmp = custom.getSpecialSmallPosition(i);
+			map.enableSpecialSmall (tmp[0], tmp[1]);
+		}
+		
+
+		for (int i = 0 ; i < custom.getNbSpecialMedium() ; i++)
+		{
+			tmp = custom.getSpecialMediumPosition(i);
+			map.enableSpecialMedium (tmp[0], tmp[1]);
+		}		
+		
+
+		for (int i = 0 ; i < custom.getNbSpecialBig() ; i++)
+		{
+			tmp = custom.getSpecialBigPosition(i);
+			map.enableSpecialBig (tmp[0], tmp[1]);
+		}		
 		
 		for (int i = 0 ; i < custom.getWidth() ; i++)
 		{
@@ -503,6 +530,7 @@ public class Game {
 					currentAction = ACTION_NONE;
 					
 					initMap (currentMapIndex);
+					
 					unvulnerableCounter = 0;
 					dyingCounter = 0;
 					hero.setPositionX (heroDefaultX);
@@ -513,9 +541,8 @@ public class Game {
 			return;
 		}
 		
-		this.currentAction = ACTION_NONE;
-		
-		if (this.pointsEaten == map.getNbPoints())
+		if ((this.pointsEaten == map.getNbPoints()) &&
+			(this.currentAction != ACTION_FINISHED))
 		{
 			hero.canMove(false);
 			this.currentAction = ACTION_FINISHED;
@@ -523,6 +550,8 @@ public class Game {
 			Scores.getInstance().registerScore(hero.getScore());
 			return;
 		}
+
+		this.currentAction = ACTION_NONE;
 		
 		if (hero.isDying ())
 		{
@@ -593,8 +622,29 @@ public class Game {
 		{
 			map.getPart(hero.getPositionX(), hero.getPositionY()).disableSuperPoint();
 			hero.setUnVulnerable();
-			hero.addPoints (10);
+			hero.addPoints (POINTS_SUPERPOINT);
 			unvulnerableCounter = unvulnerableCounterConstant;
+			this.currentAction = ACTION_BONUS;
+		}
+		
+		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasSpecialBig())
+		{
+			map.getPart(hero.getPositionX(), hero.getPositionY()).disableSpecialBig();
+			hero.addPoints (POINTS_SPECIAL_BIG);
+			this.currentAction = ACTION_BONUS;
+		}
+		
+		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasSpecialMedium())
+		{
+			map.getPart(hero.getPositionX(), hero.getPositionY()).disableSpecialMedium();
+			hero.addPoints (POINTS_SPECIAL_MEDIUM);
+			this.currentAction = ACTION_BONUS;
+		}
+		
+		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasSpecialSmall())
+		{
+			map.getPart(hero.getPositionX(), hero.getPositionY()).disableSpecialSmall();
+			hero.addPoints (POINTS_SPECIAL_SMALL);
 			this.currentAction = ACTION_BONUS;
 		}
 		

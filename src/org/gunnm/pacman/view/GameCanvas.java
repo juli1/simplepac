@@ -345,10 +345,28 @@ public class GameCanvas extends View
 				if (gameModel.getMap().getPart(i, j).hasSuperPoint())
 				{
 
-					bitmapToLoad = skin.getBonus1 ();
+					bitmapToLoad = skin.getSuperPoint ();
 
 					canvas.drawBitmap(bitmapToLoad, i * squareSize + 5, j * squareSize + 5, new Paint());
 
+				}
+				
+				if (gameModel.getMap().getPart(i, j).hasSpecialSmall())
+				{
+					bitmapToLoad = skin.getSpecialSmall();
+					canvas.drawBitmap(bitmapToLoad, i * squareSize + 5, j * squareSize + 5, new Paint());
+				}
+				
+				if (gameModel.getMap().getPart(i, j).hasSpecialMedium())
+				{
+					bitmapToLoad = skin.getSpecialMedium();
+					canvas.drawBitmap(bitmapToLoad, i * squareSize + 5, j * squareSize + 5, new Paint());
+				}
+				
+				if (gameModel.getMap().getPart(i, j).hasSpecialBig())
+				{
+					bitmapToLoad = skin.getSpecialBig();
+					canvas.drawBitmap(bitmapToLoad, i * squareSize + 5, j * squareSize + 5, new Paint());
 				}
 				
 			}

@@ -46,6 +46,10 @@ public class BasicSkin extends Skin
 	private Bitmap ennemyVulnerable1;
 	private Bitmap ennemyVulnerable2;
 	private Bitmap point;
+	private Bitmap superPoint;
+	private Bitmap specialSmall;
+	private Bitmap specialMedium;
+	private Bitmap specialBig;
 	private Bitmap bonus1;
 	private Bitmap bonus2;
 	private Bitmap gameOver;
@@ -185,6 +189,9 @@ public class BasicSkin extends Skin
 			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 			bonus1 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
 			bonus2 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
+			specialSmall	= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
+			specialMedium	= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
+			specialBig		= scaleImage (BitmapFactory.decodeStream(manager.open("bonus3.png")), entitySize);
 			ennemyLeft1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-left1.png")), entitySize);
 			ennemyLeft2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-left2.png")), entitySize);
 			ennemyUp1 		= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-up1.png")), entitySize);
@@ -196,7 +203,10 @@ public class BasicSkin extends Skin
 			ennemyVulnerable1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue1.png")), entitySize);
 			ennemyVulnerable2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue2.png")), entitySize);
 			point 			= scaleImage (BitmapFactory.decodeStream(manager.open("point.png")), entitySize);
+			
+			superPoint 		= scaleImage (BitmapFactory.decodeStream(manager.open("superpoint.png")), entitySize);
 			wallVertical    = scaleImageHeight (BitmapFactory.decodeStream(manager.open("wallv.png")), partSize);
+			
 			wallHorizontal  = scaleImageWidth (BitmapFactory.decodeStream(manager.open("wallh.png")), partSize);
 		}
 		catch(IOException ex)
@@ -257,10 +267,31 @@ public class BasicSkin extends Skin
 		return this.bonus1;
 	}
 	
+	public Bitmap getSpecialSmall ()
+	{
+		return this.specialSmall;
+	}	
+
+	public Bitmap getSpecialMedium ()
+	{
+		return this.specialMedium;
+	}
+
+	public Bitmap getSpecialBig ()
+	{
+		return this.specialBig;
+	}
+	
 	public Bitmap getBonus2()
 	{
 		return this.bonus2;
 	}
+	
+	public Bitmap getSuperPoint()
+	{
+		return this.superPoint;
+	}
+	
 	public Bitmap getPoint()
 	{
 		return this.point;
@@ -415,4 +446,5 @@ public class BasicSkin extends Skin
 	{
 		return "copyright-skin.txt";
 	}
+	
 }

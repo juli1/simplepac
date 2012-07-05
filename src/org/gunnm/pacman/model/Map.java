@@ -120,6 +120,22 @@ public class Map {
 		parts[x][y].enableSuperPoint();
 	}
 	
+	public void enableSpecialSmall (int x, int y)
+	{
+		parts[x][y].enableSpecialSmall();
+	}
+	
+
+	public void enableSpecialMedium (int x, int y)
+	{
+		parts[x][y].enableSpecialMedium();
+	}
+	
+	public void enableSpecialBig (int x, int y)
+	{
+		parts[x][y].enableSpecialBig();
+	}
+	
 	public int[] getRandomLocation ()
 	{
 		int [] ret = new int[2];

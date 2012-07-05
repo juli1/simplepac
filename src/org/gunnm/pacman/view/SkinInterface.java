@@ -16,7 +16,11 @@ public interface SkinInterface {
 	public Bitmap getEnnemyVulnerable1 ();
 	public Bitmap getEnnemyVulnerable2 ();
 	public Bitmap getBonus1 ();
-	public Bitmap getBonus2();
+	public Bitmap getBonus2 ();
+	public Bitmap getSpecialSmall ();
+	public Bitmap getSpecialMedium ();
+	public Bitmap getSpecialBig ();
+	public Bitmap getSuperPoint();
 	public Bitmap getPoint();
 	public Bitmap getPacmanDown1();
 	public Bitmap getPacmanDown2();
