@@ -16,7 +16,7 @@ public class Game {
 	private int dyingCounter;
 	private int unvulnerableCounter;
 	private int unvulnerableCounterConstant;
-	private int currentAction;
+	private volatile int currentAction;
 	private int pointsEaten;
 	
 	
@@ -513,8 +513,11 @@ public class Game {
 		}
 	}
 	
-	public void reaction()
+	public synchronized void reaction()
 	{
+//		Log.i (TAG, "Reaction !" + this.currentAction);
+
+		
 		if (this.currentAction == ACTION_FINISHED)
 		{
 			
@@ -544,13 +547,23 @@ public class Game {
 		if ((this.pointsEaten == map.getNbPoints()) &&
 			(this.currentAction != ACTION_FINISHED))
 		{
+			Log.i (TAG, "Everything eaten !");
 			hero.canMove(false);
 			this.currentAction = ACTION_FINISHED;
 			dyingCounter = COUNTER_NEXT_LEVEL;
 			Scores.getInstance().registerScore(hero.getScore());
 			return;
+		} 
+ 
+		if (hero.getLifes() == 0)
+		{
+			this.currentAction = ACTION_FINISHED;
+			Log.i (TAG, "No more lifes !");
+			hero.canMove(false);
+			Scores.getInstance().registerScore(hero.getScore());
+			return;
 		}
-
+		
 		this.currentAction = ACTION_NONE;
 		
 		if (hero.isDying ())
@@ -559,13 +572,7 @@ public class Game {
 			return;
 		}
 		
-		if (hero.getLifes() == 0)
-		{
-			hero.canMove(false);
-			this.currentAction = ACTION_FINISHED;
-			Scores.getInstance().registerScore(hero.getScore());
-			return;
-		}
+	
 
 		
 		//Log.i(TAG, "BEFORE REACTION, HERO, X="+ hero.getPositionX() + "Y="+ hero.getPositionY() + " stepX=" + hero.getInternalStepValueX() + " stepY="   + hero.getInternalStepValueY() );

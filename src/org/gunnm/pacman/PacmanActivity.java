@@ -48,6 +48,8 @@ public class PacmanActivity extends Activity {
 
 	private void startTimer ()
 	{
+		Log.i(TAG, "start timer");
+
 		autoUpdate = new Timer ();
 		autoUpdate.schedule(new TimerTask() 
 		{
@@ -72,6 +74,21 @@ public class PacmanActivity extends Activity {
 							tv.setText("" + gameModel.getHero().getLifes());
 						}
 						mainCanvas.invalidate();
+						/*
+						if ((gameModel.getCurrentAction() == Game.ACTION_FINISHED) &&
+							(gameModel.getHero().getLifes() <= 0))
+						{
+							Log.i(TAG, "cancel timer no lifes");
+							autoUpdate.cancel();
+						}
+						
+						if ((gameModel.getCurrentAction() == Game.ACTION_FINISHED) &&
+							(gameModel.getCurrentMapIndex() >= (Game.NB_MAPS - 1)))
+						{
+							Log.i(TAG, "cancel timer max maps");
+							autoUpdate.cancel();
+						}
+						*/
 					}
 				});
 			}

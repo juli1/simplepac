@@ -39,23 +39,23 @@ public class TitleActivity extends Activity {
 		if (display.getHeight() < display.getWidth())
 		{
 			size = display.getHeight();
-		}
+		} 
 		else
-		{ 
+		{  
 			size = display.getWidth();
-		}
+		}   
 		gameModel 		= new Game ();
 		squareSize 		= size / gameModel.getMap().getWidth();
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), squareSize);
 		sound      		= Sound.getInstance (this, gameModel, skin);
-		
-		if (debug)
-        {
+   
+		if (debug)   
+        {  
         	Intent intent = new Intent(this, org.gunnm.pacman.PacmanActivity.class);
         	startActivity(intent);
         }
         else
-        {
+        { 
         	titleCanvas = new TitleScreen (this, skin, display);
         	//title.setOnTouchListener(new);
         	sound.playIntro();
