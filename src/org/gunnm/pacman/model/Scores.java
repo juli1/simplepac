@@ -124,7 +124,7 @@ public class Scores extends SQLiteOpenHelper {
 
 	    }
 
-    	private void sendScore(int score, String date) 
+    	private boolean sendScore(int score, String date) 
     	{
     		String username;
     		username = preferences.getString ("username", "Unnamed Player");
@@ -148,10 +148,12 @@ public class Scores extends SQLiteOpenHelper {
 
     		} catch (ClientProtocolException e) {
     			Log.i(TAG, "Protocol exception "+ e.toString());
+    			return false;
     		} catch (IOException e) {
     			Log.i(TAG, "IO exception "+ e.toString());
-    			
+    			return false;
     		}
+    		return true;
     	}
 	    
 	    
@@ -169,7 +171,7 @@ public class Scores extends SQLiteOpenHelper {
 			this.insertDefaultValues(db);
 		}
 		
-		public void sendAll()
+		public boolean sendAll()
 		{
 			
 			String dateStr;
@@ -190,15 +192,19 @@ public class Scores extends SQLiteOpenHelper {
 		    		dateStr = cursor.getString(1);
 		    		
 		    		score   = cursor.getInt (0);
-		    		sendScore(score, dateStr);
+		    		if ( ! sendScore(score, dateStr))
+		    		{
+		    			return false;
+		    		}
 		    	}
 		    	catch (Exception e)
 		    	{
-		    
+		    		return false;
 		    	}
 	    		cursor.moveToNext();
 	    	}
 	    	cursor.close();
+	    	return true;
 		}
 		
 		
