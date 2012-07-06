@@ -692,4 +692,48 @@ public class Game {
 	{
 		return this.currentMapIndex;
 	}
+	
+	
+	public boolean canTakeDirection(Entity e, int direction)
+	{
+		switch (direction)
+		{
+			case Entity.DIRECTION_DOWN:
+			{
+				if (e.getInternalStepValueX() < (INTERNAL_STEP_VALUE * -1) || e.getInternalStepValueX() > (INTERNAL_STEP_VALUE * 1))
+				{
+					return false;
+				}
+				return ! map.getPart(e.getPositionX(), e.getPositionY()).hasBorderBottom();
+			}
+			case Entity.DIRECTION_UP:
+			{
+				if (e.getInternalStepValueX() < (INTERNAL_STEP_VALUE * -1) || e.getInternalStepValueX() > (INTERNAL_STEP_VALUE * 1))
+				{
+					return false;
+				}
+				return ! map.getPart(e.getPositionX(), e.getPositionY()).hasBorderTop();
+			}
+			case Entity.DIRECTION_LEFT:
+			{
+				if (e.getInternalStepValueY() < (INTERNAL_STEP_VALUE * -1) || e.getInternalStepValueY() > (INTERNAL_STEP_VALUE * 1))
+				{
+					return false;
+				}
+				return ! map.getPart(e.getPositionX(), e.getPositionY()).hasBorderLeft();
+			}
+			case Entity.DIRECTION_RIGHT:
+			{
+				if (e.getInternalStepValueY() < (INTERNAL_STEP_VALUE * -1) || e.getInternalStepValueY() > (INTERNAL_STEP_VALUE * 1))
+				{
+					return false;
+				}
+				return ! map.getPart(e.getPositionX(), e.getPositionY()).hasBorderRight();
+			}
+		}
+		
+		return false;
+	}
+	
+	
 }

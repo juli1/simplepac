@@ -40,6 +40,12 @@ public class Touch implements OnTouchListener {
 		float currentY;
 		float deltaX;
 		float deltaY;
+		int heroPositionX;
+		int heroPositionY;
+		
+		heroPositionX = (screenWidth / Game.getInstance().getMap().getWidth()) * Game.getInstance().getHero().getPositionX();
+		heroPositionY = (screenHeight/ Game.getInstance().getMap().getHeight()) * Game.getInstance().getHero().getPositionY();
+		
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
 			previousX = event.getX();
@@ -69,7 +75,9 @@ public class Touch implements OnTouchListener {
 				{
 					Log.i(TAG, "Moving left");
 					model.getHero().setDirection(Entity.DIRECTION_LEFT);
+					
 				}
+				return true;
 			}
 			
 			if (Math.abs (deltaY) > screenHeight / 3)
@@ -86,8 +94,41 @@ public class Touch implements OnTouchListener {
 					Log.i(TAG, "Moving up");
 					model.getHero().setDirection(Entity.DIRECTION_UP);
 				}
+				return true;
 			}
+			
+			if ( (currentY < heroPositionY) && ((heroPositionY-currentY ) >  screenHeight / 6)
+					&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_UP))
+			{
+				model.getHero().setDirection(Entity.DIRECTION_UP);
+				return true;
+			}
+			
+			if ( (currentY > heroPositionY) && ((currentY - heroPositionY) >  screenHeight / 6) &&
+				 model.canTakeDirection(model.getHero(), Entity.DIRECTION_DOWN))
+			{
+				model.getHero().setDirection(Entity.DIRECTION_DOWN);
+				return true;
+			}
+			
+			if ( (currentX > heroPositionX) && ((currentX - heroPositionX) >  screenWidth / 6)
+					&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_RIGHT))
+			{
+				model.getHero().setDirection(Entity.DIRECTION_RIGHT);
+				return true;
+			}
+			
+			if ( (currentX < heroPositionX) && ((heroPositionX - currentX) >  screenWidth / 6)
+					&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_LEFT))
+			{
+				model.getHero().setDirection(Entity.DIRECTION_LEFT);
+				return true;
+			}
+				
+			
+			
 		}
+		
 
 		return true;
 	}
