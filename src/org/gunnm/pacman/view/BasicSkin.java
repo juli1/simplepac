@@ -59,31 +59,34 @@ public class BasicSkin extends Skin
 	private Bitmap wallVertical;
 	private Bitmap wallHorizontal;
 	private Bitmap highScoresLogo;
-	private int partSize;
 	private Bitmap copyright;
-	
+	private int partSize;
+	private int screenWidth;
+	private int screenHeight;
 	
 	public static Skin getInstance ()
 	{
 		return BasicSkin.instance;
 	}
 	
-	public static Skin getInstance (AssetManager manager, int ps)
+	public static Skin getInstance (AssetManager manager, int ps, int sw, int sh)
 	{
 		if (BasicSkin.instance == null)
 		{
-			BasicSkin.instance = new BasicSkin (manager, ps);
+			BasicSkin.instance = new BasicSkin (manager, ps, sw, sh);
 		}
 		return BasicSkin.instance;
 	}
 	
-	public BasicSkin (AssetManager manager, int ps)
+	public BasicSkin (AssetManager manager, int ps, int sw, int sh)
 	{
 		if (BasicSkin.instance != null)
 		{
 			return;
 		}
-		
+		screenWidth  = sw;
+		screenHeight = sh;
+
 		partSize = ps;
 		this.loadResources(manager);
 		BasicSkin.instance = this; 
@@ -100,6 +103,25 @@ public class BasicSkin extends Skin
 		float ratio = ((float) bitmap.getWidth()) / newWidth;
 		int newHeight = (int) (height / ratio);
 		float scaleHeight = ((float) newHeight) / height;
+
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+
+		newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+		return newBitmap;
+	}
+	
+	private Bitmap scaleImageByHeight(Bitmap bitmap, int newHeight) 
+	{
+		Bitmap newBitmap;
+		
+		int width = bitmap.getWidth();
+		int height = bitmap.getHeight();
+
+		float scaleHeight = ((float) newHeight) / height;
+		float ratio = ((float) bitmap.getHeight()) / newHeight;
+		int newWidth = (int) (width / ratio);
+		float scaleWidth = ((float) newWidth) / width;
 
 		Matrix matrix = new Matrix();
 		matrix.postScale(scaleWidth, scaleHeight);
@@ -176,19 +198,19 @@ public class BasicSkin extends Skin
 			pacmanDie5 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die5.png")), entitySize);
 			pacmanDie6 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die6.png")), entitySize);
 
-			logo 			= BitmapFactory.decodeStream(manager.open("logo.png"));
+			logo 			= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("logo.png")), screenHeight / 6);
 			highScoresLogo	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
 			nextLevel 		= BitmapFactory.decodeStream(manager.open("nextlevel.png"));
-			newGame 		= BitmapFactory.decodeStream(manager.open("newgame.png"));
-			highScores 		= BitmapFactory.decodeStream(manager.open("highscores.png"));
-			preferences 	= BitmapFactory.decodeStream(manager.open("preferences.png"));
+			newGame 		= scaleImageByHeight( BitmapFactory.decodeStream(manager.open("newgame.png")), screenHeight / 10);
+			highScores 		= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("highscores.png")), screenHeight / 10);
+			preferences 	= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("preferences.png")), screenHeight / 10);
 
-			instructions 	= BitmapFactory.decodeStream(manager.open("instructions.png"));
+			instructions 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenWidth / 3);
 			
-			copyright 		= BitmapFactory.decodeStream(manager.open("copyright.png"));
+			copyright 		= scaleImage(BitmapFactory.decodeStream(manager.open("copyright.png")), screenWidth / 3);
 			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
-
+  
 			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 			bonus1 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
 			bonus2 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
@@ -230,7 +252,7 @@ public class BasicSkin extends Skin
 	
 	public String getInstructionsURL ()
 	{
-		return "http://julien.gunnm.org/";
+		return "http://games.gunnm.org/pacman-instructions.html";
 	}
 	
 	public Bitmap getPacmanFull ()

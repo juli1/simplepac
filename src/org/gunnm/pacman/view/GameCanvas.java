@@ -23,7 +23,7 @@ public class GameCanvas extends View
 	private volatile Game gameModel;
 	private Skin skin;
 	private int squareSize;
-	private final static float STEP_INCR = 0.17f;
+	private static float STEP_INCR = 0.17f;
 	private Paint defaultPaint;
 	 
 	
@@ -42,11 +42,13 @@ public class GameCanvas extends View
 			size = display.getHeight();
 		}
 		else
-		{
-			size = display.getWidth();
+		{ 
+			size = display.getWidth(); 
 		}
 		squareSize = size / gameModel.getMap().getWidth();
 		skin = s;
+		STEP_INCR = (float)(squareSize ) / (2 * Game.INTERNAL_STEP_THRESHOLD) ;
+		Log.i(TAG, "squareSize=" + squareSize + " incr = " + STEP_INCR);
 	}
 	
 	public void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
