@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.util.Log;
 
 public class Sound {
 	private Context 			context;
@@ -66,14 +65,14 @@ public class Sound {
 		} 
 		catch (IOException e) 
 		{
-			Log.e(TAG, "Error while loading sound" + e.toString());
+//			Log.e(TAG, "Error while loading sound" + e.toString());
 		}
 
 	}
 	
 	public void playEat ()
 	{
-		Log.i(TAG, "Play eat");
+//		Log.i(TAG, "Play eat");
 		playSound (eatId);
 	}
 	
@@ -114,8 +113,6 @@ public class Sound {
 			return;
 		} 
 		lastAction = action;
-		if (gameData.getCurrentAction() != 0)
-			Log.i(TAG, "current action" + gameData.getCurrentAction());
 		switch (action)
 		{
 			case Game.ACTION_EAT:

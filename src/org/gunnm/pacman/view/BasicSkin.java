@@ -7,7 +7,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.util.Log;
 
 public class BasicSkin extends Skin
 {
@@ -235,7 +234,7 @@ public class BasicSkin extends Skin
 		}
 		catch(IOException ex)
 		{
-			Log.e(TAG, "Exception: " + ex.toString());
+//			Log.e(TAG, "Exception: " + ex.toString());
 		}
 	}
 	public Bitmap getCopyright ()

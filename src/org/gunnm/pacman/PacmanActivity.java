@@ -161,15 +161,15 @@ public class PacmanActivity extends Activity {
         	View v = findViewById(R.layout.panel);
         	if (v == null)
         	{
-        		Log.i(TAG, "Cannot find the view");
+//        		Log.i(TAG, "Cannot find the view");
         	}
         	else
         	{
-        		Log.i(TAG, "Other view added");
+//        		Log.i(TAG, "Other view added");
 
         		fl.addView(v, 2);
         	}
-         	Log.e(TAG, "main canvas added");
+//         	Log.e(TAG, "main canvas added");
         }
     }
 }

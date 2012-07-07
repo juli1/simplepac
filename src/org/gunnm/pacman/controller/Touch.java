@@ -58,7 +58,7 @@ public class Touch implements OnTouchListener {
 			
 			currentY = event.getY();
 			
-			Log.i(TAG, "Touch Event, previous coord ("+previousX+ "," + previousY+") current coord ("+currentX+ ","+currentY+")");
+//			Log.i(TAG, "Touch Event, previous coord ("+previousX+ "," + previousY+") current coord ("+currentX+ ","+currentY+")");
 			
 			deltaX = currentX - previousX;
 			deltaY = currentY - previousY;
@@ -66,14 +66,11 @@ public class Touch implements OnTouchListener {
 			{
 				if (previousX < currentX)
 				{
-					Log.i(TAG, "Moving right");
 					model.getHero().setDirection(Entity.DIRECTION_RIGHT);
 				}
 				else
 				{
-					Log.i(TAG, "Moving left");
-					model.getHero().setDirection(Entity.DIRECTION_LEFT);
-					
+					model.getHero().setDirection(Entity.DIRECTION_LEFT);	
 				}
 				return true;
 			}
@@ -82,14 +79,10 @@ public class Touch implements OnTouchListener {
 			{
 				if (previousY < currentY)
 				{
-					Log.i(TAG, "Moving down");
-
-					model.getHero().setDirection(Entity.DIRECTION_DOWN);
-					
+					model.getHero().setDirection(Entity.DIRECTION_DOWN);	
 				}
 				else
 				{
-					Log.i(TAG, "Moving up");
 					model.getHero().setDirection(Entity.DIRECTION_UP);
 				}
 				return true;
@@ -121,13 +114,8 @@ public class Touch implements OnTouchListener {
 			{
 				model.getHero().setDirection(Entity.DIRECTION_LEFT);
 				return true;
-			}
-				
-			
-			
+			}	
 		}
-		
-
 		return true;
 	}
 }

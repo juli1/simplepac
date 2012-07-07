@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -46,7 +45,7 @@ public class GameCanvas extends View
 		squareSize = size / gameModel.getMap().getWidth();
 		skin = s;
 		STEP_INCR = (float)(squareSize ) / (2 * Game.INTERNAL_STEP_THRESHOLD) ;
-		Log.i(TAG, "squareSize=" + squareSize + " incr = " + STEP_INCR);
+//		Log.i(TAG, "squareSize=" + squareSize + " incr = " + STEP_INCR);
 	}
 	
 	public void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
@@ -130,10 +129,6 @@ public class GameCanvas extends View
 			{
 				//Log.e(TAG,"Draw ennemy "+ e.toString() +"at coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
 				canvas.drawBitmap(bitmapToLoad, e.getPositionX() * squareSize + 5  + e.getInternalStepValueX() * STEP_INCR, e.getPositionY() * squareSize + 5 + e.getInternalStepValueY() * STEP_INCR, defaultPaint);
-			}
-			else
-			{
-				Log.e(TAG,"Mo bitmap for the ennemy, direction=" + e.getDirection() + "coord=(" + e.getPositionX() + "," + e.getPositionY() + ") state=" +e.getState());
 			}
 		}
 	}

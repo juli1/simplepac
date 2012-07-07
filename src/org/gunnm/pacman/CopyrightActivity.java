@@ -50,11 +50,11 @@ public class CopyrightActivity extends Activity {
 	        is.close();
         
 	        txt.setText (copyright);
-	        Log.i(TAG, "set text = " + copyright );
+//	        Log.i(TAG, "set text = " + copyright );
 
 		} catch (IOException e) {
 			
-			Log.e(TAG, e.toString());
+//			Log.e(TAG, e.toString());
 		}
     }
 	

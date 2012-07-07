@@ -69,11 +69,7 @@ public class ScoresActivity extends Activity {
     {
     	ListView lv = (ListView) findViewById(R.id.scores_list);
     	
-    	if (scores == null)
-    	{
-    		Log.e("Scores", "null");
-    	}
-    	else
+    	if (scores != null)
     	{
     		lv.setAdapter (new ArrayAdapter<String> (this, R.layout.score_item, scores.getScores()));
     	}

@@ -268,7 +268,7 @@ public class Game {
 		{
 			if ( (e.getPositionX() == i) && (e.getPositionY() == j))
 			{
-				Log.i(TAG, "Ennemy already exists at this location ("+i+","+j+")");
+//				Log.i(TAG, "Ennemy already exists at this location ("+i+","+j+")");
 				return null;
 			}
 		}
@@ -283,8 +283,6 @@ public class Game {
 	
 	public void reactionEntity(Entity entity)
 	{
-		int nextX;
-		int nextY;
 		entity.react();
 
 		
@@ -457,10 +455,12 @@ public class Game {
 						if( (entity.getInternalStepValueY() <= 0) &&
 		   						(entity.getInternalStepValueY() >= -1 *INTERNAL_STEP_VALUE))
 						{
+							/*
 							if (entity instanceof Hero)
 							{
 								Log.i(TAG, "Going right, X="+ entity.getPositionX() + "Y="+ entity.getPositionY() + " stepX=" +entity.getInternalStepValueX() + "stepY"   + entity.getInternalStepValueY() );
 							}
+							*/
 							entity.setPositionX( (entity.getPositionX() + 1) % map.getWidth());
 							entity.setInternalStepValueX (INTERNAL_STEP_THRESHOLD * -1);
 							entity.setInternalStepValueY (0);
