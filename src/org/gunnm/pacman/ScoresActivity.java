@@ -1,9 +1,7 @@
 package org.gunnm.pacman;
 
-import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BitmapView;
-import org.gunnm.pacman.view.Skin;
 import org.gunnm.pacman.view.TitleScreen;
 
 import android.app.Activity;
@@ -24,7 +22,7 @@ public class ScoresActivity extends Activity {
 	
 	TitleScreen titleCanvas;
 	Scores		scores;
-	public static String SCORE_WEBSITE = "http://games.gunnm.org/pacman-classic";
+	public static String SCORE_WEBSITE = "http://games.gunnm.org/simplepac-scores";
 	
 	public void onCreate(Bundle savedInstanceState)
 	{

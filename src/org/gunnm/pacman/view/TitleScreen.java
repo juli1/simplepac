@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnTouchListener;
 
 public class TitleScreen extends View implements OnTouchListener

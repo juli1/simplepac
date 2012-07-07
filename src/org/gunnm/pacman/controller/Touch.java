@@ -13,7 +13,6 @@ import android.view.View.OnTouchListener;
 
 public class Touch implements OnTouchListener {
 
-	private View relatedView;
 	private Game model;
 	private int screenWidth;
 	private int screenHeight;
@@ -24,7 +23,6 @@ public class Touch implements OnTouchListener {
 	public Touch (Game m, View v)
 	{
 		this.model = m;
-		this.relatedView = v;
 		WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		screenWidth = display.getWidth();

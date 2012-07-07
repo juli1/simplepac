@@ -5,9 +5,7 @@ import java.util.TimerTask;
 
 import org.gunnm.pacman.controller.Key;
 import org.gunnm.pacman.controller.Touch;
-import org.gunnm.pacman.maps.Map1;
 import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BasicSkin;
 import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.GameCanvas;
@@ -16,7 +14,6 @@ import org.gunnm.pacman.view.Sound;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -111,7 +108,6 @@ public class PacmanActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		int size;
-		int squareSize;
 		
         super.onCreate(savedInstanceState);
         
@@ -130,7 +126,6 @@ public class PacmanActivity extends Activity {
 		}
 		gameModel = Game.getInstance ();
 		gameModel.reinit();
-		squareSize = size / gameModel.getMap().getWidth();
 		skin = BasicSkin.getInstance();
 
         

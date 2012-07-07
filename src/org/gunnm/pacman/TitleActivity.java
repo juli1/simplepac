@@ -1,6 +1,5 @@
 package org.gunnm.pacman;
 
-import org.gunnm.pacman.maps.Map2;
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BasicSkin;

@@ -138,7 +138,6 @@ public class BasicSkin extends Skin
 		int height = bitmap.getHeight();
 
 		float scaleWidth = ((float) newWidth) / width;
-		float ratio = ((float) bitmap.getWidth()) / newWidth;
 		int newHeight = (int) height;
 		float scaleHeight = ((float) newHeight) / height;
 
@@ -252,7 +251,7 @@ public class BasicSkin extends Skin
 	
 	public String getInstructionsURL ()
 	{
-		return "http://games.gunnm.org/pacman-instructions.html";
+		return "http://games.gunnm.org/simplepac-instructions.html";
 	}
 	
 	public Bitmap getPacmanFull ()

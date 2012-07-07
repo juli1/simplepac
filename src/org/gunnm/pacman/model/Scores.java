@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -69,9 +68,9 @@ public class Scores extends SQLiteOpenHelper {
 	    {
 	    	ContentValues scoreValues = new ContentValues();
 	    	int nbDefaultScores = 10;
-	    	int[] defaultScores = { 0 , 100, 1000, 2000, 65000, 3000,  200, 2000, 4000, 100000};
-	    	String[] defaultScoresNames = { "John Lennon", "Ali Baba", "You mother", "Barrack Obama", "Jacques Chirac", "Saddam Hussein",
-	    			                     "John McEnroe", "Dionysos", "Jesus", "Buddha"};
+	    	int[] defaultScores = { 0 , 1, 2, 3, 4, 5,  6, 7, 8, 9};
+	    	String[] defaultScoresNames = { "Jane", "Ali Baba", "Kyle", "Henry", "Jack", "Eric",
+	    			                     "John", "Jamie", "Stan", "Diana"};
 	    	String[] defaultScoresDates = { "12-09-1975-00-00", "02-06-1977-00-00", "02-10-1960-00-00", "12-09-2009-00-00", "21-08-1990-00-00", "23-10-1995-00-00",
                     "11-03-1979-00-00", "01-01-1980-00-00", "00-00-0000-00-00", "Unknown"};
 	    	
@@ -96,8 +95,6 @@ public class Scores extends SQLiteOpenHelper {
 	    {
 	    	String username;
     		username = preferences.getString ("username", "UnnamedPlayer");
-    		String location;
-    		location = preferences.getString ("location", "Le Neubourg");
 	    	String date;
 	    	Calendar c = Calendar.getInstance();
 	    	date = c.get(Calendar.YEAR) + "-" +
@@ -134,8 +131,8 @@ public class Scores extends SQLiteOpenHelper {
     		try {
     			HttpClient httpclient = new DefaultHttpClient();
         		
-        		HttpPost httppost = new HttpPost("http://games.gunnm.org/cgi/pacman-classic-post.pl");
-    			List nameValuePairs = new ArrayList(3);
+        		HttpPost httppost = new HttpPost("http://games.gunnm.org/cgi/simplepac-post.pl");
+    			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair> (3);
 
     		
     			nameValuePairs.add(new BasicNameValuePair("score", ""+score));
@@ -143,7 +140,7 @@ public class Scores extends SQLiteOpenHelper {
     			nameValuePairs.add(new BasicNameValuePair("user", username));
     			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-    			HttpResponse response = httpclient.execute(httppost);
+    			httpclient.execute(httppost);
 
 
     		} catch (ClientProtocolException e) {
@@ -177,7 +174,6 @@ public class Scores extends SQLiteOpenHelper {
 			String dateStr;
 	    	int score;
 	    	int i = 0;
-	    	int colIndex;
 	    	int count;
 	    	SQLiteDatabase db = this.getWritableDatabase ();
 	    	Cursor cursor = db.query (TABLE_NAME, null, null, null, null, null, null, null);

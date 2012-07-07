@@ -3,8 +3,6 @@ package org.gunnm.pacman.view;
 import org.gunnm.pacman.model.Ennemy;
 import org.gunnm.pacman.model.Entity;
 import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.model.Hero;
-import org.gunnm.pacman.model.Map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,7 +12,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.WindowManager; 
+import android.view.WindowManager;
 
 public class GameCanvas extends View
 {

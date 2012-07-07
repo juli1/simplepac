@@ -1,6 +1,5 @@
 package org.gunnm.pacman.model;
 
-import android.util.Log;
 
 public class Ennemy extends Entity{
 	

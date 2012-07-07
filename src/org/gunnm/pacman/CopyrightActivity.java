@@ -1,30 +1,16 @@
 package org.gunnm.pacman;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.model.Scores;
-import org.gunnm.pacman.view.BasicSkin;
-import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.Skin;
-import org.gunnm.pacman.view.TitleScreen;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 public class CopyrightActivity extends Activity {
 	private final String TAG = "CopyrightActivity";

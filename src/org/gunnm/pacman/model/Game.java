@@ -299,7 +299,6 @@ public class Game {
 		}
 		
 		MapPart part = map.getPart(entity.getPositionX(), entity.getPositionY());
-		MapPart nextPart;
 		switch (entity.getDirection())
 		{
 			case Entity.DIRECTION_DOWN:
@@ -337,14 +336,6 @@ public class Game {
 			}
 			case Entity.DIRECTION_UP:
 			{
-				nextX = entity.getPositionX();
-				nextY = entity.getPositionY() - 1;
-				if (nextY < 0)
-				{
-					nextY = 0;
-				} 
-				nextPart = map.getPart(nextX, nextY);
-
 				if (entity.getInternalStepValueY() > (INTERNAL_STEP_THRESHOLD * -1))
 				{
 					
