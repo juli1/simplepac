@@ -181,7 +181,7 @@ public class BasicSkin extends Skin
 			pacmanRight1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-right-full.png")), entitySize);
 			pacmanRight2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-right-half.png")), entitySize);
 			pacmanRight3 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
-
+ 
 			
 			pacmanUp1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-up-full.png")), entitySize);
 			pacmanUp2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-up-half.png")), entitySize);
