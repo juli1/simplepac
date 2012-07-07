@@ -14,6 +14,12 @@ public class Hero extends Entity{
 	public Hero()
 	{
 		super ();
+		reinit ();
+	}
+	
+	public void reinit ()
+	{
+		super.reinit();
 		this.vulnerable = STATE_VULNERABLE;
 		this.score = 0;
 		this.lifes = 3;

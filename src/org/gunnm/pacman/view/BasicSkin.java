@@ -34,6 +34,7 @@ public class BasicSkin extends Skin
 	private Bitmap pacmanDie5;
 	private Bitmap pacmanDie6;
 	private Bitmap logo;
+	private Bitmap instructions;
 	private Bitmap preferences;
 	private Bitmap highScores;
 	private Bitmap newGame;
@@ -183,6 +184,8 @@ public class BasicSkin extends Skin
 			highScores 		= BitmapFactory.decodeStream(manager.open("highscores.png"));
 			preferences 	= BitmapFactory.decodeStream(manager.open("preferences.png"));
 
+			instructions 	= BitmapFactory.decodeStream(manager.open("instructions.png"));
+			
 			copyright 		= BitmapFactory.decodeStream(manager.open("copyright.png"));
 			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
 
@@ -217,6 +220,17 @@ public class BasicSkin extends Skin
 	public Bitmap getCopyright ()
 	{
 		return this.copyright;
+	}
+	
+	public Bitmap getInstructions ()
+	{
+		return this.instructions;
+	}
+	
+	
+	public String getInstructionsURL ()
+	{
+		return "http://julien.gunnm.org/";
 	}
 	
 	public Bitmap getPacmanFull ()

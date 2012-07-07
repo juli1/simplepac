@@ -55,6 +55,10 @@ public interface SkinInterface {
 	
 	public Bitmap getCopyright();
 	
+	public Bitmap getInstructions();
+	
+	public String getInstructionsURL();
+	
 	public Bitmap getGameOver();
 	public Bitmap getNextLevel();
 	public Bitmap getCompleted();

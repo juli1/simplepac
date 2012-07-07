@@ -19,13 +19,26 @@ import android.widget.Button;
 public class AppPreferences extends PreferenceActivity {
     
 	 private ProgressDialog sendingScoresDialog;
+	 AlertDialog.Builder builder;
 	  private Handler handler = new Handler() {
 
           @Override
 
           public void handleMessage(Message msg) {
         	  sendingScoresDialog.dismiss();
-
+        	  
+        	  if (msg.what == 0)
+        	  {
+        	  
+	        	  builder.setMessage("Error while sending scores, please check your internet connection");  
+	              builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
+	                   public void onClick(DialogInterface dialog, int which) {  
+	                        dialog.cancel();  
+	                   }  
+	              });  
+	              AlertDialog alert = builder.create();  
+	              alert.show();  
+        	  }
           }
 
   };
@@ -40,6 +53,7 @@ public class AppPreferences extends PreferenceActivity {
         Button resetButton = new Button(this);
         resetButton.setText("Reset scores");
 
+        builder = new AlertDialog.Builder(this);
         
 		sendingScoresDialog = new ProgressDialog(this);
 		sendingScoresDialog.setMessage("Sending scores ...");

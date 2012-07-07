@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -26,6 +27,8 @@ public class TitleScreen extends View implements OnTouchListener
 	int preferencesAlignY;
 	int copyrightAlignX;
 	int copyrightAlignY;
+	int instructionsAlignX;
+	int instructionsAlignY;
 	private Context context;
 	
 	public TitleScreen (Context c, Skin s, Display d)
@@ -61,12 +64,16 @@ public class TitleScreen extends View implements OnTouchListener
 		
 		copyrightAlignX = display.getWidth() - skin.getCopyright().getWidth();
 		copyrightAlignY = preferencesAlignY + skin.getPreferences().getHeight() + margin;
-		
+
+		instructionsAlignX = 0;
+		instructionsAlignY = preferencesAlignY + skin.getPreferences().getHeight() + margin;
+		 
 		canvas.drawBitmap(skin.getLogo(), logoAlignX, logoAlignY, null);
 		canvas.drawBitmap(skin.getNewGame(), newGameAlignX, newGameAlignY, null);
 		canvas.drawBitmap(skin.getHighScores(), highScoresAlignX, highScoresAlignY, null);
 		canvas.drawBitmap(skin.getPreferences(), preferencesAlignX, preferencesAlignY, null);
 		canvas.drawBitmap(skin.getCopyright(), copyrightAlignX, copyrightAlignY, null);
+		canvas.drawBitmap(skin.getInstructions(), instructionsAlignX, instructionsAlignY, null);
 	}
 
 
@@ -105,6 +112,14 @@ public class TitleScreen extends View implements OnTouchListener
 				Log.i(TAG, "Copyright");
 		    	Intent intent = new Intent(context, org.gunnm.pacman.CopyrightActivity.class);
 		    	context.startActivity(intent);
+			}
+			
+			
+			if ( (y > instructionsAlignY ) && ( x < skin.getInstructions().getWidth()))
+			{
+				Log.i(TAG, "Instructions");
+		    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(skin.getInstructionsURL()));
+		    	context.startActivity(browserIntent);
 			}
 		}
 		return true;

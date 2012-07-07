@@ -15,14 +15,18 @@ public abstract class Entity {
 	private int internalStepValueY;
 	private boolean active;
 	
-	
-	public Entity ()
+	public void reinit ()
 	{
-		this (0,0);
 		this.state = 0;
 		this.internalStepValueX = 0;
 		this.internalStepValueY = 0;
 		this.active = true;
+	}
+	
+	public Entity ()
+	{
+		this (0,0);
+		reinit ();
 	}
 	
 	public boolean canMove ()

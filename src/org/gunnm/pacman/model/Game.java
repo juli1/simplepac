@@ -42,6 +42,25 @@ public class Game {
 	private final static Class[] mapClasses = {Map1.class,Map2.class};
 	
 	
+	public void reinit ()
+	{
+		currentMapIndex 	= 0;
+		pointsEaten 		= 0;
+		currentAction 		= ACTION_NONE;
+		
+		hero.reinit();
+		for (int i = 0 ; i < ennemies.size() ; i++)
+		{
+			ennemies.remove(0);
+		}
+		initMap (currentMapIndex);
+		unvulnerableCounter = 0;
+		dyingCounter 		= 0;
+		hero.setPositionX (heroDefaultX);
+		hero.setPositionY (heroDefaultY);
+	
+	}
+	
 	
 	public Game ()
 	{
