@@ -20,7 +20,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 
 public class Scores extends SQLiteOpenHelper {
@@ -126,8 +125,6 @@ public class Scores extends SQLiteOpenHelper {
     		String username;
     		username = preferences.getString ("username", "Unnamed Player");
     		
-    
-    		Log.i (TAG, "sending score " + score  + " from " + username + " on " + date);
     		try {
     			HttpClient httpclient = new DefaultHttpClient();
         		
@@ -144,10 +141,8 @@ public class Scores extends SQLiteOpenHelper {
 
 
     		} catch (ClientProtocolException e) {
-    			Log.i(TAG, "Protocol exception "+ e.toString());
     			return false;
     		} catch (IOException e) {
-    			Log.i(TAG, "IO exception "+ e.toString());
     			return false;
     		}
     		return true;
@@ -219,7 +214,6 @@ public class Scores extends SQLiteOpenHelper {
 	    	count =  cursor.getCount();
 	    	scores = new String[count];
     		cursor.moveToLast();
-    		Log.i(TAG , "nb scores" + count);
 	    	for (i = 0 ; i < count ; i++)
 	    	{
 		   		dateStr = cursor.getString(2).split("-");
@@ -236,12 +230,10 @@ public class Scores extends SQLiteOpenHelper {
 		   		}
 		    	catch (Exception e)
 		    	{
-		    		Log.i(TAG , "score exception " + e.toString() + " dateStr = " + dateStr + "toparse=" + cursor.getString(2));
 		    		dateString = "Unknown date";
 		    	}
 		   		
 		    	scores[i] = cursor.getInt (0) + " by " + cursor.getString(1) + " on "+ dateString;
-		    	Log.i(TAG , "score " + i + " value" + scores[i]);
 	    		cursor.moveToPrevious();
 	    	}
 	    	cursor.close();

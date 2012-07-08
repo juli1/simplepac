@@ -1,6 +1,5 @@
 package org.gunnm.pacman.model;
 
-import android.util.Log;
 
 public class Map {
 	public static final int DEFAULT_MAP_WIDTH = 10;
@@ -97,7 +96,6 @@ public class Map {
 				y = tmp[1];
 					
 			}
-			Log.e (TAG, "Put super point at (" + x + "," + y + ")");
 			parts[x][y].enableSuperPoint();
 		}
 	}
@@ -149,13 +147,11 @@ public class Map {
 	{
 		if (i > getWidth())
 		{
-			Log.e (TAG, "Incorrect size in getPart, i=" + i);
 			return null;
 		}
 		
 		if (j > getHeight())
 		{
-			Log.e (TAG, "Incorrect size in getPart, j=" + j);
 			return null;
 		}
 		return parts[i][j];

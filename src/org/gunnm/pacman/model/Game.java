@@ -58,7 +58,7 @@ public class Game {
 		dyingCounter 		= 0;
 		hero.setPositionX (heroDefaultX);
 		hero.setPositionY (heroDefaultY);
-	
+		hero.isDying (false);
 	}
 	
 	
@@ -530,14 +530,22 @@ public class Game {
 		
 		if (this.currentAction == ACTION_FINISHED)
 		{
-			
-			if (dyingCounter > 0)
+			if (hero.getLifes() == 0)
 			{
-				dyingCounter = dyingCounter - 1;
+				if (dyingCounter > 0)
+				{
+					dyingCounter = dyingCounter - 1;
+				}
+				return;
 			}
-			else
+			
+			if (currentMapIndex < (NB_MAPS - 1 ))
 			{
-				if (currentMapIndex < (NB_MAPS - 1 ))
+				if (dyingCounter > 0)
+				{
+					dyingCounter = dyingCounter - 1;
+				}
+				else
 				{
 					currentMapIndex = currentMapIndex + 1;
 					currentAction = ACTION_NONE;
@@ -547,10 +555,9 @@ public class Game {
 					unvulnerableCounter = 0;
 					dyingCounter = 0;
 					hero.setPositionX (heroDefaultX);
-					hero.setPositionY (heroDefaultY);	
-				}	
+					hero.setPositionY (heroDefaultY);
+				}
 			}
-			
 			return;
 		}
 		
@@ -683,8 +690,6 @@ public class Game {
 				heroCollision (e);
 			}
 		}
-		if (this.currentAction != 0)
-		Log.i(TAG, "end reaction, action=" + this.currentAction);
 	}
 	
 	public boolean isFinished ()

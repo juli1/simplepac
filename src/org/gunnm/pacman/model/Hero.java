@@ -1,6 +1,5 @@
 package org.gunnm.pacman.model;
 
-import android.util.Log;
 
 public class Hero extends Entity{
 	private int score;
@@ -55,7 +54,6 @@ public class Hero extends Entity{
 	}
 
 	public void removeLife() {
-		Log.i(TAG, "Number of lifes" + this.lifes);
 		if (this.lifes > 0)
 		{
 			this.lifes = this.lifes - 1;
@@ -76,7 +74,6 @@ public class Hero extends Entity{
 	public void addPoints (int i)
 	{
 		this.score = this.score + i;
-		Log.i(TAG, "Current score=" + this.score);
 	}
 	
 	public int getScore()
