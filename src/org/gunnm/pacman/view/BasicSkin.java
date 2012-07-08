@@ -200,9 +200,10 @@ public class BasicSkin extends Skin
 			highScoresLogo	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
 			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
 			nextLevel 		= BitmapFactory.decodeStream(manager.open("nextlevel.png"));
-			newGame 		= scaleImageByHeight( BitmapFactory.decodeStream(manager.open("newgame.png")), screenHeight / 10);
-			highScores 		= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("highscores.png")), screenHeight / 10);
-			preferences 	= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("preferences.png")), screenHeight / 10);
+			
+			newGame 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenWidth / 3);
+			highScores 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenWidth / 3);
+			preferences 	= scaleImage(BitmapFactory.decodeStream(manager.open("preferences.png")), screenWidth / 3);
 
 			instructions 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenWidth / 3);
 			
