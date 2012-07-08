@@ -50,7 +50,7 @@ public class Map1 implements MapInterface
 		{BL| BB    , BT       ,   BT          , HE|BT|BB    ,   BT|BB    ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR},
 		{BL| BT|BR , BL|BR    ,   HE|BL|BB    , BT|BB       ,   BT|BB    ,   BR  |SS     ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
 		{BL| BR    , BL|BR    ,   BL|HB|BT    , BB | BT     ,   BB|BT    ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BR    , BL|SS       ,   BT|BB|HE    , BT | BB     ,   HB |BB   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
+		{BL| BR    , BL|SS       ,   BT|BB|HE    , BT | BB     ,   HB |BB|BT   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
 		{BL| BB    ,   BB |SM    ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },
 	};
 	

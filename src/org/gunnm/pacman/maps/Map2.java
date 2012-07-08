@@ -44,8 +44,8 @@ public class Map2 implements MapInterface
 	{ 
 		{BT| BL       , BT|BB        ,   BT          , BT|BB           ,      BB       ,   BT          ,    BL|BT         ,   BT|BB       ,    BT  |BB   ,   BT|BR      },
 		{BL| BR       ,BL|BR|BT|BB   ,   BL|BR       , BL  | BT | BB   ,  BB | BT | BR ,  BL           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR    },
-		{BL           , BB|BT        ,  0            , 0               ,   BB          ,   0           ,    BB            ,   HE          ,   BB|BT      ,   BR         },
-		{BL           , BT           ,   BL|BR       , BL |BR          ,   BL          ,   BB|BT       ,    HB|BR|BT      ,   BL          ,   BT|BR      ,   BL| BR     },
+		{BL           , BB|BT        ,  0            , 0               ,   BB |BT         ,   0           ,    BB            ,   HE          ,   BB|BT      ,   BR         },
+		{BL           , BT           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT      ,   BL          ,   BT|BR      ,   BL| BR     },
 		{ BB |BT |BR  , BL           ,   BB|BR       , BL|BB           ,   0           ,   BT |BB      ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR         },
 		{ BT|BB       , 0            ,   BL|BT       , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0          },
 		{BL| BT       , BT|BB        ,   0           , HE|BT|BB        ,   BT|BB       ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR      },

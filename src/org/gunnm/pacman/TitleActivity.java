@@ -30,7 +30,8 @@ public class TitleActivity extends Activity {
 		
         super.onCreate(savedInstanceState);
         
-        
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
     	scores = Scores.getInstance (getApplicationContext());
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
