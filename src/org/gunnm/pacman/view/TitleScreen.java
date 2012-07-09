@@ -28,6 +28,7 @@ public class TitleScreen extends View implements OnTouchListener
 	int instructionsAlignX;
 	int instructionsAlignY;
 	private Context context;
+	private int margin = 0;
 	
 	public TitleScreen (Context c, Skin s, Display d)
 	{
@@ -36,7 +37,6 @@ public class TitleScreen extends View implements OnTouchListener
 		skin = s;
 		display = d;
 		this.setOnTouchListener(this);
-
 	}
 	
 	
@@ -45,12 +45,12 @@ public class TitleScreen extends View implements OnTouchListener
 	
 		Paint paint;
 
-		int margin = (display.getHeight() 
+		margin = (display.getHeight() 
 					- skin.getLogo().getHeight() 
 					- skin.getNewGame().getHeight()
 					- skin.getHighScores().getHeight()
 					- skin.getPreferences().getHeight()
-					- skin.getCopyright().getHeight()) / 6;
+					- skin.getCopyright().getHeight()) / 5;
 
 		paint = new Paint();
 		paint.setFilterBitmap(true);
@@ -90,28 +90,28 @@ public class TitleScreen extends View implements OnTouchListener
 			x = (int)event.getX();
 			y = (int)event.getY();
 			
-			if ( (y > newGameAlignY ) && ( y < (newGameAlignY + skin.getNewGame().getHeight())))
+			if ( (y > (newGameAlignY - margin / 2) ) && ( y < (newGameAlignY + margin / 2 + skin.getNewGame().getHeight())))
 			{
 //				Log.i(TAG, "New Game");
 		    	Intent intent = new Intent(context, org.gunnm.pacman.PacmanActivity.class);
 		    	context.startActivity(intent);
 			}
 			
-			if ( (y > highScoresAlignY ) && ( y < (highScoresAlignY + skin.getHighScores().getHeight())))
+			if ( (y > ( highScoresAlignY - margin / 2 )) && ( y < (highScoresAlignY + margin / 2 + skin.getHighScores().getHeight())))
 			{
 //				Log.i(TAG, "High Scores");
 		    	Intent intent = new Intent(context, org.gunnm.pacman.ScoresActivity.class);
 		    	context.startActivity(intent);
 			}
 			
-			if ( (y > preferencesAlignY ) && ( y < (preferencesAlignY + skin.getPreferences().getHeight())))
+			if ( (y > ( preferencesAlignY - margin / 2) ) && ( y < (preferencesAlignY + margin / 2 +  skin.getPreferences().getHeight())))
 			{
 //				Log.i(TAG, "Preferences");
 		    	Intent intent = new Intent(context, org.gunnm.pacman.AppPreferences.class);
 		    	context.startActivity(intent);
 			}
 			
-			if ( (y > copyrightAlignY ) && ( x > copyrightAlignX))
+			if ( (y > (copyrightAlignY - margin / 2) ) && ( x > copyrightAlignX))
 			{
 //				Log.i(TAG, "Copyright");
 		    	Intent intent = new Intent(context, org.gunnm.pacman.CopyrightActivity.class);
@@ -119,7 +119,7 @@ public class TitleScreen extends View implements OnTouchListener
 			}
 			
 			
-			if ( (y > instructionsAlignY ) && ( x < skin.getInstructions().getWidth()))
+			if ( (y > ( instructionsAlignY - margin / 2) ) && ( x < skin.getInstructions().getWidth()))
 			{
 //				Log.i(TAG, "Instructions");
 		    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(skin.getInstructionsURL()));

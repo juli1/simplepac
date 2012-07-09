@@ -48,8 +48,8 @@ public class Sound {
 	    audioManager = (AudioManager)c.getSystemService(Context.AUDIO_SERVICE);
 	    assetManager = context.getResources().getAssets();
 	    lastAction   = Game.ACTION_NONE;
+	 
 	    loadResources();
-	    
 	}
 	
 	public void loadResources ()

@@ -17,9 +17,7 @@ public class AppPreferences extends PreferenceActivity {
     
 	 private ProgressDialog sendingScoresDialog;
 	 AlertDialog.Builder builder;
-	  private Handler handler = new Handler() {
-
-          @Override
+	 private Handler handler = new Handler() {
 
           public void handleMessage(Message msg) {
         	  sendingScoresDialog.dismiss();
@@ -38,7 +36,7 @@ public class AppPreferences extends PreferenceActivity {
         	  }
           }
 
-  };
+	 };
 	  
     protected void onCreate (Bundle savedInstanceState)
     {
