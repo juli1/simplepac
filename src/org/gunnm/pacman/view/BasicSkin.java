@@ -55,6 +55,7 @@ public class BasicSkin extends Skin
 	private Bitmap gameOver;
 	private Bitmap nextLevel;
 	private Bitmap completed;
+	private Bitmap demoCompleted;
 	private Bitmap wallVertical;
 	private Bitmap wallHorizontal;
 	private Bitmap highScoresLogo;
@@ -198,8 +199,8 @@ public class BasicSkin extends Skin
 
 			logo 			= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("logo.png")), screenHeight / 6);
 			highScoresLogo	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
-			gameOver 		= BitmapFactory.decodeStream(manager.open("gameover.png"));
-			nextLevel 		= BitmapFactory.decodeStream(manager.open("nextlevel.png"));
+			gameOver 		= scaleImage (BitmapFactory.decodeStream(manager.open("gameover.png")), screenWidth / 2);
+			nextLevel 		= scaleImage (BitmapFactory.decodeStream(manager.open("nextlevel.png")), screenWidth / 2);
 			
 			newGame 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenWidth / 3);
 			highScores 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenWidth / 3);
@@ -208,7 +209,9 @@ public class BasicSkin extends Skin
 			instructions 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenWidth / 3);
 			
 			copyright 		= scaleImage(BitmapFactory.decodeStream(manager.open("copyright.png")), screenWidth / 3);
-			completed 		= BitmapFactory.decodeStream(manager.open("completed.png"));
+			completed 		= scaleImage (BitmapFactory.decodeStream(manager.open("completed.png")), screenWidth / 2);
+			
+			demoCompleted 	= scaleImage (BitmapFactory.decodeStream(manager.open("democompleted.png")), screenWidth / 3 * 2);
   
 			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 			bonus1 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
@@ -424,6 +427,10 @@ public class BasicSkin extends Skin
 
 	public Bitmap getCompleted() {
 		return completed;
+	}
+	
+	public Bitmap getDemoCompleted() {
+		return demoCompleted;
 	}
 	
 	public Bitmap getWallHorizontal() {

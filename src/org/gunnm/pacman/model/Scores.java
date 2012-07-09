@@ -93,8 +93,15 @@ public class Scores extends SQLiteOpenHelper {
 	    public void registerScore (int score)
 	    {
 	    	String username;
-    		username = preferences.getString ("username", "UnnamedPlayer");
 	    	String date;
+    		
+	    	if (Game.isDemo)
+    		{
+    			return;
+    		}
+	    	
+    		username = preferences.getString ("username", "UnnamedPlayer");
+	    	
 	    	Calendar c = Calendar.getInstance();
 	    	date = c.get(Calendar.YEAR) + "-" +
 	    		   c.get(Calendar.MONTH) + "-" +
@@ -123,8 +130,14 @@ public class Scores extends SQLiteOpenHelper {
     	private boolean sendScore(int score, String date) 
     	{
     		String username;
-    		username = preferences.getString ("username", "Unnamed Player");
     		
+    		if (Game.isDemo)
+    		{
+    			return false;
+    		}
+    		
+    		username = preferences.getString ("username", "Unnamed Player");
+    		    		
     		try {
     			HttpClient httpclient = new DefaultHttpClient();
         		

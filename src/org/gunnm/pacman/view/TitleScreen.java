@@ -1,6 +1,10 @@
 package org.gunnm.pacman.view;
 
+import org.gunnm.pacman.model.Game;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -29,14 +33,16 @@ public class TitleScreen extends View implements OnTouchListener
 	int instructionsAlignY;
 	private Context context;
 	private int margin = 0;
+	AlertDialog.Builder builder;
 	
 	public TitleScreen (Context c, Skin s, Display d)
-	{
+	{ 
 		super (c);
 		this.context = c;
 		skin = s;
 		display = d;
 		this.setOnTouchListener(this);
+		builder = new AlertDialog.Builder(c);
 	}
 	
 	
@@ -100,8 +106,22 @@ public class TitleScreen extends View implements OnTouchListener
 			if ( (y > ( highScoresAlignY - margin / 2 )) && ( y < (highScoresAlignY + margin / 2 + skin.getHighScores().getHeight())))
 			{
 //				Log.i(TAG, "High Scores");
-		    	Intent intent = new Intent(context, org.gunnm.pacman.ScoresActivity.class);
-		    	context.startActivity(intent);
+				if (Game.isDemo)
+				{
+			      	  builder.setMessage("Scores functions available in full version only");  
+			          builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
+			               public void onClick(DialogInterface dialog, int which) {  
+			                    
+			               }  
+			          });  
+			          AlertDialog alert = builder.create();  
+			          alert.show();
+				}
+				else
+				{
+					Intent intent = new Intent(context, org.gunnm.pacman.ScoresActivity.class);
+					context.startActivity(intent);
+				}
 			}
 			
 			if ( (y > ( preferencesAlignY - margin / 2) ) && ( y < (preferencesAlignY + margin / 2 +  skin.getPreferences().getHeight())))

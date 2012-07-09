@@ -62,7 +62,7 @@ public interface SkinInterface {
 	public Bitmap getGameOver();
 	public Bitmap getNextLevel();
 	public Bitmap getCompleted();
-	
+	public Bitmap getDemoCompleted();
 	public String getCopyrightFile ();
 	
 	public String getSoundIntro();

@@ -1,5 +1,6 @@
 package org.gunnm.pacman;
 
+import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Scores;
 
 import android.app.AlertDialog;
@@ -54,38 +55,82 @@ public class AppPreferences extends PreferenceActivity {
 		sendingScoresDialog.setMessage("Sending scores ...");
 		sendingScoresDialog.setTitle("Working ...");
 		sendingScoresDialog.setCancelable(true);
-		sendButton.setOnClickListener(new OnClickListener()
+		if (! Game.isDemo)
 		{
-			public void onClick(View arg0) {
-
-				sendingScoresDialog.show();
-
-				 Thread thread = new Thread(new Runnable ()
-				 {
-					 public void run()
+			sendButton.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(View arg0) {
+	
+					sendingScoresDialog.show();
+	
+					 Thread thread = new Thread(new Runnable ()
 					 {
-							if (! Scores.getInstance().sendAll())
-							{
-						        handler.sendEmptyMessage(0);
-							}
-							else
-							{
-								 handler.sendEmptyMessage(1);
-							}
-					 }
-				 });
+						 public void run()
+						 {
+								if (! Scores.getInstance().sendAll())
+								{
+							        handler.sendEmptyMessage(0);
+								}
+								else
+								{
+									 handler.sendEmptyMessage(1);
+								}
+						 }
+					 });
+	
+					 thread.start();
+				}
+			});
+		}
+		else
+		{		
+			sendButton.setOnClickListener(new OnClickListener()
+			{
+				public void onClick(View arg0) {
+	
 
-				 thread.start();
-			}
-		});
+			      	  builder.setMessage("Online score available with full version only");  
+			          builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
+			               public void onClick(DialogInterface dialog, int which) {  
+			                    
+			               }  
+			          });  
+			          AlertDialog alert = builder.create();  
+			          alert.show();
+				}
+			});  
+		}
 		
-		resetButton.setOnClickListener(new OnClickListener() 
+		
+		if (! Game.isDemo)
 		{
+			resetButton.setOnClickListener(new OnClickListener() 
+			{
+	
+				public void onClick(View arg0) {
+					Scores.getInstance().reset();
+				}
+			});
+		}
+		else
+		{
+			resetButton.setOnClickListener(new OnClickListener() 
+			{
+	
+				public void onClick(View arg0) {
 
-			public void onClick(View arg0) {
-				Scores.getInstance().reset();
-			}
-		});
+			      	  builder.setMessage("Scores functions available in full version only");  
+			          builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
+			               public void onClick(DialogInterface dialog, int which) {  
+			                    
+			               }  
+			          });  
+			          AlertDialog alert = builder.create();  
+			          alert.show();
+				}
+			});
+		}
+				
         this.getListView().addFooterView (sendButton);
         this.getListView().addFooterView (resetButton);
         

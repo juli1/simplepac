@@ -1,8 +1,3 @@
-       SimplePAC is a game inspired by PacMan.
+SimplePAC is a game inspired by the original Pacman arcade game. Game code is copyright Julien Delange, 2012.
+Game atwork (pictures) is copyright Julien Delange, 2012. The game code and at-work are available under the BSD license terms, free of charge. You can contact the author of the game to gain  the code or check it out on the public code repository. Game sounds are taken from samples available under the Creative Commons License under free of charge.
 
-Game code is copyright Julien Delange, 2012.
-Game atwork (pictures) is copyright Julien Delange, 2012.
-
-The game code and atwork are available under the BSD license terms, free of charge. You can contact the author of the game to gain  the code or check it out on the public code repository.
-
-Game sounds are taken from samples available under the Creative Commons License under free of charge.

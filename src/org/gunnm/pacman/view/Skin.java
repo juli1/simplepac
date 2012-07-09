@@ -11,7 +11,7 @@ public abstract class Skin implements SkinInterface {
 	}
 	
 	public static Skin getInstance (AssetManager c, int s)
-	{
+	{ 
 		return null;
 	}
 }

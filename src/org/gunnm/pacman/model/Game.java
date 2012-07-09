@@ -3,7 +3,6 @@ package org.gunnm.pacman.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
 import org.gunnm.pacman.maps.*;
 
 public class Game {
@@ -38,8 +37,16 @@ public class Game {
 	public static final int ACTION_DYING = 5;
 	private static Game instance;
 	private int currentMapIndex;
+	
+	/*
 	public final static int NB_MAPS = 2;
 	private final static Class[] mapClasses = {Map1.class,Map2.class};
+	*/
+	
+	public final static boolean isDemo = true;
+	
+	public final static int NB_MAPS = 1;
+	private final static Class[] mapClasses = {MapDemo.class};
 	
 	
 	public void reinit ()
@@ -96,11 +103,13 @@ public class Game {
 		} 
 		catch (IllegalAccessException e) 
 		{
-			Log.i (TAG, e.toString());
+			//Log.i (TAG, e.toString());
+			return;
 		} 
 		catch (InstantiationException e) 
 		{
-			Log.i (TAG, e.toString());
+			//Log.i (TAG, e.toString());
+			return;
 		}	
 		
 		map = new Map (custom.getWidth(), custom.getHeight());
@@ -564,7 +573,7 @@ public class Game {
 		if ((this.pointsEaten == map.getNbPoints()) &&
 			(this.currentAction != ACTION_FINISHED))
 		{
-			Log.i (TAG, "Everything eaten !");
+//			Log.i (TAG, "Everything eaten !");
 			hero.canMove(false);
 			this.currentAction = ACTION_FINISHED;
 			dyingCounter = COUNTER_NEXT_LEVEL;
@@ -575,7 +584,7 @@ public class Game {
 		if (hero.getLifes() == 0)
 		{
 			this.currentAction = ACTION_FINISHED;
-			Log.i (TAG, "No more lifes !");
+//			Log.i (TAG, "No more lifes !");
 			hero.canMove(false);
 			Scores.getInstance().registerScore(hero.getScore());
 			return;
@@ -640,6 +649,7 @@ public class Game {
 			hero.addPoint ();
 			this.currentAction = ACTION_EAT;
 			this.pointsEaten = this.pointsEaten + 1;
+//			Log.i(TAG, "Points eaten="+this.pointsEaten+ " total points=" + map.getNbPoints());
 		}
 		
 		if (map.getPart(hero.getPositionX(), hero.getPositionY()).hasSuperPoint())

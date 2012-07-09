@@ -34,7 +34,7 @@ public class CopyrightActivity extends Activity {
         
 	        while ( ( size = is.read(strtmp) ) > 0)
 	        {
-	        	copyright = copyright + new String (strtmp).substring(0, size);
+	        	copyright = copyright + new String (strtmp).substring(0, size - 1);
 	        	
 	        }
 	        is.close();
