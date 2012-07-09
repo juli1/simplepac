@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class CopyrightActivity extends Activity {
 	private final String TAG = "CopyrightActivity";
@@ -24,7 +25,7 @@ public class CopyrightActivity extends Activity {
 	    
         setContentView(R.layout.copyright);
 
-        EditText txt = (EditText) findViewById (R.id.copyright_text);
+        TextView txt = (TextView) findViewById (R.id.copyright_text);
         txt.setText("");
         InputStream is;
 		try {
@@ -34,6 +35,7 @@ public class CopyrightActivity extends Activity {
 	        while ( ( size = is.read(strtmp) ) > 0)
 	        {
 	        	copyright = copyright + new String (strtmp).substring(0, size);
+	        	
 	        }
 	        is.close();
 	        if (Skin.getInstance().getCopyrightFile() !=null)
@@ -48,7 +50,8 @@ public class CopyrightActivity extends Activity {
 			}
 	        
 	        is.close();
-        
+	        copyright.replace ("\r\n" , "");
+	        copyright.replace (System.getProperty("line.separator"), "");
 	        txt.setText (copyright);
 //	        Log.i(TAG, "set text = " + copyright );
 

@@ -1,3 +1,4 @@
-=====================
-    COPYRIGHT GAL
-=====================
+SimplePac is an independent game inspired by the well known and famous PacMan. However, the original PacMan, its name, design and original game are copyright of NAMCO.
+
+Please respect the Pacman character and the original NAMCO arcade game. This game is NOT the original PacMan game and does not provide a similar gaming experience.
+

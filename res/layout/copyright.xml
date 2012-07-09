@@ -19,7 +19,7 @@
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical" >
 
-        <requestFocus />
+        
     </EditText>
 
     <LinearLayout

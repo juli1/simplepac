@@ -57,7 +57,7 @@ public class TitleActivity extends Activity {
 			 {
 				try
 				{
-					Thread.sleep(5000);
+					Thread.sleep(2000);
 				}
 				catch (InterruptedException e) 
 				{
