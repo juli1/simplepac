@@ -45,7 +45,7 @@ public class GameCanvas extends View
 			size = display.getWidth(); 
 		}
 		
-		squareSize = computeSquareSize(display.getWidth(), display.getHeight(), gm, s);
+		squareSize = computeSquareSize(display.getWidth(), display.getHeight(), gm);
 		
 		if ((squareSize * gm.getMap().getWidth()) < display.getWidth())
 		{
@@ -70,18 +70,19 @@ public class GameCanvas extends View
 	}
 	
 	
-	public static int computeSquareSize (int screenWidth, int screenHeight, Game g, Skin s)
+	public static int computeSquareSize (int screenWidth, int screenHeight, Game g)
 	{
 		int byWidth;
 		int byHeight;
 		byWidth = screenWidth / g.getMap().getWidth();
-		byHeight = ( screenHeight - s.getLogo().getHeight() - s.getLogo().getHeight()/3) / g.getMap().getHeight();
+		byHeight = ( screenHeight - (screenHeight / 4)) / g.getMap().getHeight();
 		if (byWidth < byHeight)
 		{
 			return byWidth;
 		}
 		return byHeight;
 	}
+	
 	
 	public void onMeasure (int widthMeasureSpec, int heightMeasureSpec)
 	{

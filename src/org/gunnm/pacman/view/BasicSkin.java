@@ -232,9 +232,9 @@ public class BasicSkin extends Skin
 			point 			= scaleImage (BitmapFactory.decodeStream(manager.open("point.png")), entitySize);
 			
 			superPoint 		= scaleImage (BitmapFactory.decodeStream(manager.open("superpoint.png")), entitySize);
-			wallVertical    = scaleImageHeight (BitmapFactory.decodeStream(manager.open("wallv.png")), partSize);
+			wallVertical    = scaleImageHeight (BitmapFactory.decodeStream(manager.open("wallv.png")), partSize + 3 );
 			
-			wallHorizontal  = scaleImageWidth (BitmapFactory.decodeStream(manager.open("wallh.png")), partSize);
+			wallHorizontal  = scaleImageWidth (BitmapFactory.decodeStream(manager.open("wallh.png")), partSize + 3);
 		}
 		catch(IOException ex)
 		{

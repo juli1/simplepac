@@ -154,8 +154,8 @@ public class PacmanActivity extends Activity {
         {
         	LayoutParams lp;
         	int w;
-        	w = (size - skin.getLogo().getWidth()) / 2;
-        	lp = new LayoutParams(size, skin.getLogo().getHeight());
+        	w = (display.getWidth() - skin.getLogo().getWidth()) / 2;
+        	lp = new LayoutParams(display.getWidth(), skin.getLogo().getHeight());
         	
         	fl.addView (new BitmapView (this, skin.getLogo(), w, 0), 0, lp);
         	lp = new LayoutParams(size + 2, size + 2);

@@ -3,6 +3,7 @@ package org.gunnm.pacman;
 import org.gunnm.pacman.model.Game;
 import org.gunnm.pacman.model.Scores;
 import org.gunnm.pacman.view.BasicSkin;
+import org.gunnm.pacman.view.GameCanvas;
 import org.gunnm.pacman.view.Skin;
 import org.gunnm.pacman.view.Sound;
 import org.gunnm.pacman.view.TitleScreen;
@@ -84,7 +85,7 @@ public class TitleActivity extends Activity {
 			size = display.getWidth();
 		}   
 		gameModel 		= new Game ();
-		squareSize 		= size / gameModel.getMap().getWidth();
+		squareSize 		= GameCanvas.computeSquareSize(display.getWidth(), display.getHeight(), gameModel);
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), squareSize, display.getWidth(), display.getHeight());
 		sound      		= Sound.getInstance (this, gameModel, skin);
 
