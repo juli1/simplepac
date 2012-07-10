@@ -45,7 +45,7 @@ public class MapDemo implements MapInterface
 		{BT| BL |HP        , BT|BB|HP        ,   BT|HP          , BT|BB|HP           ,      BB|HP       ,   BT|HP |BR         ,    BL|BT  |HP       ,   BT|BB|HP       ,    BT  |BB |HP  ,   BT|BR|HP      },
 		{BL| BR |HP        ,BL|BR|BT|BB   ,   BL|BR       , BL  | BT | BB   ,  BB | BT | BR ,  BL|HP           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR    },
 		{BL |HP            , BB|BT        ,  0 |HP           , BT |HP               ,   BB |BT|HP         ,   BB|HP          ,    BB            ,   BT|HE          ,   BB|BT|HP      ,   BR  |HP       },
-		{BL |HP            , BT|BR|HP           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT|BB      ,   BL  |BB        ,   BT|BR      ,   BL| BR|HP     },
+		{BL |BB |HP            , BT|BR|HP           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT|BB      ,   BL  |BB        ,   BT|BR      ,   BL| BR|HP     },
 		{ BB |BT |BR    , BL|HP           ,   BB|BR       , BL|BB           ,   0|HP           ,   BT |BB |HP     ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR  |HP       },
 		{ BT|BB |HP        , BB |HP|BR           ,   BL|BT       , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT|HP      ,      BR |BT         ,   BL|BR       ,   BL|BT      ,   0|HP         },
 		{BL| BT |HP         , BT|BB|HP        ,   0  |HP         , HE|BT|BB        ,   BT|BB       ,   BR|HP          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR |HP     },
