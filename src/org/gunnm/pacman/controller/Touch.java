@@ -4,7 +4,6 @@ import org.gunnm.pacman.model.Entity;
 import org.gunnm.pacman.model.Game;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;

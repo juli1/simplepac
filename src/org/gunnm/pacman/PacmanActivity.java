@@ -15,7 +15,6 @@ import org.gunnm.pacman.view.Sound;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -46,7 +45,7 @@ public class PacmanActivity extends Activity {
 
 	private void startTimer ()
 	{
-		Log.i(TAG, "start timer");
+//		Log.i(TAG, "start timer");
 
 		autoUpdate = new Timer ();
 		autoUpdate.schedule(new TimerTask() 
@@ -146,11 +145,7 @@ public class PacmanActivity extends Activity {
 
         setContentView(R.layout.main);
         LinearLayout fl = (LinearLayout) findViewById (R.id.GamePlace);
-        if (fl == null)
-        {
-        	Log.e("Main", "null linearlayout");
-        }
-        else
+        if (fl != null)
         {
         	LayoutParams lp;
         	int w;
