@@ -114,7 +114,10 @@ public class PacmanActivity extends Activity {
 			size = display.getWidth();
 		}
 		gameModel = Game.getInstance ();
-		gameModel.reinit();
+		if (gameModel.isFinished())
+		{
+			gameModel.reinit();
+		}
 		skin = BasicSkin.getInstance();
 
 		newSize = GameCanvas.computeSquareSize(display.getWidth(), display.getHeight(), gameModel);
