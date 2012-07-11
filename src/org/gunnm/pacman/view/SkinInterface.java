@@ -71,6 +71,6 @@ public interface SkinInterface {
 	public String getSoundDying();
 	public String getSoundIntermission();
 
-
+	public void reconfig(int w, int h, int s);
 
 }

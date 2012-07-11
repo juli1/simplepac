@@ -14,7 +14,9 @@ import org.gunnm.pacman.view.Sound;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -31,6 +33,7 @@ public class PacmanActivity extends Activity {
 	Timer		mainLoopTimer;
 	Skin		skin;
 	Sound		sound;
+	int			currentRotation;
 	
 	private final static int 	UPDATE_INTERVAL = 60;
 	private final static String TAG = "PacmanActivity";
@@ -45,8 +48,6 @@ public class PacmanActivity extends Activity {
 
 	private void startTimer ()
 	{
-//		Log.i(TAG, "start timer");
-
 		autoUpdate = new Timer ();
 		autoUpdate.schedule(new TimerTask() 
 		{
@@ -71,51 +72,37 @@ public class PacmanActivity extends Activity {
 							tv.setText("" + gameModel.getHero().getLifes());
 						}
 						mainCanvas.invalidate();
-						/*
-						if ((gameModel.getCurrentAction() == Game.ACTION_FINISHED) &&
-							(gameModel.getHero().getLifes() <= 0))
-						{
-							Log.i(TAG, "cancel timer no lifes");
-							autoUpdate.cancel();
-						}
-						
-						if ((gameModel.getCurrentAction() == Game.ACTION_FINISHED) &&
-							(gameModel.getCurrentMapIndex() >= (Game.NB_MAPS - 1)))
-						{
-							Log.i(TAG, "cancel timer max maps");
-							autoUpdate.cancel();
-						}
-						*/
+					
 					}
 				});
 			}
 	    }, 0, UPDATE_INTERVAL);
 	}
 	
-	  public void onResume()
-	  {
-		  super.onResume();
-		  startTimer();
-	  }
 
 	  protected void onPause()
 	  {
 		  super.onPause();
 		  stopTimer ();
 	  }
-	
+
+	  protected void onResume ()
+	  {
+		  super.onResume();
+		  startTimer();
+	  }
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
 		int size;
-		
+		int newSize;
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		
+		currentRotation = display.getOrientation();
 		autoUpdate = new Timer();
 		
 		if (display.getHeight() < display.getWidth())
@@ -130,10 +117,11 @@ public class PacmanActivity extends Activity {
 		gameModel.reinit();
 		skin = BasicSkin.getInstance();
 
-        
+		newSize = GameCanvas.computeSquareSize(display.getWidth(), display.getHeight(), gameModel);
+		skin.reconfig(display.getWidth(), display.getHeight(), newSize);
         mainCanvas = new GameCanvas (this, gameModel, skin);
         sound      = Sound.getInstance();
-
+ 
        // setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
         mainCanvas.setOnKeyListener(new Key ());

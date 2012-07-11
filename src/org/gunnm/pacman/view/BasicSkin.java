@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 
 public class BasicSkin extends Skin
 {
+	private AssetManager assetManager;
 	public final static String TAG = "Resources";
 	private Bitmap pacmanFull;
 	private Bitmap ennemyLeft1;
@@ -64,6 +65,8 @@ public class BasicSkin extends Skin
 	private int screenWidth;
 	private int screenHeight;
 	
+	
+	
 	public static Skin getInstance ()
 	{
 		return BasicSkin.instance;
@@ -88,6 +91,7 @@ public class BasicSkin extends Skin
 		screenHeight = sh;
 
 		partSize = ps;
+		this.assetManager = manager;
 		this.loadResources(manager);
 		BasicSkin.instance = this; 
 	}
@@ -165,6 +169,11 @@ public class BasicSkin extends Skin
 
 		newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
 		return newBitmap;
+	}
+	
+	public void loadResources ()
+	{
+		this.loadResources(this.assetManager);
 	}
 	
 	
@@ -488,5 +497,13 @@ public class BasicSkin extends Skin
 	{
 		return "copyright-skin.txt";
 	}
+
+	public void reconfig(int w, int h, int s)
+	{
+		this.screenWidth = w;
+		this.screenHeight = h;
+		this.partSize = s;
+		this.loadResources();
+	} 
 	
 }
