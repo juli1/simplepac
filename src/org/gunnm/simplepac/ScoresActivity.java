@@ -1,8 +1,9 @@
-package org.gunnm.pacman;
+package org.gunnm.simplepac;
 
-import org.gunnm.pacman.model.Scores;
-import org.gunnm.pacman.view.BitmapView;
-import org.gunnm.pacman.view.TitleScreen;
+import org.gunnm.simplepac.R;
+import org.gunnm.simplepac.model.Scores;
+import org.gunnm.simplepac.view.BitmapView;
+import org.gunnm.simplepac.view.TitleScreen;
 
 import android.app.Activity;
 import android.content.Context;
@@ -54,7 +55,7 @@ public class ScoresActivity extends Activity {
 	
     public void editPreferences (View view)
     {
-    	Intent intent = new Intent(getApplicationContext(), org.gunnm.pacman.AppPreferences.class);
+    	Intent intent = new Intent(getApplicationContext(), org.gunnm.simplepac.AppPreferences.class);
     	startActivity(intent);
     }
     

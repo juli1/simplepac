@@ -1,8 +1,8 @@
-package org.gunnm.pacman.controller;
+package org.gunnm.simplepac.controller;
 
-import org.gunnm.pacman.model.Entity;
-import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.view.GameCanvas;
+import org.gunnm.simplepac.model.Entity;
+import org.gunnm.simplepac.model.Game;
+import org.gunnm.simplepac.view.GameCanvas;
 
 import android.content.Context;
 import android.view.Display;

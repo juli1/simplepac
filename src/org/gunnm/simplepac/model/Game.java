@@ -1,9 +1,9 @@
-package org.gunnm.pacman.model;
+package org.gunnm.simplepac.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gunnm.pacman.maps.*;
+import org.gunnm.simplepac.maps.*;
 
 public class Game {
 	private Map map;

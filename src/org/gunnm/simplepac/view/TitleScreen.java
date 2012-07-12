@@ -1,6 +1,6 @@
-package org.gunnm.pacman.view;
+package org.gunnm.simplepac.view;
 
-import org.gunnm.pacman.model.Game;
+import org.gunnm.simplepac.model.Game;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -99,7 +99,7 @@ public class TitleScreen extends View implements OnTouchListener
 			if ( (y > (newGameAlignY - margin / 2) ) && ( y < (newGameAlignY + margin / 2 + skin.getNewGame().getHeight())))
 			{
 //				Log.i(TAG, "New Game");
-		    	Intent intent = new Intent(context, org.gunnm.pacman.PacmanActivity.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.PacmanActivity.class);
 		    	context.startActivity(intent);
 			}
 			
@@ -119,7 +119,7 @@ public class TitleScreen extends View implements OnTouchListener
 				}
 				else
 				{
-					Intent intent = new Intent(context, org.gunnm.pacman.ScoresActivity.class);
+					Intent intent = new Intent(context, org.gunnm.simplepac.ScoresActivity.class);
 					context.startActivity(intent);
 				}
 			}
@@ -127,14 +127,14 @@ public class TitleScreen extends View implements OnTouchListener
 			if ( (y > ( preferencesAlignY - margin / 2) ) && ( y < (preferencesAlignY + margin / 2 +  skin.getPreferences().getHeight())))
 			{
 //				Log.i(TAG, "Preferences");
-		    	Intent intent = new Intent(context, org.gunnm.pacman.AppPreferences.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.AppPreferences.class);
 		    	context.startActivity(intent);
 			}
 			
 			if ( (y > (copyrightAlignY - margin / 2) ) && ( x > copyrightAlignX))
 			{
 //				Log.i(TAG, "Copyright");
-		    	Intent intent = new Intent(context, org.gunnm.pacman.CopyrightActivity.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.CopyrightActivity.class);
 		    	context.startActivity(intent);
 			}
 			

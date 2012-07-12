@@ -1,7 +1,8 @@
-package org.gunnm.pacman;
+package org.gunnm.simplepac;
 
-import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.model.Scores;
+import org.gunnm.simplepac.R;
+import org.gunnm.simplepac.model.Game;
+import org.gunnm.simplepac.model.Scores;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

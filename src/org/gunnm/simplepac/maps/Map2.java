@@ -1,8 +1,8 @@
-package org.gunnm.pacman.maps;
+package org.gunnm.simplepac.maps;
 
-import org.gunnm.pacman.model.MapInterface;
+import org.gunnm.simplepac.model.MapInterface;
 
-public class MapDemo implements MapInterface
+public class Map2 implements MapInterface
 {
 	private final static int NB_ENNEMIES 			= 5;
 	private final static int MAP_WIDTH 				= 10;
@@ -42,17 +42,17 @@ public class MapDemo implements MapInterface
 	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
 	int[][] map = new int[][]
 	{ 
-		{BT| BL |HP        , BT|BB|HP        ,   BT|HP          , BT|BB|HP           ,      BB|HP       ,   BT|HP |BR         ,    BL|BT  |HP       ,   BT|BB|HP       ,    BT  |BB |HP  ,   BT|BR|HP      },
-		{BL| BR |HP        ,BL|BR|BT|BB   ,   BL|BR       , BL  | BT | BB   ,  BB | BT | BR ,  BL|HP           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR    },
-		{BL |HP            , BB|BT        ,  0 |HP           , BT |HP               ,   BB |BT|HP         ,   BB|HP          ,    BB            ,   BT|HE          ,   BB|BT|HP      ,   BR  |HP       },
-		{BL |BB |HP            , BT|BR|HP           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT|BB      ,   BL  |BB        ,   BT|BR      ,   BL| BR|HP     },
-		{ BB |BT |BR    , BL|HP           ,   BB|BR       , BL|BB           ,   0|HP           ,   BT |BB |HP     ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR  |HP       },
-		{ BT|BB |HP        , BB |HP|BR           ,   BL|BT       , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT|HP      ,      BR |BT         ,   BL|BR       ,   BL|BT      ,   0|HP         },
-		{BL| BT |HP         , BT|BB|HP        ,   0  |HP         , HE|BT|BB        ,   BT|BB       ,   BR|HP          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR |HP     },
-		{BL| BR |HP        , BL|BR|HP|BT        ,   HE|BL|BB    , BT|BB           ,   BT|BB       ,   BR|HP          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR|HP      },
-		{BL| BR |HP        , BL|BR|HP        ,   BL|HB|BT |BB   , BB | BT         ,   BB|BT |HP      ,   BR|HP          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR|HP      },
-		{BL| BR |HP        , BL |HP         ,   BT|BB|HE    , BT | BB |HP        ,   HB |BB  |BT    ,   BB|HP          ,   BB|BR|HP          ,  BL| HB |BB   ,   BB |BR|HP     ,   BL|BR|HP   },
-		{BL| BB |HP        , BB |HP         ,   BT|BB|HP       , BT|BB|HP           , BT |HP           ,  BT| BB|HP       ,   BT|BB|HP          ,   BT|BB|HP       ,  BT| BB|HP      ,   BR|BB|HP      },
+		{BT| BL       , BT|BB        ,   BT          , BT|BB           ,      BB       ,   BT          ,    BL|BT         ,   BT|BB       ,    BT  |BB   ,   BT|BR      },
+		{BL| BR       ,BL|BR|BT|BB   ,   BL|BR       , BL  | BT | BB   ,  BB | BT | BR ,  BL           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR    },
+		{BL           , BB|BT        ,  0            , 0               ,   BB |BT         ,   0           ,    BB            ,   HE          ,   BB|BT      ,   BR         },
+		{BL           , BT           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT      ,   BL          ,   BT|BR      ,   BL| BR     },
+		{ BB |BT |BR  , BL           ,   BB|BR       , BL|BB           ,   0           ,   BT |BB      ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR         },
+		{ BT|BB       , 0            ,   BL|BT       , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0          },
+		{BL| BT       , BT|BB        ,   0           , HE|BT|BB        ,   BT|BB       ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR      },
+		{BL| BR       , BL|BR        ,   HE|BL|BB    , BT|BB           ,   BT|BB       ,   BR          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR      },
+		{BL| BR       , BL|BR        ,   BL|HB|BT    , BB | BT         ,   BB|BT       ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR      },
+		{BL| BR       , BL           ,   BT|BB|HE    , BT | BB         ,   HB |BB      ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR   },
+		{BL| BB       ,   BB         ,   BT|BB       , BT|BB           , BT            ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB      },
 	};
 	
 	
@@ -60,7 +60,7 @@ public class MapDemo implements MapInterface
 	
 	
 	
-	public MapDemo()
+	public Map2()
 	{
 		int ind;
 

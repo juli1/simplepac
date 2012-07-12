@@ -1,16 +1,17 @@
-package org.gunnm.pacman.maps;
+package org.gunnm.simplepac.maps;
 
-import org.gunnm.pacman.model.MapInterface;
+import org.gunnm.simplepac.model.MapInterface;
 
-public class Map1 implements MapInterface
+public class MapDemo implements MapInterface
 {
 	private final static int NB_ENNEMIES 			= 5;
 	private final static int MAP_WIDTH 				= 10;
 	private final static int MAP_HEIGHT 			= 11;
 	private final static int NB_SUPERPOINTS  		= 6;
-	private final static int NB_SPECIAL_SMALL  		= 4;
-	private final static int NB_SPECIAL_MEDIUM  	= 2;
-	private final static int NB_SPECIAL_BIG  		= 1;
+	private final static int NB_SPECIAL_SMALL  		= 0;
+	private final static int NB_SPECIAL_MEDIUM  	= 0;
+	private final static int NB_SPECIAL_BIG  		= 0;
+	
 	
 	private final static int borderLeft        = 0x0001;
 	private final static int borderRight       = 0x0002;
@@ -39,19 +40,19 @@ public class Map1 implements MapInterface
 	int[][] specialSmallTable 	= new int[NB_SPECIAL_SMALL][2];
 	int[][] specialMediumTable 	= new int[NB_SPECIAL_MEDIUM][2];
 	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
-	int[][] map 				= new int[][]
+	int[][] map = new int[][]
 	{ 
-		{BT| BL    , BT|SS       ,   BT|BB       , BT          ,      BB    ,BT|BB          ,    BT | BB       ,    BT|BB      ,    BT|BB     ,   BT|BR},
-		{BL| BR    , BL|BR    ,   BT|BL|BR    , BL | BR     ,   BL|BT    ,   BT|BB       ,    BT|BB         ,    BT         ,    BT|BR|BB  ,   BL|  BR},
-		{BL| BR | HE    , BL|BR    ,   BL|BR       , BL |BR      ,   BL       ,   BT|BB       ,    BT|BB         ,   HE          ,   BB|BT      ,   BR},
-		{BL| BR    , BL|BR    ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL|BB          ,   BT|BR      ,   BL| BR},
-		{BL| BR    , BL |SM      ,   BT|BB       , BB |SS      ,  SB| BT       ,   BT |BB      ,      BT          ,   BT |BR      ,   BB |BL     ,   BR},
-		{    BR    , BB|BR|BL ,   BL|BB|BT    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0},
-		{BL| BB    , BT       ,   BT          , HE|BT|BB    ,   BT|BB    ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BT|BR , BL|BR    ,   HE|BL|BB    , BT|BB       ,   BT|BB    ,   BR  |SS     ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
-		{BL| BR    , BL|BR    ,   BL|HB|BT    , BB | BT     ,   BB|BT    ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BR    , BL|SS       ,   BT|BB|HE    , BT | BB     ,   HB |BB|BT   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
-		{BL| BB    ,   BB |SM    ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },
+		{BT| BL |HP        , BT|BB|HP        ,   BT|HP          , BT|BB|HP           ,      BB|HP       ,   BT|HP |BR         ,    BL|BT  |HP       ,   BT|BB|HP       ,    BT  |BB |HP  ,   BT|BR|HP      },
+		{BL| BR |HP        ,BL|BR|BT|BB   ,   BL|BR       , BL  | BT | BB   ,  BB | BT | BR ,  BL|HP           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR    },
+		{BL |HP            , BB|BT        ,  0 |HP           , BT |HP               ,   BB |BT|HP         ,   BB|HP          ,    BB            ,   BT|HE          ,   BB|BT|HP      ,   BR  |HP       },
+		{BL |BB |HP            , BT|BR|HP           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT|BB      ,   BL  |BB        ,   BT|BR      ,   BL| BR|HP     },
+		{ BB |BT |BR    , BL|HP           ,   BB|BR       , BL|BB           ,   0|HP           ,   BT |BB |HP     ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR  |HP       },
+		{ BT|BB |HP        , BB |HP|BR           ,   BL|BT       , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT|HP      ,      BR |BT         ,   BL|BR       ,   BL|BT      ,   0|HP         },
+		{BL| BT |HP         , BT|BB|HP        ,   0  |HP         , HE|BT|BB        ,   BT|BB       ,   BR|HP          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR |HP     },
+		{BL| BR |HP        , BL|BR|HP|BT        ,   HE|BL|BB    , BT|BB           ,   BT|BB       ,   BR|HP          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR|HP      },
+		{BL| BR |HP        , BL|BR|HP        ,   BL|HB|BT |BB   , BB | BT         ,   BB|BT |HP      ,   BR|HP          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR|HP      },
+		{BL| BR |HP        , BL |HP         ,   BT|BB|HE    , BT | BB |HP        ,   HB |BB  |BT    ,   BB|HP          ,   BB|BR|HP          ,  BL| HB |BB   ,   BB |BR|HP     ,   BL|BR|HP   },
+		{BL| BB |HP        , BB |HP         ,   BT|BB|HP       , BT|BB|HP           , BT |HP           ,  BT| BB|HP       ,   BT|BB|HP          ,   BT|BB|HP       ,  BT| BB|HP      ,   BR|BB|HP      },
 	};
 	
 	
@@ -59,7 +60,7 @@ public class Map1 implements MapInterface
 	
 	
 	
-	public Map1()
+	public MapDemo()
 	{
 		int ind;
 
@@ -80,57 +81,6 @@ public class Map1 implements MapInterface
 			}			
 		}
 		
-		
-		/*
-		 * Bonuses table definition
-		 */
-		ind = 0;
-		for (int x = 0 ; x < MAP_WIDTH ; x++)
-		{
-			for (int y = 0 ; y < MAP_WIDTH ; y++)
-			{
-				if ((map[y][x] & hasSpecialSmall ) != 0)
-				{
-					specialSmallTable[ind][0] = x;
-					specialSmallTable[ind][1] = y;
-					ind = (ind + 1) % NB_SPECIAL_SMALL;
-				}
-			}			
-		}
-		
-		/*
-		 * Bonuses table definition
-		 */
-		ind = 0;
-		for (int x = 0 ; x < MAP_WIDTH ; x++)
-		{
-			for (int y = 0 ; y < MAP_WIDTH ; y++)
-			{
-				if ((map[y][x] & hasSpecialMedium ) != 0)
-				{
-					specialMediumTable[ind][0] = x;
-					specialMediumTable[ind][1] = y;
-					ind = (ind + 1) % NB_SPECIAL_MEDIUM;
-				}
-			}			
-		}
-		
-		/*
-		 * Bonuses table definition
-		 */
-		ind = 0;
-		for (int x = 0 ; x < MAP_WIDTH ; x++)
-		{
-			for (int y = 0 ; y < MAP_WIDTH ; y++)
-			{
-				if ((map[y][x] & hasSpecialBig ) != 0)
-				{
-					specialBigTable[ind][0] = x;
-					specialBigTable[ind][1] = y;
-					ind = (ind + 1) % NB_SPECIAL_BIG;
-				}
-			}			
-		}
 
 		/*
 		 * Ennemy table definition
@@ -237,6 +187,8 @@ public class Map1 implements MapInterface
 	{
 		return 50;
 	}
+
+	
 	public int getNbSpecialSmall ()
 	{
 		return NB_SPECIAL_SMALL;
@@ -266,4 +218,6 @@ public class Map1 implements MapInterface
 	{
 		return specialBigTable[index];
 	}
+
+
 }

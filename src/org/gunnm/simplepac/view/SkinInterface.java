@@ -1,4 +1,4 @@
-package org.gunnm.pacman.view;
+package org.gunnm.simplepac.view;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package org.gunnm.pacman.model;
+package org.gunnm.simplepac.model;
 
 
 public class Map {

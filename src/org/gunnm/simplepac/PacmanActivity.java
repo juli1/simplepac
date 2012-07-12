@@ -1,17 +1,18 @@
-package org.gunnm.pacman;
+package org.gunnm.simplepac;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.gunnm.pacman.controller.Key;
-import org.gunnm.pacman.controller.Touch;
-import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.view.BasicSkin;
-import org.gunnm.pacman.view.BitmapView;
-import org.gunnm.pacman.view.GameCanvas;
-import org.gunnm.pacman.view.Skin;
-import org.gunnm.pacman.view.SkinInterface;
-import org.gunnm.pacman.view.Sound;
+import org.gunnm.simplepac.R;
+import org.gunnm.simplepac.controller.Key;
+import org.gunnm.simplepac.controller.Touch;
+import org.gunnm.simplepac.model.Game;
+import org.gunnm.simplepac.view.BasicSkin;
+import org.gunnm.simplepac.view.BitmapView;
+import org.gunnm.simplepac.view.GameCanvas;
+import org.gunnm.simplepac.view.Skin;
+import org.gunnm.simplepac.view.SkinInterface;
+import org.gunnm.simplepac.view.Sound;
 
 import android.app.Activity;
 import android.content.Context;

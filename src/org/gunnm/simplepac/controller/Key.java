@@ -1,7 +1,7 @@
-package org.gunnm.pacman.controller;
+package org.gunnm.simplepac.controller;
 
-import org.gunnm.pacman.model.Entity;
-import org.gunnm.pacman.model.Game;
+import org.gunnm.simplepac.model.Entity;
+import org.gunnm.simplepac.model.Game;
 
 import android.view.KeyEvent;
 import android.view.View;

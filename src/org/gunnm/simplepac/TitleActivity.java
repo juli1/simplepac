@@ -1,12 +1,12 @@
-package org.gunnm.pacman;
+package org.gunnm.simplepac;
 
-import org.gunnm.pacman.model.Game;
-import org.gunnm.pacman.model.Scores;
-import org.gunnm.pacman.view.BasicSkin;
-import org.gunnm.pacman.view.GameCanvas;
-import org.gunnm.pacman.view.Skin;
-import org.gunnm.pacman.view.Sound;
-import org.gunnm.pacman.view.TitleScreen;
+import org.gunnm.simplepac.model.Game;
+import org.gunnm.simplepac.model.Scores;
+import org.gunnm.simplepac.view.BasicSkin;
+import org.gunnm.simplepac.view.GameCanvas;
+import org.gunnm.simplepac.view.Skin;
+import org.gunnm.simplepac.view.Sound;
+import org.gunnm.simplepac.view.TitleScreen;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -94,7 +94,7 @@ public class TitleActivity extends Activity {
         
 		if (debug)   
         {  
-        	Intent intent = new Intent(this, org.gunnm.pacman.PacmanActivity.class);
+        	Intent intent = new Intent(this, org.gunnm.simplepac.PacmanActivity.class);
         	startActivity(intent);
         }
         else

@@ -1,9 +1,9 @@
-package org.gunnm.pacman.view;
+package org.gunnm.simplepac.view;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.gunnm.pacman.model.Game;
+import org.gunnm.simplepac.model.Game;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
