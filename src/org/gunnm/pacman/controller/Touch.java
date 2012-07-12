@@ -2,6 +2,7 @@ package org.gunnm.pacman.controller;
 
 import org.gunnm.pacman.model.Entity;
 import org.gunnm.pacman.model.Game;
+import org.gunnm.pacman.view.GameCanvas;
 
 import android.content.Context;
 import android.view.Display;
@@ -37,11 +38,21 @@ public class Touch implements OnTouchListener {
 		float currentY;
 		float deltaX;
 		float deltaY;
-		int heroPositionX;
-		int heroPositionY;
+		float heroPositionX;
+		float heroPositionY;
+		boolean hasMove;
 		
 		heroPositionX = (screenWidth / Game.getInstance().getMap().getWidth()) * Game.getInstance().getHero().getPositionX();
-		heroPositionY = (screenHeight/ Game.getInstance().getMap().getHeight()) * Game.getInstance().getHero().getPositionY();
+		heroPositionY = (screenHeight/ Game.getInstance().getMap().getHeight()) * Game.getInstance().getHero().getPositionY() - screenHeight / 6 ;
+		
+		if (GameCanvas.getInstance() != null)
+		{
+			heroPositionX = heroPositionX + GameCanvas.getInstance().getAlignX() * 2;
+			heroPositionY = heroPositionY + GameCanvas.getInstance().getAlignY() * 2;
+		}
+		
+		
+		
 		
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
@@ -56,8 +67,6 @@ public class Touch implements OnTouchListener {
 			currentX = event.getX();
 			
 			currentY = event.getY();
-			
-//			Log.i(TAG, "Touch Event, previous coord ("+previousX+ "," + previousY+") current coord ("+currentX+ ","+currentY+")");
 			
 			deltaX = currentX - previousX;
 			deltaY = currentY - previousY;
@@ -87,34 +96,63 @@ public class Touch implements OnTouchListener {
 				return true;
 			}
 			
-			if ( (currentY < heroPositionY) && ((heroPositionY-currentY ) >  screenHeight / 6)
-					&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_UP))
-			{
-				model.getHero().setDirection(Entity.DIRECTION_UP);
-				return true;
-			}
+//			Log.i(TAG, "heroPositionX=" + heroPositionX + "heroPositionY=" + heroPositionY + "currentX=" + currentX + "currentY=" + currentY );
 			
-			if ( (currentY > heroPositionY) && ((currentY - heroPositionY) >  screenHeight / 6) &&
-				 model.canTakeDirection(model.getHero(), Entity.DIRECTION_DOWN))
-			{
-				model.getHero().setDirection(Entity.DIRECTION_DOWN);
-				return true;
-			}
+			deltaX = Math.abs(heroPositionX - currentX);
+			deltaY = Math.abs(heroPositionY - currentY);
 			
-			if ( (currentX > heroPositionX) && ((currentX - heroPositionX) >  screenWidth / 6)
-					&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_RIGHT))
+			if (deltaY > deltaX)
 			{
-				model.getHero().setDirection(Entity.DIRECTION_RIGHT);
-				return true;
+				hasMove = tryMoveY(heroPositionY, currentY);
+				if ( ! hasMove )
+				{
+					tryMoveX (heroPositionX,currentX);
+				}
 			}
-			
-			if ( (currentX < heroPositionX) && ((heroPositionX - currentX) >  screenWidth / 6)
-					&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_LEFT))
+			else
 			{
-				model.getHero().setDirection(Entity.DIRECTION_LEFT);
-				return true;
-			}	
+				hasMove = tryMoveX (heroPositionX,currentX);
+				if ( ! hasMove )
+				{
+					tryMoveY(heroPositionY, currentY);
+				}
+			}
 		}
 		return true;
+	}
+	
+	private boolean tryMoveX (float heroPositionX, float currentX)
+	{
+		if ( (currentX > heroPositionX)
+				&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_RIGHT))
+		{
+			model.getHero().setDirection(Entity.DIRECTION_RIGHT);
+			return true;
+		}
+		
+		if ( (currentX < heroPositionX)
+				&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_LEFT))
+		{
+			model.getHero().setDirection(Entity.DIRECTION_LEFT);
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean tryMoveY (float heroPositionY, float currentY)
+	{
+		if ( (currentY < heroPositionY) 
+				&& model.canTakeDirection(model.getHero(), Entity.DIRECTION_UP))
+		{
+			model.getHero().setDirection(Entity.DIRECTION_UP);
+			return true;
+		}
+		if ( (currentY > heroPositionY) &&
+			 model.canTakeDirection(model.getHero(), Entity.DIRECTION_DOWN))
+		{
+			model.getHero().setDirection(Entity.DIRECTION_DOWN);
+			return true;
+		}
+		return false;
 	}
 }

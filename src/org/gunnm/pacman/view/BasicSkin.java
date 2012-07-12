@@ -9,7 +9,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.util.Log;
 
 public class BasicSkin extends Skin
 {
@@ -118,7 +117,6 @@ public class BasicSkin extends Skin
 		this.assetManager = manager;
 		this.loadResources(manager, ORIENTATION_PORTRAIT);
 		this.loadResources(manager, ORIENTATION_LANDSCAPE);
-		Log.i(TAG, "Start with sw=" + sw + "sh=" + sh);
 		BasicSkin.instance = this;
 	}
 	

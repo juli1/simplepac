@@ -17,7 +17,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -124,11 +123,10 @@ public class PacmanActivity extends Activity {
 
 		if (display.getWidth() > display.getHeight())
 		{
-			Log.i(TAG, "Orientation landscape"); 
 			skin.setOrientation(SkinInterface.ORIENTATION_LANDSCAPE);
 		}
 		else
-		{Log.i(TAG, "Orientation portrait"); 
+		{
 			skin.setOrientation(SkinInterface.ORIENTATION_PORTRAIT);
 		}
 		

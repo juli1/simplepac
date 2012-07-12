@@ -24,7 +24,22 @@ public class GameCanvas extends View
 	private int squareSize;
 	private static float STEP_INCR = 0.17f;
 	private Paint defaultPaint;
-	 
+	private static GameCanvas instance = null;
+	
+	public static GameCanvas getInstance ()
+	{
+		return instance;
+	}
+	
+	public int getAlignX ()
+	{
+		return mapAlignX;
+	}
+	
+	public int getAlignY ()
+	{
+		return mapAlignY;
+	}
 	
 	public GameCanvas (Context context, Game gm, Skin s)
 	{
@@ -66,7 +81,8 @@ public class GameCanvas extends View
 		}
 		skin = s;
 		STEP_INCR = (float)(squareSize ) / (2 * Game.INTERNAL_STEP_THRESHOLD) ;
-//		Log.i(TAG, "squareSize=" + squareSize + " incr = " + STEP_INCR);
+
+		instance = this;
 	}
 	
 	
