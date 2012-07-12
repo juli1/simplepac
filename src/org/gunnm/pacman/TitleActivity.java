@@ -86,7 +86,7 @@ public class TitleActivity extends Activity {
 		}   
 		gameModel 		= new Game ();
 		squareSize 		= GameCanvas.computeSquareSize(display.getWidth(), display.getHeight(), gameModel);
-		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), squareSize, display.getWidth(), display.getHeight());
+		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), display.getWidth(), display.getHeight(), gameModel);
 		sound      		= Sound.getInstance (this, gameModel, skin);
 
         loadingResources.show();

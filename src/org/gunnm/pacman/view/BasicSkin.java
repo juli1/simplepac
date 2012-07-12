@@ -3,68 +3,76 @@ package org.gunnm.pacman.view;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.gunnm.pacman.model.Game;
+
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.util.Log;
 
 public class BasicSkin extends Skin
 {
+	private int currentOrientation;
 	private AssetManager assetManager;
 	public final static String TAG = "Resources";
-	private Bitmap pacmanFull;
-	private Bitmap ennemyLeft1;
-	private Bitmap ennemyLeft2;
-	private Bitmap pacmanLeft1;
-	private Bitmap pacmanLeft2;
-	private Bitmap pacmanLeft3;
-	private Bitmap pacmanRight1;
-	private Bitmap pacmanRight2;
-	private Bitmap pacmanRight3;
-	private Bitmap pacmanUp1;
-	private Bitmap pacmanUp2;
-	private Bitmap pacmanUp3;
-	private Bitmap pacmanBottom1;
-	private Bitmap pacmanBottom2;
-	private Bitmap pacmanBottom3;
-	private Bitmap pacmanDie1;
-	private Bitmap pacmanDie2;
-	private Bitmap pacmanDie3;
-	private Bitmap pacmanDie4;
-	private Bitmap pacmanDie5;
-	private Bitmap pacmanDie6;
-	private Bitmap logo;
-	private Bitmap instructions;
-	private Bitmap preferences;
-	private Bitmap highScores;
-	private Bitmap newGame;
-	private Bitmap ennemyUp1;
-	private Bitmap ennemyUp2;
-	private Bitmap ennemyDown1;
-	private Bitmap ennemyDown2;
-	private Bitmap ennemyRight1;
-	private Bitmap ennemyRight2;
-	private Bitmap ennemyVulnerable1;
-	private Bitmap ennemyVulnerable2;
-	private Bitmap point;
-	private Bitmap superPoint;
-	private Bitmap specialSmall;
-	private Bitmap specialMedium;
-	private Bitmap specialBig;
-	private Bitmap bonus1;
-	private Bitmap bonus2;
-	private Bitmap gameOver;
-	private Bitmap nextLevel;
-	private Bitmap completed;
-	private Bitmap demoCompleted;
-	private Bitmap wallVertical;
-	private Bitmap wallHorizontal;
-	private Bitmap highScoresLogo;
-	private Bitmap copyright;
-	private int partSize;
+	public final static int NB_BITMAPS = 50;
+	public final static int NB_ORIENTATIONS = 2;
+	
+	private final static int pacmanFull = 1;
+	private final static int ennemyLeft1 = 2;
+	private final static int ennemyLeft2 = 3;
+	private final static int pacmanLeft1 = 4;
+	private final static int pacmanLeft2 = 5;
+	private final static int pacmanLeft3 = 6;
+	private final static int pacmanRight1 = 7;
+	private final static int pacmanRight2 = 8;
+	private final static int pacmanRight3 = 9;
+	private final static int pacmanUp1 = 10;
+	private final static int pacmanUp2 = 11;
+	private final static int pacmanUp3 = 12;
+	private final static int pacmanBottom1 = 13;
+	private final static int pacmanBottom2 = 14;
+	private final static int pacmanBottom3 = 15;
+	private final static int pacmanDie1 = 16;
+	private final static int pacmanDie2 = 17;
+	private final static int pacmanDie3 = 18;
+	private final static int pacmanDie4 = 19;
+	private final static int pacmanDie5 = 20;
+	private final static int pacmanDie6 = 21;
+	private final static int logo = 22;
+	private final static int instructions = 23;
+	private final static int preferences = 24;
+	private final static int highScores = 25;
+	private final static int newGame = 26;
+	private final static int ennemyUp1 = 27;
+	private final static int ennemyUp2 = 28;
+	private final static int ennemyDown1 = 29;
+	private final static int ennemyDown2 = 30;
+	private final static int ennemyRight1 = 31;
+	private final static int ennemyRight2 = 32;
+	private final static int ennemyVulnerable1 = 33;
+	private final static int ennemyVulnerable2 = 34;
+	private final static int point = 35;
+	private final static int superPoint = 36;
+	private final static int specialSmall = 37;
+	private final static int specialMedium = 38;
+	private final static int specialBig = 39;
+	private final static int bonus1 = 40;
+	private final static int bonus2 = 41;
+	private final static int gameOver = 42;
+	private final static int nextLevel = 43;
+	private final static int completed = 44;
+	private final static int demoCompleted = 45;
+	private final static int wallVertical = 46;
+	private final static int wallHorizontal = 47;
+	private final static int highScoresLogo = 48;
+	private final static int copyright = 49;
+	private Bitmap[][] skinBitmaps = new Bitmap[NB_BITMAPS][NB_ORIENTATIONS];
 	private int screenWidth;
 	private int screenHeight;
-	
+	private int gameWidth;
+	private int gameHeight;	
 	
 	
 	public static Skin getInstance ()
@@ -72,28 +80,46 @@ public class BasicSkin extends Skin
 		return BasicSkin.instance;
 	}
 	
-	public static Skin getInstance (AssetManager manager, int ps, int sw, int sh)
+	public static Skin getInstance (AssetManager manager, int sw, int sh, int gw, int gh)
 	{
 		if (BasicSkin.instance == null)
 		{
-			BasicSkin.instance = new BasicSkin (manager, ps, sw, sh);
+			BasicSkin.instance = new BasicSkin (manager, sw, sh, gw, gh);
 		}
 		return BasicSkin.instance;
 	}
 	
-	public BasicSkin (AssetManager manager, int ps, int sw, int sh)
+	public static Skin getInstance (AssetManager manager, int sw, int sh, Game g)
+	{
+		return getInstance (manager, sw, sh, g.getMap().getWidth(), g.getMap().getHeight());
+	}
+	
+	public BasicSkin (AssetManager manager, int sw, int sh, int gw, int gh)
 	{
 		if (BasicSkin.instance != null)
 		{
 			return;
 		}
-		screenWidth  = sw;
-		screenHeight = sh;
-
-		partSize = ps;
+		
+		if (sw < sh) 
+		{
+			screenWidth  = sw;
+			screenHeight = sh;
+			this.currentOrientation = ORIENTATION_PORTRAIT;
+		} 
+		else
+		{
+			screenWidth  = sh;
+			screenHeight = sw;
+			this.currentOrientation = ORIENTATION_LANDSCAPE;
+		}
+		gameWidth = gw;
+		gameHeight = gh;
 		this.assetManager = manager;
-		this.loadResources(manager);
-		BasicSkin.instance = this; 
+		this.loadResources(manager, ORIENTATION_PORTRAIT);
+		this.loadResources(manager, ORIENTATION_LANDSCAPE);
+		Log.i(TAG, "Start with sw=" + sw + "sh=" + sh);
+		BasicSkin.instance = this;
 	}
 	
 	private Bitmap scaleImage(Bitmap bitmap, int newWidth) 
@@ -171,79 +197,107 @@ public class BasicSkin extends Skin
 		return newBitmap;
 	}
 	
-	public void loadResources ()
-	{
-		this.loadResources(this.assetManager);
-	}
 	
-	
-	public void loadResources (AssetManager manager)
+	public void loadResources (AssetManager manager, int orientation)
 	{
-		int entitySize = partSize - 5;
+		int partSize;
+		int entitySize;
+		
+		if (orientation == Skin.ORIENTATION_LANDSCAPE)
+		{
+			partSize = GameCanvas.computeSquareSize(screenHeight, screenWidth, gameWidth, gameHeight);
+		}
+		else
+		{
+			partSize = GameCanvas.computeSquareSize(screenWidth, screenHeight, gameWidth, gameHeight);
+		}
+		entitySize = partSize - 5;
 		try 
 		{
-			pacmanLeft1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-left-full.png")), entitySize);
-			pacmanLeft2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-left-half.png")), entitySize);
-			pacmanLeft3 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
+			skinBitmaps[pacmanLeft1][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-left-full.png")), entitySize);
+			skinBitmaps[pacmanLeft2][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-left-half.png")), entitySize);
+			skinBitmaps[pacmanLeft3][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 
-			pacmanRight1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-right-full.png")), entitySize);
-			pacmanRight2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-right-half.png")), entitySize);
-			pacmanRight3 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
+			skinBitmaps[pacmanRight1][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-right-full.png")), entitySize);
+			skinBitmaps[pacmanRight2][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-right-half.png")), entitySize);
+			skinBitmaps[pacmanRight3][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
  
 			
-			pacmanUp1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-up-full.png")), entitySize);
-			pacmanUp2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-up-half.png")), entitySize);
-			pacmanUp3 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
+			skinBitmaps[pacmanUp1][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-up-full.png")), entitySize);
+			skinBitmaps[pacmanUp2][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-up-half.png")), entitySize);
+			skinBitmaps[pacmanUp3][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 
-			pacmanBottom1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-bottom-full.png")), entitySize);
-			pacmanBottom2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-bottom-half.png")), entitySize);
-			pacmanBottom3 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
+			skinBitmaps[pacmanBottom1][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-bottom-full.png")), entitySize);
+			skinBitmaps[pacmanBottom2][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-bottom-half.png")), entitySize);
+			skinBitmaps[pacmanBottom3][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
 
-			pacmanDie1 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die1.png")), entitySize);
-			pacmanDie2 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die2.png")), entitySize);
-			pacmanDie3 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die3.png")), entitySize);
-			pacmanDie4 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die4.png")), entitySize);
-			pacmanDie5 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die5.png")), entitySize);
-			pacmanDie6 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die6.png")), entitySize);
+			skinBitmaps[pacmanDie1][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die1.png")), entitySize);
+			skinBitmaps[pacmanDie2][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die2.png")), entitySize);
+			skinBitmaps[pacmanDie3][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die3.png")), entitySize);
+			skinBitmaps[pacmanDie4][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die4.png")), entitySize);
+			skinBitmaps[pacmanDie5][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die5.png")), entitySize);
+			skinBitmaps[pacmanDie6][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-die6.png")), entitySize);
+			if (orientation == ORIENTATION_LANDSCAPE)
+			{
+				skinBitmaps[logo][orientation] 			= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("logo.png")), screenWidth / 6);
 
-			logo 			= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("logo.png")), screenHeight / 6);
-			highScoresLogo	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
-			gameOver 		= scaleImage (BitmapFactory.decodeStream(manager.open("gameover.png")), screenWidth / 2);
-			nextLevel 		= scaleImage (BitmapFactory.decodeStream(manager.open("nextlevel.png")), screenWidth / 2);
-			
-			newGame 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenWidth / 3);
-			highScores 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenWidth / 3);
-			preferences 	= scaleImage(BitmapFactory.decodeStream(manager.open("preferences.png")), screenWidth / 3);
+				skinBitmaps[gameOver][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("gameover.png")), screenHeight / 2);
+				skinBitmaps[nextLevel][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("nextlevel.png")), screenHeight / 2);
+				
+				skinBitmaps[newGame][orientation] 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenHeight / 3);
+				skinBitmaps[highScores][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenHeight / 3);
+				skinBitmaps[preferences][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("preferences.png")), screenHeight / 3);
 
-			instructions 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenWidth / 3);
+				skinBitmaps[instructions][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenHeight / 3);
+				
+				skinBitmaps[copyright][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("copyright.png")), screenHeight / 3);
+				skinBitmaps[completed][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("completed.png")), screenHeight / 2);
+				
+				skinBitmaps[demoCompleted][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("democompleted.png")), screenHeight / 3 * 2);
+	  
+			}
+			else
+			{ 
+				skinBitmaps[logo][orientation] 			= scaleImageByHeight(BitmapFactory.decodeStream(manager.open("logo.png")), screenHeight / 6);
+
+				skinBitmaps[gameOver][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("gameover.png")), screenWidth / 2);
+				skinBitmaps[nextLevel][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("nextlevel.png")), screenWidth / 2);
+				
+				skinBitmaps[newGame][orientation] 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenWidth / 3);
+				skinBitmaps[highScores][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenWidth / 3);
+				skinBitmaps[preferences][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("preferences.png")), screenWidth / 3);
+
+				skinBitmaps[instructions][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenWidth / 3);
+				
+				skinBitmaps[copyright][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("copyright.png")), screenWidth / 3);
+				skinBitmaps[completed][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("completed.png")), screenWidth / 2);
+				
+				skinBitmaps[demoCompleted][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("democompleted.png")), screenWidth / 3 * 2);
+	  
+			}
+			skinBitmaps[highScoresLogo][orientation]	= BitmapFactory.decodeStream(manager.open("logohighscores.png"));
+			skinBitmaps[pacmanFull][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
+			skinBitmaps[bonus1][orientation] 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
+			skinBitmaps[bonus2][orientation] 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
+			skinBitmaps[specialSmall][orientation]	= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
+			skinBitmaps[specialMedium][orientation]	= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
+			skinBitmaps[specialBig][orientation]		= scaleImage (BitmapFactory.decodeStream(manager.open("bonus3.png")), entitySize);
+			skinBitmaps[ennemyLeft1][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-left1.png")), entitySize);
+			skinBitmaps[ennemyLeft2][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-left2.png")), entitySize);
+			skinBitmaps[ennemyUp1][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-up1.png")), entitySize);
+			skinBitmaps[ennemyUp2][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-up2.png")), entitySize);
+			skinBitmaps[ennemyRight1][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-right1.png")), entitySize);
+			skinBitmaps[ennemyRight2][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-right2.png")), entitySize);
+			skinBitmaps[ennemyDown1][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-down1.png")), entitySize);
+			skinBitmaps[ennemyDown2][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-down2.png")), entitySize);
+			skinBitmaps[ennemyVulnerable1][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue1.png")), entitySize);
+			skinBitmaps[ennemyVulnerable2][orientation] 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue2.png")), entitySize);
+			skinBitmaps[point][orientation] 			= scaleImage (BitmapFactory.decodeStream(manager.open("point.png")), entitySize);
 			
-			copyright 		= scaleImage(BitmapFactory.decodeStream(manager.open("copyright.png")), screenWidth / 3);
-			completed 		= scaleImage (BitmapFactory.decodeStream(manager.open("completed.png")), screenWidth / 2);
+			skinBitmaps[superPoint][orientation] 		= scaleImage (BitmapFactory.decodeStream(manager.open("superpoint.png")), entitySize);
+			skinBitmaps[wallVertical][orientation]    = scaleImageHeight (BitmapFactory.decodeStream(manager.open("wallv.png")), partSize + 3 );
 			
-			demoCompleted 	= scaleImage (BitmapFactory.decodeStream(manager.open("democompleted.png")), screenWidth / 3 * 2);
-  
-			pacmanFull 		= scaleImage (BitmapFactory.decodeStream(manager.open("pacman-full.png")), entitySize);
-			bonus1 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
-			bonus2 			= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
-			specialSmall	= scaleImage (BitmapFactory.decodeStream(manager.open("bonus1.png")), entitySize);
-			specialMedium	= scaleImage (BitmapFactory.decodeStream(manager.open("bonus2.png")), entitySize);
-			specialBig		= scaleImage (BitmapFactory.decodeStream(manager.open("bonus3.png")), entitySize);
-			ennemyLeft1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-left1.png")), entitySize);
-			ennemyLeft2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-left2.png")), entitySize);
-			ennemyUp1 		= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-up1.png")), entitySize);
-			ennemyUp2 		= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-up2.png")), entitySize);
-			ennemyRight1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-right1.png")), entitySize);
-			ennemyRight2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-right2.png")), entitySize);
-			ennemyDown1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-down1.png")), entitySize);
-			ennemyDown2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-down2.png")), entitySize);
-			ennemyVulnerable1 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue1.png")), entitySize);
-			ennemyVulnerable2 	= scaleImage (BitmapFactory.decodeStream(manager.open("ennemy-blue2.png")), entitySize);
-			point 			= scaleImage (BitmapFactory.decodeStream(manager.open("point.png")), entitySize);
-			
-			superPoint 		= scaleImage (BitmapFactory.decodeStream(manager.open("superpoint.png")), entitySize);
-			wallVertical    = scaleImageHeight (BitmapFactory.decodeStream(manager.open("wallv.png")), partSize + 3 );
-			
-			wallHorizontal  = scaleImageWidth (BitmapFactory.decodeStream(manager.open("wallh.png")), partSize + 3);
+			skinBitmaps[wallHorizontal][orientation]  = scaleImageWidth (BitmapFactory.decodeStream(manager.open("wallh.png")), partSize + 3);
 		}
 		catch(IOException ex)
 		{
@@ -252,12 +306,12 @@ public class BasicSkin extends Skin
 	}
 	public Bitmap getCopyright ()
 	{
-		return this.copyright;
+		return this.skinBitmaps[copyright][this.currentOrientation];
 	}
 	
 	public Bitmap getInstructions ()
 	{
-		return this.instructions;
+		return this.skinBitmaps[instructions][this.currentOrientation];
 	}
 	
 	
@@ -268,203 +322,203 @@ public class BasicSkin extends Skin
 	
 	public Bitmap getPacmanFull ()
 	{
-		return this.pacmanFull;
+		return this.skinBitmaps[pacmanFull][this.currentOrientation];
 	}
 	public Bitmap getEnnemyLeft1 ()
 	{
-		return this.ennemyLeft1;
+		return this.skinBitmaps[ennemyLeft1][this.currentOrientation];
 	}
 	
 	public Bitmap getEnnemyLeft2 ()
 	{
-		return this.ennemyLeft2;
+		return this.skinBitmaps[ennemyLeft2][this.currentOrientation];
 	}
 	
 	public Bitmap getEnnemyUp1 ()
 	{
-		return this.ennemyUp1;
+		return this.skinBitmaps[ennemyUp1][this.currentOrientation];
 	}
 	
 	public Bitmap getEnnemyUp2 ()
 	{
-		return this.ennemyUp2;
+		return this.skinBitmaps[ennemyUp2][this.currentOrientation];
 	}
 	
 	public Bitmap getEnnemyDown1 ()
 	{
-		return this.ennemyDown1;
+		return this.skinBitmaps[ennemyDown1][this.currentOrientation];
 	}
 	
 	public Bitmap getEnnemyDown2 ()
 	{
-		return this.ennemyDown2;
+		return this.skinBitmaps[ennemyDown2][this.currentOrientation];
 	}
 	public Bitmap getEnnemyRight1 ()
 	{
-		return this.ennemyRight1;
+		return this.skinBitmaps[ennemyRight1][this.currentOrientation];
 	}
 	
 	public Bitmap getEnnemyRight2 ()
 	{
-		return this.ennemyRight2;
+		return this.skinBitmaps[ennemyRight2][this.currentOrientation];
 	}
 	
 	public Bitmap getBonus1 ()
 	{
-		return this.bonus1;
+		return this.skinBitmaps[bonus1][this.currentOrientation];
 	}
 	
 	public Bitmap getSpecialSmall ()
 	{
-		return this.specialSmall;
+		return this.skinBitmaps[specialSmall][this.currentOrientation];
 	}	
 
 	public Bitmap getSpecialMedium ()
 	{
-		return this.specialMedium;
+		return this.skinBitmaps[specialMedium][this.currentOrientation];
 	}
 
 	public Bitmap getSpecialBig ()
 	{
-		return this.specialBig;
+		return this.skinBitmaps[specialBig][this.currentOrientation];
 	}
 	
 	public Bitmap getBonus2()
 	{
-		return this.bonus2;
+		return this.skinBitmaps[bonus2][this.currentOrientation];
 	}
 	
 	public Bitmap getSuperPoint()
 	{
-		return this.superPoint;
+		return this.skinBitmaps[superPoint][this.currentOrientation];
 	}
 	
 	public Bitmap getPoint()
 	{
-		return this.point;
+		return this.skinBitmaps[point][this.currentOrientation];
 	}
 
 	public Bitmap getEnnemyVulnerable1() 
 	{
-		return this.ennemyVulnerable1;
+		return this.skinBitmaps[ennemyVulnerable1][this.currentOrientation];
 	}
 
 	public Bitmap getEnnemyVulnerable2() 
 	{
-		return this.ennemyVulnerable2;
+		return this.skinBitmaps[ennemyVulnerable2][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDown1() {
-		return pacmanBottom1;
+		return this.skinBitmaps[pacmanBottom1][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDown2() {
-		return pacmanBottom2;
+		return this.skinBitmaps[pacmanBottom2][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDown3() {
-		return pacmanBottom3;
+		return this.skinBitmaps[pacmanBottom3][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanRight1() {
-		return pacmanRight1;
+		return this.skinBitmaps[pacmanRight1][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanRight2() {
-		return pacmanRight2;
+		return this.skinBitmaps[pacmanRight2][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanRight3() {
-		return pacmanRight3;
+		return this.skinBitmaps[pacmanRight3][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanLeft1() {
-		return pacmanLeft1;
+		return this.skinBitmaps[pacmanLeft1][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanLeft2() {
-		return pacmanLeft2;
+		return this.skinBitmaps[pacmanLeft2][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanLeft3() {
-		return pacmanLeft3;
+		return this.skinBitmaps[pacmanLeft3][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanUp1() {
-		return pacmanUp1;
+		return this.skinBitmaps[pacmanUp1][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanUp2() {
-		return pacmanUp2;
+		return this.skinBitmaps[pacmanUp2][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanUp3() {
-		return pacmanUp3;
+		return this.skinBitmaps[pacmanUp3][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDie1() {
-		return pacmanDie1;
+		return this.skinBitmaps[pacmanDie1][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDie2() {
-		return pacmanDie2;
+		return this.skinBitmaps[pacmanDie2][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDie3() {
-		return pacmanDie3;
+		return this.skinBitmaps[pacmanDie3][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDie4() {
-		return pacmanDie4;
+		return this.skinBitmaps[pacmanDie4][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDie5() {
-		return pacmanDie5;
+		return this.skinBitmaps[pacmanDie5][this.currentOrientation];
 	}
 
 	public Bitmap getPacmanDie6() {
-		return pacmanDie6;
+		return this.skinBitmaps[pacmanDie6][this.currentOrientation];
 	}
 
 	public Bitmap getGameOver() {
-		return gameOver;
+		return this.skinBitmaps[gameOver][this.currentOrientation];
 	}
 	
 	public Bitmap getNextLevel() {
-		return nextLevel;
+		return this.skinBitmaps[nextLevel][this.currentOrientation];
 	}
 
 	public Bitmap getCompleted() {
-		return completed;
+		return this.skinBitmaps[completed][this.currentOrientation];
 	}
 	
 	public Bitmap getDemoCompleted() {
-		return demoCompleted;
+		return this.skinBitmaps[demoCompleted][this.currentOrientation];
 	}
 	
 	public Bitmap getWallHorizontal() {
-		return wallHorizontal;
+		return this.skinBitmaps[wallHorizontal][this.currentOrientation];
 	}
 
 	public Bitmap getNewGame() {
-		return newGame;
+		return this.skinBitmaps[newGame][this.currentOrientation];
 	}	
 
 	public Bitmap getHighScores() {
-		return highScores;
+		return this.skinBitmaps[highScores][this.currentOrientation];
 	}
 	
 
 	public Bitmap getPreferences() {
-		return preferences;
+		return this.skinBitmaps[preferences][this.currentOrientation];
 	}
 	
 	public Bitmap getLogo() {
-		return logo;
+		return this.skinBitmaps[logo][this.currentOrientation];
 	}
 	
 	public Bitmap getWallVertical() {
-		return wallVertical;
+		return this.skinBitmaps[wallVertical][this.currentOrientation];
 	}
 	
 	public String getSoundIntro ()
@@ -490,20 +544,17 @@ public class BasicSkin extends Skin
 	
 	public Bitmap getHighScoresLogo()
 	{
-		return this.highScoresLogo;
+		return this.skinBitmaps[highScoresLogo][this.currentOrientation];
 	}
 	
 	public String getCopyrightFile ()
 	{
 		return "copyright-skin.txt";
 	}
-
-	public void reconfig(int w, int h, int s)
-	{
-		this.screenWidth = w;
-		this.screenHeight = h;
-		this.partSize = s;
-		this.loadResources();
-	} 
 	
+	
+	public void setOrientation (int o)
+	{
+		this.currentOrientation = o;
+	}
 }

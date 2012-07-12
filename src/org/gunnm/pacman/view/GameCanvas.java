@@ -72,10 +72,15 @@ public class GameCanvas extends View
 	
 	public static int computeSquareSize (int screenWidth, int screenHeight, Game g)
 	{
+		return computeSquareSize(screenWidth, screenHeight, g.getMap().getWidth(),g.getMap().getHeight());
+	}
+	
+	public static int computeSquareSize (int screenWidth, int screenHeight, int gameWidth, int gameHeight)
+	{
 		int byWidth;
 		int byHeight;
-		byWidth = screenWidth / g.getMap().getWidth();
-		byHeight = ( screenHeight - (screenHeight / 4)) / g.getMap().getHeight();
+		byWidth = screenWidth / gameWidth;
+		byHeight = ( screenHeight - (screenHeight / 4)) / gameHeight;
 		if (byWidth < byHeight)
 		{
 			return byWidth;

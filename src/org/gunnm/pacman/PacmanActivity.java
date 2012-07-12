@@ -10,12 +10,14 @@ import org.gunnm.pacman.view.BasicSkin;
 import org.gunnm.pacman.view.BitmapView;
 import org.gunnm.pacman.view.GameCanvas;
 import org.gunnm.pacman.view.Skin;
+import org.gunnm.pacman.view.SkinInterface;
 import org.gunnm.pacman.view.Sound;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -113,25 +115,35 @@ public class PacmanActivity extends Activity {
 			size = display.getWidth();
 		}
 		gameModel = Game.getInstance ();
+		
 		if (gameModel.isFinished())
 		{
 			gameModel.reinit();
 		}
 		skin = BasicSkin.getInstance();
 
-		newSize = GameCanvas.computeSquareSize(display.getWidth(), display.getHeight(), gameModel);
-		skin.reconfig(display.getWidth(), display.getHeight(), newSize);
+		if (display.getWidth() > display.getHeight())
+		{
+			Log.i(TAG, "Orientation landscape"); 
+			skin.setOrientation(SkinInterface.ORIENTATION_LANDSCAPE);
+		}
+		else
+		{Log.i(TAG, "Orientation portrait"); 
+			skin.setOrientation(SkinInterface.ORIENTATION_PORTRAIT);
+		}
+		
         mainCanvas = new GameCanvas (this, gameModel, skin);
         sound      = Sound.getInstance();
  
-       // setContentView(mainCanvas);
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
         mainCanvas.setOnKeyListener(new Key ());
-        sound.playIntro();
-        //startTimer ();
+        
+        if (gameModel.getHero().getScore() == 0)
+        {
+        	sound.playIntro();
+        }
+        
         mainCanvas.setFocusable(true);
-        //ArrayList<View> views = new ArrayList<View>();
-        //views.add(mainCanvas);
 
         setContentView(R.layout.main);
         LinearLayout fl = (LinearLayout) findViewById (R.id.GamePlace);
@@ -147,17 +159,10 @@ public class PacmanActivity extends Activity {
         	fl.addView(mainCanvas, 2, lp);
         	
         	View v = findViewById(R.layout.panel);
-        	if (v == null)
+        	if (v != null)
         	{
-//        		Log.i(TAG, "Cannot find the view");
-        	}
-        	else
-        	{
-//        		Log.i(TAG, "Other view added");
-
         		fl.addView(v, 2);
         	}
-//         	Log.e(TAG, "main canvas added");
         }
     }
 }

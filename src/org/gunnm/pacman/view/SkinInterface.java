@@ -3,7 +3,8 @@ package org.gunnm.pacman.view;
 import android.graphics.Bitmap;
 
 public interface SkinInterface {
-	
+	public final int ORIENTATION_PORTRAIT = 0;
+	public final int ORIENTATION_LANDSCAPE = 1;
 	public Bitmap getPacmanFull ();
 	public Bitmap getEnnemyLeft1 ();
 	public Bitmap getEnnemyLeft2 ();
@@ -71,6 +72,5 @@ public interface SkinInterface {
 	public String getSoundDying();
 	public String getSoundIntermission();
 
-	public void reconfig(int w, int h, int s);
-
+	public void setOrientation (int orientation);
 }
