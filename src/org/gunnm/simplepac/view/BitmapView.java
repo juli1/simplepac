@@ -10,10 +10,14 @@ public class BitmapView extends View{
 	Bitmap bitmap = null;
 	private int alignX;
 	private int alignY;
+	private Paint defaultPaint;
 	
 	public BitmapView(Context context, Bitmap bm) 
 	{
 		this (context, bm, 0, 0);
+		defaultPaint = new Paint();
+		defaultPaint.setFilterBitmap(true);
+
 	}
 
 	public BitmapView(Context context, Bitmap bm, int ha, int va) 
@@ -27,8 +31,6 @@ public class BitmapView extends View{
 	protected void onDraw(Canvas canvas)
 	{
 	
-		Paint paint = new Paint();
-		paint.setFilterBitmap(true);
 		// The image will be scaled so it will fill the width, and the
 		// height will preserve the image’s aspect ration
 

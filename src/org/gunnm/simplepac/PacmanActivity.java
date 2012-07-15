@@ -135,9 +135,8 @@ public class PacmanActivity extends Activity {
         sound      = Sound.getInstance();
  
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
-        
-        
-//        mainCanvas.setOnKeyListener(new Key ());
+             
+        mainCanvas.setOnKeyListener(new Key ());
         
         if (gameModel.getHero().getScore() == 0)
         {
@@ -157,6 +156,8 @@ public class PacmanActivity extends Activity {
         	
         	fl.addView (new BitmapView (this, skin.getLogo(), w, 0), 0, lp);
         	lp = new LayoutParams(size + 2, size + 2);
+        	
+        	lp.height = lp.FILL_PARENT;
         	fl.addView(mainCanvas, 2, lp);
         	
         	View v = findViewById(R.layout.panel);

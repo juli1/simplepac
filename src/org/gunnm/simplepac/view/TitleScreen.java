@@ -48,18 +48,12 @@ public class TitleScreen extends View implements OnTouchListener
 	
 	protected void onDraw(Canvas canvas)
 	{
-	
-		Paint paint;
-
 		margin = (display.getHeight() 
 					- skin.getLogo().getHeight() 
 					- skin.getNewGame().getHeight()
 					- skin.getHighScores().getHeight()
 					- skin.getPreferences().getHeight()
 					- skin.getCopyright().getHeight()) / 5;
-
-		paint = new Paint();
-		paint.setFilterBitmap(true);
 		logoAlignX = (display.getWidth() - skin.getLogo().getWidth()) / 2;
 		logoAlignY = margin / 3;
 		
