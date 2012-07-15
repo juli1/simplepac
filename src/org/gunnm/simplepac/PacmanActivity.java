@@ -158,6 +158,7 @@ public class PacmanActivity extends Activity {
         	lp = new LayoutParams(size + 2, size + 2);
         	
         	lp.height = lp.FILL_PARENT;
+        	lp.width = lp.FILL_PARENT;
         	fl.addView(mainCanvas, 2, lp);
         	
         	View v = findViewById(R.layout.panel);
