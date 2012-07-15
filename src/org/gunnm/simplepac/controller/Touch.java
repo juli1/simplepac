@@ -5,6 +5,7 @@ import org.gunnm.simplepac.model.Game;
 import org.gunnm.simplepac.view.GameCanvas;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,18 +42,17 @@ public class Touch implements OnTouchListener {
 		float heroPositionX;
 		float heroPositionY;
 		boolean hasMove;
-		
-		heroPositionX = (screenWidth / Game.getInstance().getMap().getWidth()) * Game.getInstance().getHero().getPositionX();
-		heroPositionY = (screenHeight/ Game.getInstance().getMap().getHeight()) * Game.getInstance().getHero().getPositionY() - screenHeight / 6 ;
+		int partSize = GameCanvas.computeSquareSize(screenWidth, screenHeight, model);
+		heroPositionX = ((partSize) * (Game.getInstance().getHero().getPositionX()  ))  +  
+						(partSize / 2);
+		heroPositionY = (partSize * (Game.getInstance().getHero().getPositionY() )) +  
+						(partSize / 2) ;
 		
 		if (GameCanvas.getInstance() != null)
 		{
-			heroPositionX = heroPositionX + GameCanvas.getInstance().getAlignX() * 2;
-			heroPositionY = heroPositionY + GameCanvas.getInstance().getAlignY() * 2;
+			heroPositionX = heroPositionX + GameCanvas.getInstance().getAlignX();
+			heroPositionY = heroPositionY + GameCanvas.getInstance().getAlignY();
 		}
-		
-		
-		
 		
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{
@@ -96,7 +96,7 @@ public class Touch implements OnTouchListener {
 				return true;
 			}
 			
-//			Log.i(TAG, "heroPositionX=" + heroPositionX + "heroPositionY=" + heroPositionY + "currentX=" + currentX + "currentY=" + currentY );
+			//Log.i(TAG,  "heroPositionX= " + heroPositionX + "heroPositionY=" + heroPositionY + "currentX=" + currentX + "currentY=" + currentY + "vleft=" + v.getLeft() + "vtop=" + v.getTop() + "alignX=" + GameCanvas.getInstance().getAlignX() + "alignY=" + GameCanvas.getInstance().getAlignY() + "screenwidth=" + screenWidth + ";screenheight=" + screenHeight);
 			
 			deltaX = Math.abs(heroPositionX - currentX);
 			deltaY = Math.abs(heroPositionY - currentY);

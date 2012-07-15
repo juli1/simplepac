@@ -9,9 +9,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.text.InputType;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.BaseInputConnection;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 public class GameCanvas extends View
 {
@@ -39,6 +43,11 @@ public class GameCanvas extends View
 	public int getAlignY ()
 	{
 		return mapAlignY;
+	}
+	
+	public static float getIncr ()
+	{
+		return STEP_INCR;
 	}
 	
 	public GameCanvas (Context context, Game gm, Skin s)
@@ -85,6 +94,15 @@ public class GameCanvas extends View
 		instance = this;
 	}
 	
+	
+	  public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+	    
+	        BaseInputConnection fic = new BaseInputConnection(this, false);
+	        outAttrs.actionLabel = null;
+	        outAttrs.inputType = InputType.TYPE_NULL;
+	        outAttrs.imeOptions = EditorInfo.IME_ACTION_NEXT;
+	        return fic;
+	    }
 	
 	public static int computeSquareSize (int screenWidth, int screenHeight, Game g)
 	{
@@ -466,38 +484,42 @@ public class GameCanvas extends View
 
 		drawHero (canvas);
 
-		if (gameModel.getHero().getLifes() == 0)
-		{
-			canvas.drawBitmap(skin.getGameOver(), 
-			          (this.size - skin.getGameOver().getWidth()) / 2, 
-			          (this.size - skin.getGameOver().getHeight()) / 2, 
-			          defaultPaint);
-		}
 		if (gameModel.isFinished())
 		{
-			if (gameModel.getCurrentMapIndex() >= (Game.NB_MAPS - 1))
+
+			if (gameModel.getHero().getLifes() == 0)
 			{
-				if (Game.isDemo)
-				{
-					canvas.drawBitmap(skin.getDemoCompleted(), 
-					          (this.size - skin.getDemoCompleted().getWidth()) / 2, 
-					          (this.size - skin.getDemoCompleted().getHeight()) / 2, 
-					          defaultPaint);
-				}
-				else
-				{
-					canvas.drawBitmap(skin.getCompleted(), 
-					          (this.size - skin.getCompleted().getWidth()) / 2, 
-					          (this.size - skin.getCompleted().getHeight()) / 2, 
-					          defaultPaint);
-				}
+				canvas.drawBitmap(skin.getGameOver(), 
+				          (this.size - skin.getGameOver().getWidth()) / 2, 
+				          (this.size - skin.getGameOver().getHeight()) / 2, 
+				          defaultPaint);
 			}
 			else
 			{
-				canvas.drawBitmap(skin.getNextLevel(), 
-						(this.size - skin.getNextLevel().getWidth()) / 2, 
-						(this.size - skin.getNextLevel().getHeight()) / 2, 
-						defaultPaint);
+				if (gameModel.getCurrentMapIndex() >= (Game.NB_MAPS - 1))
+				{
+					if (Game.isDemo)
+					{
+						canvas.drawBitmap(skin.getDemoCompleted(), 
+						          (this.size - skin.getDemoCompleted().getWidth()) / 2, 
+						          (this.size - skin.getDemoCompleted().getHeight()) / 2, 
+						          defaultPaint);
+					}
+					else
+					{
+						canvas.drawBitmap(skin.getCompleted(), 
+						          (this.size - skin.getCompleted().getWidth()) / 2, 
+						          (this.size - skin.getCompleted().getHeight()) / 2, 
+						          defaultPaint);
+					}
+				}
+				else
+				{
+					canvas.drawBitmap(skin.getNextLevel(), 
+							(this.size - skin.getNextLevel().getWidth()) / 2, 
+							(this.size - skin.getNextLevel().getHeight()) / 2, 
+							defaultPaint);
+				}
 			}
 		}
 	}

@@ -92,7 +92,7 @@ public class PacmanActivity extends Activity {
 		  super.onResume();
 		  startTimer();
 	  }
-	
+
 	public void onCreate(Bundle savedInstanceState)
 	{
 		int size;
@@ -135,7 +135,9 @@ public class PacmanActivity extends Activity {
         sound      = Sound.getInstance();
  
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
-        mainCanvas.setOnKeyListener(new Key ());
+        
+        
+//        mainCanvas.setOnKeyListener(new Key ());
         
         if (gameModel.getHero().getScore() == 0)
         {

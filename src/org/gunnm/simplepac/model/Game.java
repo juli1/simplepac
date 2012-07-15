@@ -705,7 +705,7 @@ public class Game {
 	public boolean isFinished ()
 	{
 		
-		return (this.pointsEaten >= map.getNbPoints());
+		return ((this.pointsEaten >= map.getNbPoints()) || (hero.getLifes() <= 0));
 	}
 	
 	public int getCurrentAction ()
