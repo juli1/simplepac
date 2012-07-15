@@ -5,7 +5,6 @@ import org.gunnm.simplepac.model.Game;
 import org.gunnm.simplepac.view.GameCanvas;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
