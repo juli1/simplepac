@@ -38,16 +38,17 @@ public class Game {
 	private static Game instance;
 	private int currentMapIndex;
 	
-	/*
+	
+	public final static boolean isDemo = false;
 	public final static int NB_MAPS = 2;
 	private final static Class[] mapClasses = {Map1.class,Map2.class};
-	*/
 	
+	/*
 	public final static boolean isDemo = true;
 	
 	public final static int NB_MAPS = 1;
 	private final static Class[] mapClasses = {MapDemo.class};
-	
+	*/
 	
 	public void reinit ()
 	{

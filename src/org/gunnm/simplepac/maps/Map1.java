@@ -41,17 +41,17 @@ public class Map1 implements MapInterface
 	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
 	int[][] map 				= new int[][]
 	{ 
-		{BT| BL    , BT|SS       ,   BT|BB       , BT          ,      BB    ,BT|BB          ,    BT | BB       ,    BT|BB      ,    BT|BB     ,   BT|BR},
-		{BL| BR    , BL|BR    ,   BT|BL|BR    , BL | BR     ,   BL|BT    ,   BT|BB       ,    BT|BB         ,    BT         ,    BT|BR|BB  ,   BL|  BR},
-		{BL| BR | HE    , BL|BR    ,   BL|BR       , BL |BR      ,   BL       ,   BT|BB       ,    BT|BB         ,   HE          ,   BB|BT      ,   BR},
-		{BL| BR    , BL|BR    ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL|BB          ,   BT|BR      ,   BL| BR},
-		{BL| BR    , BL |SM      ,   BT|BB       , BB |SS      ,  SB| BT       ,   BT |BB      ,      BT          ,   BT |BR      ,   BB |BL     ,   BR},
-		{    BR    , BB|BR|BL ,   BL|BB|BT    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0},
-		{BL| BB    , BT       ,   BT          , HE|BT|BB    ,   BT|BB    ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BT|BR , BL|BR    ,   HE|BL|BB    , BT|BB       ,   BT|BB    ,   BR  |SS     ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR},
-		{BL| BR    , BL|BR    ,   BL|HB|BT    , BB | BT     ,   BB|BT    ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR},
-		{BL| BR    , BL|SS       ,   BT|BB|HE    , BT | BB     ,   HB |BB|BT   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR},
-		{BL| BB    ,   BB |SM    ,   BT|BB       , BT|BB       , BT         ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB   },
+		{BT| BL|HP    , BT|SS       ,   BT|BB       , BT  |HP        ,      BB    ,BT|BB  |HP        ,    BT | BB   |HP    ,    BT|BB  |HP    ,    BT|BB  |HP   ,   BT|BR|HP},
+		{BL| BR|HP    , BL|BR  |HP  ,   BT|BL|BR    , BL | BR  |HP   ,   BL|BT  |HP  ,   BT|BB    |HP   ,    BT|BB   |HP      ,    BT   |HP      ,    BT|BR|BB |HP ,   BL|  BR|HP},
+		{BL| BR | HE |HP   , BL|BR |HP   ,   BL|BR       , BL |BR |HP     ,   BL   |HP    ,   BT|BB  |HP     ,    BT|BB    |HP     ,   HE  |HP        ,   BB|BT  |HP    ,   BR|HP},
+		{BL| BR |HP   , BL|BR |HP   ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL|BB   |HP       ,   BT|BR |HP     ,   BL| BR|HP},
+		{BL| BR   , BL |SM      ,   BT|BB       , BB |SS      ,  SB| BT       ,   BT |BB |HP     ,      BT     |HP     ,   BT |BR  |HP    ,   BB |BL     ,   BR|HP},
+		{    BR    , BB|BR|BL ,   BL|BB|BT|HP    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT |HP     ,      BR          ,   BL|BR       ,   BL|BT      ,   0|HP},
+		{BL| BB    , BT       ,   BT          , HE|BT|BB   |HP ,   BT|BB  |HP  ,   BR    |HP      ,      BL|BR|HP    ,   BL|BR  |HP     ,   BL|BR   |HP   ,   BL|BR|HP},
+		{BL| BT|BR|HP , BL|BR |HP   ,   HE|BL|BB |HP   , BT|BB   |HP    ,   BT|BB  |HP  ,   BR  |SS     ,   BL|BR|HP       ,   BL|HE|BR |HP   ,   BL|BR    |HP  ,   BL|BR|HP},
+		{BL| BR |HP   , BL|BR |HP   ,   BL|HB|BT    , BB | BT |HP    ,   BB|BT |HP  ,   BR     |HP     ,  BL|BR|HP        ,   BL|BR       ,   BL|BR   |HP   ,   BL|BR|HP},
+		{BL| BR |HP   , BL|SS       ,   BT|BB|HE |HP  , BT | BB  |HP   ,   HB |BB|BT   ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR|HP},
+		{BL| BB |HP   ,   BB |SM    ,   BT|BB  |HP     , BT|BB  |HP     , BT  |HP       ,  BT| BB   |HP    ,   BT|BB    |HP      ,   BT|BB   |HP    ,  BT| BB   |HP   ,   BR|BB |HP  },
 	};
 	
 	
