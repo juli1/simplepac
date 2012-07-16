@@ -41,7 +41,8 @@ public class Game {
 	
 	public final static boolean isDemo = false;
 	public final static int NB_MAPS = 2;
-	private final static Class[] mapClasses = {Map1.class,Map2.class};
+	private final static Class[] mapClasses = {Map2.class,Map2.class};
+	//private final static Class[] mapClasses = {Map1.class,Map2.class};
 	
 	/*
 	public final static boolean isDemo = true;

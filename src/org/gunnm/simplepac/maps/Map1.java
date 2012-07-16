@@ -32,7 +32,7 @@ public class Map1 implements MapInterface
 	private final static int HB = hasSuperPoint;
 	private final static int SS = hasSpecialSmall;
 	private final static int SM = hasSpecialMedium;
-	private final static int SB = hasSpecialMedium;
+	private final static int SB = hasSpecialBig;
 	
 	int[][] ennemiesTable 		= new int[NB_ENNEMIES][2];
 	int[][] superPointsTable 	= new int[NB_SUPERPOINTS][2];

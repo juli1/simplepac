@@ -9,8 +9,8 @@ public class Map2 implements MapInterface
 	private final static int MAP_HEIGHT 			= 11;
 	private final static int NB_SUPERPOINTS  		= 6;
 	private final static int NB_SPECIAL_SMALL  		= 0;
-	private final static int NB_SPECIAL_MEDIUM  	= 0;
-	private final static int NB_SPECIAL_BIG  		= 0;
+	private final static int NB_SPECIAL_MEDIUM  	= 3;
+	private final static int NB_SPECIAL_BIG  		= 1;
 	
 	
 	private final static int borderLeft        = 0x0001;
@@ -23,7 +23,7 @@ public class Map2 implements MapInterface
 	private final static int hasSpecialSmall   = 0x0080;
 	private final static int hasSpecialMedium  = 0x0100;
 	private final static int hasSpecialBig     = 0x0200;
-	
+	 
 	private final static int BL = borderLeft;
 	private final static int BR = borderRight;
 	private final static int BT = borderTop;
@@ -33,7 +33,7 @@ public class Map2 implements MapInterface
 	private final static int HB = hasSuperPoint;
 	private final static int SS = hasSpecialSmall;
 	private final static int SM = hasSpecialMedium;
-	private final static int SB = hasSpecialMedium;
+	private final static int SB = hasSpecialBig;
 	
 	int[][] ennemiesTable 		= new int[NB_ENNEMIES][2];
 	int[][] superPointsTable 	= new int[NB_SUPERPOINTS][2];
@@ -42,17 +42,17 @@ public class Map2 implements MapInterface
 	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
 	int[][] map = new int[][]
 	{ 
-		{BT| BL       , BT|BB        ,   BT          , BT|BB           ,      BB       ,   BT          ,    BL|BT         ,   BT|BB       ,    BT  |BB   ,   BT|BR      },
-		{BL| BR       ,BL|BR|BT|BB   ,   BL|BR       , BL  | BT | BB   ,  BB | BT | BR ,  BL           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR    },
-		{BL           , BB|BT        ,  0            , 0               ,   BB |BT         ,   0           ,    BB            ,   HE          ,   BB|BT      ,   BR         },
-		{BL           , BT           ,   BL|BR       , BL |BR          ,   BL |BT         ,   BB|BT       ,    HB|BR|BT      ,   BL          ,   BT|BR      ,   BL| BR     },
-		{ BB |BT |BR  , BL           ,   BB|BR       , BL|BB           ,   0           ,   BT |BB      ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR         },
-		{ BT|BB       , 0            ,   BL|BT       , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT      ,      BR          ,   BL|BR       ,   BL|BT      ,   0          },
-		{BL| BT       , BT|BB        ,   0           , HE|BT|BB        ,   BT|BB       ,   BR          ,      BL|BR|HP    ,   BL|BR       ,   BL|BR      ,   BL|BR      },
-		{BL| BR       , BL|BR        ,   HE|BL|BB    , BT|BB           ,   BT|BB       ,   BR          ,   BL|BR|HP       ,   BL|HE|BR    ,   BL|BR      ,   BL|BR      },
-		{BL| BR       , BL|BR        ,   BL|HB|BT    , BB | BT         ,   BB|BT       ,   BR          ,  BL|BR|HP        ,   BL|BR       ,   BL|BR      ,   BL|BR      },
-		{BL| BR       , BL           ,   BT|BB|HE    , BT | BB         ,   HB |BB      ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR     ,   BL|   BR   },
-		{BL| BB       ,   BB         ,   BT|BB       , BT|BB           , BT            ,  BT| BB       ,   BT|BB          ,   BT|BB       ,  BT| BB      ,   BR|BB      },
+		{BT| BL  |HP     , BT|BB    |HP    ,   BT    |HP      , BT|BB   |HP        ,      BB  |HP     ,   BT        |HP  ,    BL|BT  |HP      ,   BT|BB     |HP  ,    BT  |BB |HP  ,   BT|BR   |HP   },
+		{BL| BR |HP      ,BL|BR|BT|BB   ,   BL|BR   |HP    , BL  | BT | BB   ,  BB | BT | BR ,  BL           ,   BL |BR         , BL|BT|BB      ,    BT|BR|BB  ,   BL|  BR  |HP  },
+		{BL  |HP         , BB|BT   |HP     ,  0  |HP          , BT   |HP            ,   BB |BT  |HP       ,   BB   |HP        ,    BB  |HP          ,   HE    |HP      ,   BB|BT    |HP  ,   BR    |HP     },
+		{BL  |HP |BB        , BT   |HP        ,   BL|BR  |HP     , BL |BR   |HP       ,   BL |BT         ,   BB|BT       ,    HB|BR|BT|BB      ,   BL |BB |BT        ,   BT|BR      ,   BL| BR |HP    },
+		{ BB |BT |BR  , BL |HP          ,   BB|BR  |HP     , BL|BB |HP          ,   0    |HP       ,   BT |BB      ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR    |HP     },
+		{ BT|BB       , 0   |HP         ,   BL|BT |HP      , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT      ,      BR          ,   BL|BR  |HP     ,   BL|BT      ,   0     |HP     },
+		{BL| BT |HP      , BT|BB        ,   0           , HE|BT|BB |SM       ,   BT|BB  |HP    ,   BR          ,      BL|BR|HP    ,   BL|BR  |HP     ,   BL|BR |HP     ,   BL|BR   |HP   },
+		{BL| BR |HP      , BL|BR |BT|SB       ,   HE|BL|BB  |SM  , BT|BB   |HP        ,   BT|BB  |HP     ,   BR          ,   BL|BR|HP       ,   BL|HE|BR  |HP  ,   BL|BR      ,   BL|BR   |HP   },
+		{BL| BR |HP      , BL|BR        ,   BL|HB|BT|BB    , BB | BT  |SM       ,   BB|BT       ,   BR          ,  BL|BR|HP        ,   BL|BR |HP      ,   BL|BR  |HP    ,   BL|BR   |HP   },
+		{BL| BR |HP      , BL           ,   BT|BB|HE    , BT | BB         ,   HB |BB      ,   BB          ,   BB|BR          ,  BL| HB |BB   ,   BB |BR   |HP  ,   BL|   BR |HP  },
+		{BL| BB |HP      ,   BB    |HP     ,   BT|BB   |HP    , BT|BB      |HP     , BT     |HP       ,  BT| BB   |HP    ,   BT|BB   |HP       ,   BT|BB  |HP     ,  BT| BB  |HP    ,   BR|BB  |HP    },
 	};
 	
 	
@@ -81,7 +81,56 @@ public class Map2 implements MapInterface
 			}			
 		}
 		
-
+		/*
+		 * Bonuses table definition
+		 */
+		ind = 0;
+		for (int x = 0 ; x < MAP_WIDTH ; x++)
+		{
+			for (int y = 0 ; y < MAP_WIDTH ; y++)
+			{
+				if ((map[y][x] & hasSpecialSmall ) != 0)
+				{
+					specialSmallTable[ind][0] = x;
+					specialSmallTable[ind][1] = y;
+					ind = (ind + 1) % NB_SPECIAL_SMALL;
+				}
+			}			
+		}
+		
+		/*
+		 * Bonuses table definition
+		 */
+		ind = 0;
+		for (int x = 0 ; x < MAP_WIDTH ; x++)
+		{
+			for (int y = 0 ; y < MAP_WIDTH ; y++)
+			{
+				if ((map[y][x] & hasSpecialMedium ) != 0)
+				{
+					specialMediumTable[ind][0] = x;
+					specialMediumTable[ind][1] = y;
+					ind = (ind + 1) % NB_SPECIAL_MEDIUM;
+				}
+			}			
+		}
+		
+		/*
+		 * Bonuses table definition
+		 */
+		ind = 0;
+		for (int x = 0 ; x < MAP_WIDTH ; x++)
+		{
+			for (int y = 0 ; y < MAP_WIDTH ; y++)
+			{
+				if ((map[y][x] & hasSpecialBig ) != 0)
+				{
+					specialBigTable[ind][0] = x;
+					specialBigTable[ind][1] = y;
+					ind = (ind + 1) % NB_SPECIAL_BIG;
+				}
+			}			
+		}
 		/*
 		 * Ennemy table definition
 		 */
