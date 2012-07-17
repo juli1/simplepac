@@ -31,18 +31,27 @@ public class TitleActivity extends Activity {
 	private ProgressDialog 	loadingResources;
 
 	 AlertDialog.Builder builder;
-	 private Handler handler = new Handler() {
-         public void handleMessage(Message msg) {
-       	 	loadingResources.dismiss();
+	 private Handler handler = new Handler()
+	 {
+         public void handleMessage(Message msg)
+         {
+        	 if (loadingResources != null)
+        	 {
+        		 loadingResources.dismiss();
+        		 loadingResources = null;
+        	 }
          }
 	 };
 	
-	
+	public void onStop()
+	{
+		super.onStop();
+		loadingResources = null;
+	}
+	 
 	public void onCreate(Bundle savedInstanceState)
 	{
-		int size;
-		int squareSize;
-		
+
         super.onCreate(savedInstanceState);
         
         builder = new AlertDialog.Builder(this);
@@ -76,16 +85,8 @@ public class TitleActivity extends Activity {
     	scores = Scores.getInstance (getApplicationContext());
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		if (display.getHeight() < display.getWidth())
-		{
-			size = display.getHeight();
-		} 
-		else
-		{  
-			size = display.getWidth();
-		}   
+		
 		gameModel 		= new Game ();
-		squareSize 		= GameCanvas.computeSquareSize(display.getWidth(), display.getHeight(), gameModel);
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), display.getWidth(), display.getHeight(), gameModel);
 		sound      		= Sound.getInstance (this, gameModel, skin);
 
