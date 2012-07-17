@@ -496,9 +496,9 @@ public class GameCanvas extends View
 			}
 			else
 			{
-				if (gameModel.getCurrentMapIndex() >= (Game.NB_MAPS - 1))
+				if (gameModel.getCurrentMapIndex() >= (Game.getNbMaps() - 1))
 				{
-					if (Game.isDemo)
+					if (Game.isDemo())
 					{
 						canvas.drawBitmap(skin.getDemoCompleted(), 
 						          (this.size - skin.getDemoCompleted().getWidth()) / 2, 

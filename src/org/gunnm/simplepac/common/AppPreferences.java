@@ -1,6 +1,7 @@
-package org.gunnm.simplepac;
+package org.gunnm.simplepac.common;
 
 import org.gunnm.simplepac.R;
+import org.gunnm.simplepac.R.xml;
 import org.gunnm.simplepac.model.Game;
 import org.gunnm.simplepac.model.Scores;
 
@@ -56,7 +57,8 @@ public class AppPreferences extends PreferenceActivity {
 		sendingScoresDialog.setMessage("Sending scores ...");
 		sendingScoresDialog.setTitle("Working ...");
 		sendingScoresDialog.setCancelable(true);
-		if (! Game.isDemo)
+		
+		if (! Game.isDemo() )
 		{
 			sendButton.setOnClickListener(new OnClickListener()
 			{
@@ -103,7 +105,7 @@ public class AppPreferences extends PreferenceActivity {
 		}
 		
 		
-		if (! Game.isDemo)
+		if (! Game.isDemo() )
 		{
 			resetButton.setOnClickListener(new OnClickListener() 
 			{

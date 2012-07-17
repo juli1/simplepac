@@ -95,7 +95,7 @@ public class Scores extends SQLiteOpenHelper {
 	    	String username;
 	    	String date;
     		
-	    	if (Game.isDemo)
+	    	if (Game.isDemo())
     		{
     			return;
     		}
@@ -131,7 +131,7 @@ public class Scores extends SQLiteOpenHelper {
     	{
     		String username;
     		
-    		if (Game.isDemo)
+    		if (Game.isDemo())
     		{
     			return false;
     		}

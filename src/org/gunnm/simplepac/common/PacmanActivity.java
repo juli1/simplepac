@@ -1,9 +1,11 @@
-package org.gunnm.simplepac;
+package org.gunnm.simplepac.common;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.gunnm.simplepac.R;
+import org.gunnm.simplepac.R.id;
+import org.gunnm.simplepac.R.layout;
 import org.gunnm.simplepac.controller.Key;
 import org.gunnm.simplepac.controller.Touch;
 import org.gunnm.simplepac.model.Game;

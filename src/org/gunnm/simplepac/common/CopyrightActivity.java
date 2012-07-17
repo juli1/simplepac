@@ -1,9 +1,11 @@
-package org.gunnm.simplepac;
+package org.gunnm.simplepac.common;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.gunnm.simplepac.R;
+import org.gunnm.simplepac.R.id;
+import org.gunnm.simplepac.R.layout;
 import org.gunnm.simplepac.view.Skin;
 
 import android.app.Activity;
@@ -61,10 +63,5 @@ public class CopyrightActivity extends Activity {
 		}
     }
 	
-    public void comeBack (View view)
-    {
-    	Intent intent = new Intent(getApplicationContext(), org.gunnm.simplepac.TitleActivity.class);
-    	startActivity(intent);
-    }
     
 }

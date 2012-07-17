@@ -3,6 +3,7 @@ package org.gunnm.simplepac.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gunnm.simplepac.configuration.SimplePacConfiguration;
 import org.gunnm.simplepac.maps.*;
 
 public class Game {
@@ -17,6 +18,12 @@ public class Game {
 	private int unvulnerableCounterConstant;
 	private volatile int currentAction;
 	private int pointsEaten;
+	
+	
+	private  static boolean isDemo = false;
+	private  static int nbMaps = 1;
+	private  static Class[] mapClasses = {MapDemo.class};
+	
 	
 	
 	public static final int POINTS_SUPERPOINT 		= 10;
@@ -37,19 +44,8 @@ public class Game {
 	public static final int ACTION_DYING = 5;
 	private static Game instance;
 	private int currentMapIndex;
-	
-	
-	public final static boolean isDemo = false;
-	public final static int NB_MAPS = 2;
-	private final static Class[] mapClasses = {Map2.class,Map2.class};
-	//private final static Class[] mapClasses = {Map1.class,Map2.class};
-	
-	/*
-	public final static boolean isDemo = true;
-	
-	public final static int NB_MAPS = 1;
-	private final static Class[] mapClasses = {MapDemo.class};
-	*/
+	SimplePacConfiguration configurationClass;
+
 	
 	public void reinit ()
 	{
@@ -71,11 +67,15 @@ public class Game {
 	}
 	
 	
-	public Game ()
+	public Game (SimplePacConfiguration configuration)
 	{
+		
 		currentMapIndex 	= 0;
 		pointsEaten 		= 0;
 		currentAction 		= ACTION_NONE;
+		nbMaps				= configuration.getNbMaps();
+		mapClasses			= configuration.getMapClasses();
+		isDemo				= configuration.isDemo();
 		
 		hero 				= new Hero ();
 		ennemies 			= new ArrayList<Ennemy>();
@@ -88,7 +88,15 @@ public class Game {
 		instance = this;
 	}
 	
+	public static int getNbMaps ()
+	{
+		return nbMaps;
+	}
 	
+	public static boolean isDemo()
+	{
+		return isDemo;
+	}
 	
 	public static Game getInstance ()
 	{
@@ -550,7 +558,7 @@ public class Game {
 				return;
 			}
 			
-			if (currentMapIndex < (NB_MAPS - 1 ))
+			if (currentMapIndex < (nbMaps - 1 ))
 			{
 				if (dyingCounter > 0)
 				{

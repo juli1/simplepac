@@ -35,15 +35,6 @@
             android:layout_height="0dip"
             android:layout_weight="0.40"
             android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/button_online"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:onClick="comeBack"
-                android:text="Main Menu" />
         </LinearLayout>
     </LinearLayout>
 

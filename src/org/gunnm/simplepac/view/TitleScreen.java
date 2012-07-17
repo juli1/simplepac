@@ -35,6 +35,8 @@ public class TitleScreen extends View implements OnTouchListener
 	private int margin = 0;
 	AlertDialog.Builder builder;
 	
+	
+	
 	public TitleScreen (Context c, Skin s, Display d)
 	{ 
 		super (c);
@@ -93,14 +95,14 @@ public class TitleScreen extends View implements OnTouchListener
 			if ( (y > (newGameAlignY - margin / 2) ) && ( y < (newGameAlignY + margin / 2 + skin.getNewGame().getHeight())))
 			{
 //				Log.i(TAG, "New Game");
-		    	Intent intent = new Intent(context, org.gunnm.simplepac.PacmanActivity.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.common.PacmanActivity.class);
 		    	context.startActivity(intent);
 			}
 			
 			if ( (y > ( highScoresAlignY - margin / 2 )) && ( y < (highScoresAlignY + margin / 2 + skin.getHighScores().getHeight())))
 			{
 //				Log.i(TAG, "High Scores");
-				if (Game.isDemo)
+				if (Game.isDemo())
 				{
 			      	  builder.setMessage("Scores functions available in full version only");  
 			          builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
@@ -113,29 +115,26 @@ public class TitleScreen extends View implements OnTouchListener
 				}
 				else
 				{
-					Intent intent = new Intent(context, org.gunnm.simplepac.ScoresActivity.class);
+					Intent intent = new Intent(context, org.gunnm.simplepac.common.ScoresActivity.class);
 					context.startActivity(intent);
 				}
 			}
 			
 			if ( (y > ( preferencesAlignY - margin / 2) ) && ( y < (preferencesAlignY + margin / 2 +  skin.getPreferences().getHeight())))
 			{
-//				Log.i(TAG, "Preferences");
-		    	Intent intent = new Intent(context, org.gunnm.simplepac.AppPreferences.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.common.AppPreferences.class);
 		    	context.startActivity(intent);
 			}
 			
 			if ( (y > (copyrightAlignY - margin / 2) ) && ( x > copyrightAlignX))
 			{
-//				Log.i(TAG, "Copyright");
-		    	Intent intent = new Intent(context, org.gunnm.simplepac.CopyrightActivity.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.common.CopyrightActivity.class);
 		    	context.startActivity(intent);
 			}
 			
 			
 			if ( (y > ( instructionsAlignY - margin / 2) ) && ( x < skin.getInstructions().getWidth()))
 			{
-//				Log.i(TAG, "Instructions");
 		    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(skin.getInstructionsURL()));
 		    	context.startActivity(browserIntent);
 			}
