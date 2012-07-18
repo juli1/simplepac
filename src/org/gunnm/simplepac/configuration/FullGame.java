@@ -3,13 +3,14 @@ package org.gunnm.simplepac.configuration;
 import java.nio.MappedByteBuffer;
 
 import org.gunnm.simplepac.maps.Map2;
+import org.gunnm.simplepac.maps.Map3;
 import org.gunnm.simplepac.maps.MapDemo;
 
 public class FullGame implements  SimplePacConfiguration {
 
 	public final static boolean isDemo = false;
-	public final static int NB_MAPS = 2;
-	private final static Class[] mapClasses = {Map2.class,Map2.class};
+	public final static int NB_MAPS = 3;
+	private final static Class[] mapClasses = {Map3.class, Map2.class,Map2.class};
 
 	public  int getNbMaps()
 	{
@@ -17,8 +18,7 @@ public class FullGame implements  SimplePacConfiguration {
 	}
 	
 	public  Class[] getMapClasses ()
-	{
-		
+	{	
 		return mapClasses;
 	}
 	

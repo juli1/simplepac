@@ -1,6 +1,7 @@
 package org.gunnm.simplepac;
 
 import org.gunnm.simplepac.configuration.Demo;
+import org.gunnm.simplepac.configuration.FullGame;
 import org.gunnm.simplepac.model.Game;
 import org.gunnm.simplepac.model.Scores;
 import org.gunnm.simplepac.view.BasicSkin;
@@ -35,7 +36,7 @@ public class TitleActivity extends Activity {
 	 
 	 public void loadGameModel()
 	 {
-		 gameModel 		= new Game (new Demo());
+		 gameModel 		= new Game (new FullGame());
 	 }
 	 
 	 private Handler handler = new Handler()
