@@ -26,5 +26,5 @@ public class FullGame implements  SimplePacConfiguration {
 	public  boolean isDemo ()
 	{
 		return false;
-	}
+	} 
 }
