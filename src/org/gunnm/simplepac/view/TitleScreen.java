@@ -95,10 +95,10 @@ public class TitleScreen extends View implements OnTouchListener
 			if ( (y > (newGameAlignY - margin / 2) ) && ( y < (newGameAlignY + margin / 2 + skin.getNewGame().getHeight())))
 			{
 //				Log.i(TAG, "New Game");
-		    	Intent intent = new Intent(context, org.gunnm.simplepac.common.PacmanActivity.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.PacmanActivity.class);
 		    	context.startActivity(intent);
 			}
-			
+			 
 			if ( (y > ( highScoresAlignY - margin / 2 )) && ( y < (highScoresAlignY + margin / 2 + skin.getHighScores().getHeight())))
 			{
 //				Log.i(TAG, "High Scores");
@@ -115,20 +115,20 @@ public class TitleScreen extends View implements OnTouchListener
 				}
 				else
 				{
-					Intent intent = new Intent(context, org.gunnm.simplepac.common.ScoresActivity.class);
+					Intent intent = new Intent(context, org.gunnm.simplepac.ScoresActivity.class);
 					context.startActivity(intent);
 				}
 			}
 			
 			if ( (y > ( preferencesAlignY - margin / 2) ) && ( y < (preferencesAlignY + margin / 2 +  skin.getPreferences().getHeight())))
 			{
-		    	Intent intent = new Intent(context, org.gunnm.simplepac.common.AppPreferences.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.AppPreferences.class);
 		    	context.startActivity(intent);
 			}
 			
 			if ( (y > (copyrightAlignY - margin / 2) ) && ( x > copyrightAlignX))
 			{
-		    	Intent intent = new Intent(context, org.gunnm.simplepac.common.CopyrightActivity.class);
+		    	Intent intent = new Intent(context, org.gunnm.simplepac.CopyrightActivity.class);
 		    	context.startActivity(intent);
 			}
 			

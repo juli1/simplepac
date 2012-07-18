@@ -11,15 +11,15 @@
         android:icon="@drawable/logo"
         android:label="SimplePAC (Demo)">
         <activity
-            android:name="org.gunnm.simplepac.common.PacmanActivity"
+            android:name="org.gunnm.simplepac.PacmanActivity"
             android:windowSoftInputMode="stateAlwaysHidden"/>
         
-        <activity android:name="org.gunnm.simplepac.common.AppPreferences"/>
-        <activity android:name="org.gunnm.simplepac.common.ScoresActivity"/>
-        <activity android:name="org.gunnm.simplepac.common.CopyrightActivity"/>
+        <activity android:name="org.gunnm.simplepac.AppPreferences"/>
+        <activity android:name="org.gunnm.simplepac.ScoresActivity"/>
+        <activity android:name="org.gunnm.simplepac.CopyrightActivity"/>
          
         <activity
-            android:name="org.gunnm.simplepac.full.TitleActivity"
+            android:name=".TitleActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>

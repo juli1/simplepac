@@ -1,4 +1,4 @@
-package org.gunnm.simplepac.common;
+package org.gunnm.simplepac;
 
 import org.gunnm.simplepac.R;
 import org.gunnm.simplepac.R.id;
@@ -57,7 +57,7 @@ public class ScoresActivity extends Activity {
 	
     public void editPreferences (View view)
     {
-    	Intent intent = new Intent(getApplicationContext(), org.gunnm.simplepac.common.AppPreferences.class);
+    	Intent intent = new Intent(getApplicationContext(), org.gunnm.simplepac.AppPreferences.class);
     	startActivity(intent);
     }
     
