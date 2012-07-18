@@ -4,13 +4,13 @@ import org.gunnm.simplepac.model.MapInterface;
 
 public class Map3 implements MapInterface
 {
-	private final static int NB_ENNEMIES 			= 0;
+	private final static int NB_ENNEMIES 			= 5;
 	private final static int MAP_WIDTH 				= 10;
 	private final static int MAP_HEIGHT 			= 11;
-	private final static int NB_SUPERPOINTS  		= 0;
-	private final static int NB_SPECIAL_SMALL  		= 0;
-	private final static int NB_SPECIAL_MEDIUM  	= 0;
-	private final static int NB_SPECIAL_BIG  		= 0;
+	private final static int NB_SUPERPOINTS  		= 4;
+	private final static int NB_SPECIAL_SMALL  		= 2;
+	private final static int NB_SPECIAL_MEDIUM  	= 2;
+	private final static int NB_SPECIAL_BIG  		= 3;
 	
 	
 	private final static int borderLeft        = 0x0001;
@@ -40,21 +40,21 @@ public class Map3 implements MapInterface
 	int[][] specialSmallTable 	= new int[NB_SPECIAL_SMALL][2];
 	int[][] specialMediumTable 	= new int[NB_SPECIAL_MEDIUM][2];
 	int[][] specialBigTable 	= new int[NB_SPECIAL_BIG][2];
-
-
+ 
+ 
 	int[][] map = new int[][]
 	{ 
 		{ BT | BL | HP ,  BT | HP           , BT| BB | HP  , BT | BB | HP ,  BB  |HP       ,  BB | BT | HP    ,  BB | BT | HP   , BT | BB | HP  ,  BT | BB | HP       ,  BT | BR | HP  },
-		{ BL | BR | HP ,  BL | BB | HP      , BB| BT | HP  , BT | BB | HP ,  BB | BT | HP  ,  BT | BB | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BT | BR | HP       ,  BL | BR | HP  },
-		{ BL | BR | HP ,  BL | BT | BB | HP , BB| BT | HP  , BT | BB | HP ,  BB | BT | HP  ,  BT      | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BB | BR | HP       ,  BL | BR | HP  },
-		{ BL | HP      ,  BT | BB | HP      , BB| BT | HP  , BT | BB      ,  BB | BT | HP  ,  BB      | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BT | BR | HP       ,  BL | BR | HP  },
-		{ BL | HP      ,  BT | BB | HP      , BT | HP      , BT | BB | HP ,  BB | BT | HP  ,  BT | BB | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BB | BR | HP       ,  BL | BR | HP  },
-		{ BR | HP      ,  BL | BB | BT | HP , BB | HP      , BT | BB | HP ,  BB | BT | HP  ,  BT | BB | HP    ,  BT | HP        , BT | BB | HP  ,  BT | BB | HP       , HP          },
-		{ BL | BR | HP ,  BL | BT | BB | HP , BT | HP      , BT | BB | HP ,  BB | BT | HP  ,  BT | BB | HP    ,  BB | HP        , BT | BB | HP  ,  BT | BB | BR | HP  ,  BL | BR | HP  },
-		{ BL | BR | HP ,  BL | BT | BB | HP , BB | HP      , BT | HP      ,  BB | BT | HP  ,  BT | BB | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BT | BB | BR | HP  ,  BL | BR | HP  },
-		{ BL | BR | HP ,  BL | BT | BB | HP , BB| BT | HP  , BB | HP      ,  BB | BT | HP  ,  BT | BB | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BT | BR | HP       ,  BL | BR | HP  },
-		{ BL | BR | HP ,  BL | BT | BB| HP  , BB| BT | HP  , BT | BB | HP ,  BT      | HP  ,  BT | BB | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BB | BR | HP      ,  BL | BR | HP  },
-		{ BL | BB | HP ,  BT | BB | HP      , BB| BT | HP  , BT | BB | HP ,  HP            ,  BT | BB | HP    ,  BT | BB  |HP   , BT | BB | HP  ,  BT | BB | HP      ,  BR | BB | HP  },
+		{ BL | BR | HP ,  BL | BB | HP      , BB| BT | HP  , BT | BB | HP ,  BB | BT | HE  ,  BT | BB | SS    ,  BT |  BB | HB  , BT | BB | 0   ,  BT | BR | HP       ,  BL | BR | HP  },
+		{ BL | BR | HP ,  BL | BT | BB | SB , BB| BT | HE  , BT | BB | 0  ,  BB | BT | HP  ,  BT      | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BB | BR | HP       ,  BL | BR | HP  },
+		{ BL | HP      ,  BT | BB | HP      , BB| BT | HP  , BT | BB      ,  BB | BT | HP  ,  BB      | HP    ,  BT |  BB | 0   , BT | BB | SM  ,  BT | BR | 0       ,  BL | BR | HP  },
+		{ BL | HB      ,  BT | BB | HP      , BT | HP      , BT | BB | HP ,  BB | BT | HP  ,  BT | BB | HP    ,  BT |  BB | HP  , BT | BB | HP  ,  BB | BR | HP       ,  BL | BR | HP  },
+		{ BR | HP      ,  BL | BB | BT | HP , BB | HP      , BT | BB | HE ,  BB | BT | SB  ,  BT | BB | HP    ,  BT | HP        , BT | BB | HP  ,  BT | BB | HP       , HP          },
+		{ BL | BR | HP ,  BL | BT | BB | HP , BT | HP      , BT | BB | HP ,  BB | BT | HP  ,  BT | BB | 0     ,  BB | HP        , BT | BB | HP  ,  BT | BB | BR | HB  ,  BL | BR | HP  },
+		{ BL | BR | HP ,  BL | BT | BB | HP , BB | HP      , BT | HP      ,  BB | BT | HP  ,  BT | BB | 0     ,  BT |  BB | HE  , BT | BB | 0   ,  BT | BB | BR | SB  ,  BL | BR | HP  },
+		{ BL | BR | HP ,  BL | BT | BB | SS , BB| BT | HP  , BB | HP      ,  BB | BT | HP  ,  BT | BB | HP    ,  BT |  BB | 0   , BT | BB | HP  ,  BT | BR | 0        ,  BL | BR | HP  },
+		{ BL | BR | HP ,  BL | BT | BB| SM  , BB| BT | HE   , BT | BB | 0 ,  BT      | HP  ,  BT | BB | HP    ,  BT |  BB | 0   , BT | BB | 0   ,  BB | BR | HP       ,  BL | BR | HB  },
+		{ BL | BB | HP ,  BT | BB | HP      , BB| BT | HP  , BT | BB | HP ,  HP            ,  BT | BB | HP    ,  BT | BB  |HP   , BT | BB | HP  ,  BT | BB | HP       ,  BR | BB | HP  },
 	};
 	
 	
