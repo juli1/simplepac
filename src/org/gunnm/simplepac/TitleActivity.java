@@ -36,7 +36,8 @@ public class TitleActivity extends Activity {
 	 
 	 public void loadGameModel()
 	 {
-		 gameModel 		= new Game (new FullGame());
+		gameModel 		= new Game (new FullGame());
+		//gameModel 		= new Game (new Demo());
 	 }
 	 
 	 private Handler handler = new Handler()
