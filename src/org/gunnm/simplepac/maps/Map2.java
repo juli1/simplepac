@@ -47,7 +47,7 @@ public class Map2 implements MapInterface
 		{BL  |HP         , BB|BT   |HP     ,  0  |HP          , BT   |HP            ,   BB |BT  |HP       ,   BB   |HP        ,    BB  |HP          ,   HE    |HP      ,   BB|BT    |HP  ,   BR    |HP     },
 		{BL  |HP |BB        , BT   |HP |BR       ,   BL|BR  |HP     , BL |BR   |HP       ,   BL |BT         ,   BB|BT       ,    HB|BR|BT|BB      ,   BL |BB |BT        ,   BT|BR      ,   BL| BR |HP    },
 		{ BB |BT |BR  , BL |HP          ,   BB|BR  |HP     , BL|BB |HP          ,   0    |HP       ,   BT |BB      ,      BT|BB       ,   BT |BR      ,   BB |BL     ,   BR    |HP     },
-		{ BT|BB       , 0   |HP         ,   BL|BT |HP      , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT      ,      BR          ,   BL|BR  |HP     ,   BL|BT      ,   0     |HP     },
+		{ BT|BB       , BR | BB   |HP         ,   BL|BT |HP      , HB|BB|BT        ,   HB|BB|BR    ,   BL |BT      ,      BR          ,   BL|BR  |HP     ,   BL|BT      ,   0     |HP     },
 		{BL| BT |HP      , BT|BB        ,   0           , HE|BT|BB |SM       ,   BT|BB  |HP    ,   BR          ,      BL|BR|HP    ,   BL|BR  |HP     ,   BL|BR |HP     ,   BL|BR   |HP   },
 		{BL| BR |HP      , BL|BR |BT|SB       ,   HE|BL|BB  |SM  , BT|BB   |HP        ,   BT|BB  |HP     ,   BR          ,   BL|BR|HP       ,   BL|HE|BR  |HP  ,   BL|BR      ,   BL|BR   |HP   },
 		{BL| BR |HP      , BL|BR        ,   BL|HB|BT|BB    , BB | BT  |SM       ,   BB|BT       ,   BR          ,  BL|BR|HP        ,   BL|BR |HP      ,   BL|BR  |HP    ,   BL|BR   |HP   },

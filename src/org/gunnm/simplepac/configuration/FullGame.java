@@ -11,7 +11,7 @@ public class FullGame implements  SimplePacConfiguration {
 
 	public final static boolean isDemo = false;
 	public final static int NB_MAPS = 3;
-	private final static Class[] mapClasses = {Map1.class, Map2.class,Map3.class};
+	private final static Class[] mapClasses = {Map2.class, Map2.class,Map3.class};
 
 	public  int getNbMaps()
 	{
