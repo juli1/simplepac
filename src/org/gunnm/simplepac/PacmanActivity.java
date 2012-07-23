@@ -116,6 +116,7 @@ public class PacmanActivity extends Activity {
 		{
 			size = display.getWidth();
 		}
+		
 		gameModel = Game.getInstance ();
 		
 		if (gameModel.isFinished())

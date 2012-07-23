@@ -3,6 +3,7 @@ package org.gunnm.simplepac.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gunnm.simplepac.configuration.FullGame;
 import org.gunnm.simplepac.configuration.SimplePacConfiguration;
 import org.gunnm.simplepac.maps.*;
 
@@ -100,6 +101,10 @@ public class Game {
 	
 	public static Game getInstance ()
 	{
+		if (instance == null)
+		{
+			instance = new Game (new FullGame());
+		}
 		return instance;
 	}
 	

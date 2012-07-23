@@ -28,14 +28,21 @@ public class AppPreferences extends PreferenceActivity {
         	  if (msg.what == 0)
         	  {
         	  
-	        	  builder.setMessage("Error while sending scores, please check your internet connection");  
-	              builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
-	                   public void onClick(DialogInterface dialog, int which) {  
-	                        dialog.cancel();  
-	                   }  
-	              });  
-	              AlertDialog alert = builder.create();  
-	              alert.show();  
+        		  try
+	              {
+		        	  builder.setMessage("Error while sending scores, please check your internet connection");  
+		              builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
+		                   public void onClick(DialogInterface dialog, int which) {  
+		                        dialog.cancel();  
+		                   }  
+		              });
+	            
+	            	  AlertDialog alert = builder.create();  
+	            	  alert.show();
+	              }
+	              catch (Exception e)
+	              {
+	              }
         	  }
           }
 

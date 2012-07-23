@@ -3,8 +3,11 @@ package org.gunnm.simplepac;
 import org.gunnm.simplepac.R;
 import org.gunnm.simplepac.R.id;
 import org.gunnm.simplepac.R.layout;
+import org.gunnm.simplepac.model.Game;
 import org.gunnm.simplepac.model.Scores;
+import org.gunnm.simplepac.view.BasicSkin;
 import org.gunnm.simplepac.view.BitmapView;
+import org.gunnm.simplepac.view.Skin;
 import org.gunnm.simplepac.view.TitleScreen;
 
 import android.app.Activity;
@@ -29,8 +32,14 @@ public class ScoresActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		int size;
+		Skin skin;
+		LinearLayout fl;
+		LayoutParams lp;
+		int w;
+		
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
+		
 		if (display.getHeight() < display.getWidth())
 		{
 			size = display.getHeight();
@@ -39,20 +48,22 @@ public class ScoresActivity extends Activity {
 		{
 			size = display.getWidth();
 		}
+		
         super.onCreate(savedInstanceState);
  
         setContentView(R.layout.scores);
     	scores = Scores.getInstance (getApplicationContext());
-//    	scores.registerScore(100000 + (int)(Math.random() % 100));
+    	
     	this.updateScores ();
     	
-        LinearLayout fl = (LinearLayout) findViewById (R.id.scores);
-    	LayoutParams lp;
-    	int w;
-    	w = (size - TitleActivity.skin.getLogo().getWidth()) / 2;
-    	lp = new LayoutParams(size, TitleActivity.skin.getLogo().getHeight());
+        fl = (LinearLayout) findViewById (R.id.scores);
+    	skin = BasicSkin.getInstance(getApplicationContext().getAssets(), display.getWidth(), display.getHeight(), Game.getInstance());
     	
-    	fl.addView (new BitmapView (this, TitleActivity.skin.getLogo(), w, 0), 0, lp);
+
+    	w = (size - skin.getLogo().getWidth()) / 2;
+    	lp = new LayoutParams(size, skin.getLogo().getHeight());
+    	
+    	fl.addView (new BitmapView (this, skin.getLogo(), w, 0), 0, lp);
     }
 	
     public void editPreferences (View view)

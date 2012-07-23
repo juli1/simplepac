@@ -34,10 +34,6 @@ public class TitleActivity extends Activity {
 
 	 AlertDialog.Builder builder;
 	 
-	 public void loadGameModel()
-	 {
-		 gameModel 		= new Game (new FullGame());
-	 }
 	 
 	 private Handler handler = new Handler()
 	 {
@@ -94,7 +90,7 @@ public class TitleActivity extends Activity {
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		
-		loadGameModel ();
+		gameModel       = Game.getInstance();
 		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), display.getWidth(), display.getHeight(), gameModel);
 		sound      		= Sound.getInstance (this, gameModel, skin);
 
