@@ -30,10 +30,11 @@ public class TitleActivity extends Activity {
 	Sound					sound;
 	private Scores			scores;
 	private final static boolean  debug = false;
-	private ProgressDialog 	loadingResources;
+	private ProgressDialog 	loadingResources = null;
 
 	 AlertDialog.Builder builder;
-	 
+
+
 	 
 	 private Handler handler = new Handler()
 	 {
