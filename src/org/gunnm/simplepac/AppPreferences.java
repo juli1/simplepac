@@ -51,6 +51,7 @@ public class AppPreferences extends PreferenceActivity {
     protected void onCreate (Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        final Scores scores = Scores.getInstance(this);
         addPreferencesFromResource(R.xml.preferences);
 
         Button sendButton  = new Button(this);
@@ -77,7 +78,7 @@ public class AppPreferences extends PreferenceActivity {
 					 {
 						 public void run()
 						 {
-								if (! Scores.getInstance().sendAll())
+								if (! scores.sendAll())
 								{
 							        handler.sendEmptyMessage(0);
 								}
@@ -118,7 +119,7 @@ public class AppPreferences extends PreferenceActivity {
 			{
 	
 				public void onClick(View arg0) {
-					Scores.getInstance().reset();
+					Scores.getInstance(getApplicationContext()).reset();
 				}
 			});
 		}
