@@ -78,14 +78,19 @@ public class AppPreferences extends PreferenceActivity {
 					 {
 						 public void run()
 						 {
-								if (! scores.sendAll())
-								{
+							 if (scores == null)
+							 {
 							        handler.sendEmptyMessage(0);
-								}
-								else
-								{
-									 handler.sendEmptyMessage(1);
-								}
+							        return;
+							 }
+							if (! scores.sendAll())
+							{
+						        handler.sendEmptyMessage(0);
+							}
+							else
+							{
+								 handler.sendEmptyMessage(1);
+							}
 						 }
 					 });
 	
