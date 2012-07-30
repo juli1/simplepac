@@ -42,8 +42,8 @@ public class Map1 implements MapInterface
 	int[][] map 				= new int[][]
 	{ 
 		{BT| BL|HP    , BT|SS       ,   BT|BB       , BT  |HP        ,      BB    ,BT|BB  |HP        ,    BT | BB   |HP    ,    BT|BB  |HP    ,    BT|BB  |HP   ,   BT|BR|HP},
-		{BL| BR|HP    , BL|BR  |HP  ,   BT|BL|BR    , BL | BR  |HP   ,   BL|BT  |HP  ,   BT|BB    |HP   ,    BT|BB   |HP      ,    BT   |HP      ,    BT|BR|BB |HP ,   BL|  BR|HP},
-		{BL| BR | HE |HP   , BL|BR |HP   ,   BL|BR       , BL |BR |HP     ,   BL   |HP    ,   BT|BB  |HP     ,    BT|BB    |HP     ,   HE  |HP        ,   BB|BT  |HP    ,   BR|HP},
+		{BL| BR|HP    , BL|BR  |HP  ,   BT|BL|BR    , BL | BR  |HP   ,   BL|BT  |HP  ,   BT|BB    |HP   ,    BT|BB   |HP      ,   BB|  BT   |HP      ,    BT|BR|BB |HP ,   BL|  BR|HP},
+		{BL| BR | HE |HP   , BL|BR |HP   ,   BL|BR       , BL |BR |HP     ,   BL   |HP    ,   BT|BB  |HP     ,    BT|BB    |HP     ,   HE  |HP | BT | BB       ,   BB|BT  |HP    ,   BR|HP},
 		{BL| BR |HP   , BL|BR |HP   ,   BL|BR| BB   , BL |BR      ,   BL |BB   ,   BB|BT       ,    BB|HB|BR|BT   ,   BL|BB   |HP       ,   BT|BR |HP     ,   BL| BR|HP},
 		{BL| BR   , BL |SM      ,   BT|BB       , BB |SS      ,  SB| BT       ,   BT |BB |HP     ,      BT     |HP     ,   BT |BR  |HP    ,   BB |BL     ,   BR|HP},
 		{    BR    , BB|BR|BL ,   BL|BB|BT|HP    , HB|BB|BT    ,   HB|BB|BR ,   BL |BT |HP     ,      BR          ,   BL|BR       ,   BL|BT      ,   0|HP},
