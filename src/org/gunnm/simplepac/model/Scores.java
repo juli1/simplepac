@@ -12,6 +12,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -123,13 +126,21 @@ public class Scores extends SQLiteOpenHelper {
 	    	{
 	    		//Log.i (TAG, "INSERT SUCCESFUL");
 	    	}
-	    	sendScore(score, date); 
+	    	// Put a timeout for establishing a connection to the remote server
+	    	sendScore(score, date, 5000); 
 
 	    }
 
-    	private boolean sendScore(int score, String date) 
+	    private boolean sendScore(int score, String date)
+	    {
+	    	return this.sendScore(score, date, 0);
+	    }
+	    
+    	private boolean sendScore(int score, String date, int timeout) 
     	{
     		String username;
+    		HttpClient httpclient;
+    		HttpParams httpParameters;
     		
     		if (Game.isDemo())
     		{
@@ -138,9 +149,20 @@ public class Scores extends SQLiteOpenHelper {
     		
     		username = preferences.getString ("username", "Unnamed Player");
     		    		
-    		try {
-    			HttpClient httpclient = new DefaultHttpClient();
-        		
+    		try 
+    		{
+    			if (timeout != 0)
+    			{
+    				httpParameters = new BasicHttpParams();
+    				HttpConnectionParams.setConnectionTimeout(httpParameters, timeout);
+    				HttpConnectionParams.setSoTimeout(httpParameters, timeout);
+    				httpclient = new DefaultHttpClient(httpParameters);
+    			}
+    			else
+    			{
+    				httpclient = new DefaultHttpClient();
+    			}
+    			
         		HttpPost httppost = new HttpPost("http://games.gunnm.org/cgi/simplepac-post.pl");
     			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair> (3);
 
@@ -151,11 +173,11 @@ public class Scores extends SQLiteOpenHelper {
     			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
     			httpclient.execute(httppost);
+    		
 
-
-    		} catch (ClientProtocolException e) {
-    			return false;
-    		} catch (IOException e) {
+    		}
+    		catch (Exception e) 
+    		{
     			return false;
     		}
     		return true;

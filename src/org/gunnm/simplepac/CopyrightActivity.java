@@ -6,12 +6,17 @@ import java.io.InputStream;
 import org.gunnm.simplepac.R;
 import org.gunnm.simplepac.R.id;
 import org.gunnm.simplepac.R.layout;
+import org.gunnm.simplepac.model.Game;
+import org.gunnm.simplepac.view.BasicSkin;
 import org.gunnm.simplepac.view.Skin;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,14 +25,28 @@ public class CopyrightActivity extends Activity {
 	
 	public void onCreate(Bundle savedInstanceState)
 	{
-		String copyright = "";
-		byte[] strtmp = new byte[1024];
-		int size;
+        WindowManager 	wm;
+		Display 		display;
+		String 			copyright;
+		Skin 			skin;
+		int 			size;
+		TextView 		txt;
+		byte[] 			strtmp;
+		
+		
+
 	    super.onCreate(savedInstanceState);
 	    
         setContentView(R.layout.copyright);
 
-        TextView txt = (TextView) findViewById (R.id.copyright_text);
+        wm 				= (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+		display 		= wm.getDefaultDisplay();
+		copyright 		= "";
+		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), display.getWidth(), display.getHeight(), Game.getInstance());
+		strtmp 			= new byte[1024];
+		
+        
+        txt = (TextView) findViewById (R.id.copyright_text);
         txt.setText("");
         InputStream is;
 		try {
@@ -40,7 +59,7 @@ public class CopyrightActivity extends Activity {
 	        	
 	        }
 	        is.close();
-	        if (Skin.getInstance().getCopyrightFile() !=null)
+	        if (skin.getCopyrightFile() !=null)
 			{
 	        	copyright = copyright + "\n";
 	        	is = getResources().getAssets().open(Skin.getInstance().getCopyrightFile());
