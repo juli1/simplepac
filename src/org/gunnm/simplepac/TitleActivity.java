@@ -64,10 +64,11 @@ public class TitleActivity extends Activity {
 	    useScoreloop = preferences.getBoolean("use_scoreloop", false);
 	    if (useScoreloop)
 	    {
+
 	    	ScoreloopManagerSingleton.get().askUserToAcceptTermsOfService( this, new Continuation<Boolean>() {
 	    		public void withValue(final Boolean value, final Exception error) {
 	    			if (value != null && value) {
-
+	    				preferences.edit().putBoolean("use_scoreloop", true);
 	    			}
 	    			else
 	    			{
