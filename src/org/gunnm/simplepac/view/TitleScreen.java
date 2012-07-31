@@ -6,6 +6,7 @@ import com.scoreloop.client.android.core.model.Continuation;
 import com.scoreloop.client.android.ui.EntryScreenActivity;
 import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,18 +38,19 @@ public class TitleScreen extends View implements OnTouchListener
 	int copyrightAlignY;
 	int instructionsAlignX;
 	int instructionsAlignY;
-	private Context context;
+	private Activity context;
 	private int margin = 0;
 	AlertDialog.Builder builder;
 	
 	
 	
-	public TitleScreen (Context c, Skin s, Display d)
+	public TitleScreen (Activity c, Skin s, Display d)
 	{ 
 		super (c);
 		this.context = c;
 		skin = s;
 		display = d;
+		
 		this.setOnTouchListener(this);
 		builder = new AlertDialog.Builder(c);
 	}
@@ -114,8 +116,14 @@ public class TitleScreen extends View implements OnTouchListener
 			    
 			    if (useScoreloop)
 			    {
-					Intent intent = new Intent(context, EntryScreenActivity.class);
-					context.startActivity(intent);
+			    	ScoreloopManagerSingleton.get().askUserToAcceptTermsOfService( context, new Continuation<Boolean>() {
+			    		public void withValue(final Boolean value, final Exception error) {
+			    			if (value != null && value) {
+								Intent intent = new Intent(context, EntryScreenActivity.class);
+								context.startActivity(intent);
+			    			}
+			    		}
+			    	});
 			    }
 			    else
 			    {

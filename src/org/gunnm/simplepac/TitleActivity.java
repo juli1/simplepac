@@ -36,10 +36,14 @@ public class TitleActivity extends Activity {
 	private Scores			scores;
 	private final static boolean  debug = false;
 	private ProgressDialog 	loadingResources = null;
+	private boolean scoreLoopInitialized = false;
+	
+	AlertDialog.Builder builder;
 
-	 AlertDialog.Builder builder;
-
-
+	public TitleActivity ()
+	{
+		this.scoreLoopInitialized = false;
+	}
 	 
 	 private Handler handler = new Handler()
 	 {
@@ -60,7 +64,6 @@ public class TitleActivity extends Activity {
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 	    boolean useScoreloop;
 	    	
-
 	    useScoreloop = preferences.getBoolean("use_scoreloop", false);
 	    if (useScoreloop)
 	    {
@@ -95,13 +98,17 @@ public class TitleActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         
-        try
+        if (scoreLoopInitialized == false)
         {
-        	ScoreloopManagerSingleton.init(this, FullGame.scoreLoopSecret);
-        }
-        catch (IllegalStateException e)
-        {
+        	try
+        	{
+        		ScoreloopManagerSingleton.init(this, FullGame.scoreLoopSecret);
+        		scoreLoopInitialized = true;
+        	}
+        	catch (IllegalStateException e)
+        	{
         	
+        	}
         }
         
         builder = new AlertDialog.Builder(this);
