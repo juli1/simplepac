@@ -95,8 +95,15 @@ public class TitleActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         
-		ScoreloopManagerSingleton.init(this, FullGame.scoreLoopSecret);
-
+        try
+        {
+        	ScoreloopManagerSingleton.init(this, FullGame.scoreLoopSecret);
+        }
+        catch (IllegalStateException e)
+        {
+        	
+        }
+        
         builder = new AlertDialog.Builder(this);
         loadingResources = new ProgressDialog(this);
         loadingResources.setMessage("Loading Resources ...");
