@@ -49,6 +49,7 @@ public interface SkinInterface {
 	public Bitmap getNewGame();
 	public Bitmap getPreferences();
 	public Bitmap getHighScores();
+	public Bitmap getLeaderBoard();
 
 	
 	public Bitmap getWallHorizontal();

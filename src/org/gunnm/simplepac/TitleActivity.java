@@ -10,15 +10,20 @@ import org.gunnm.simplepac.view.Skin;
 import org.gunnm.simplepac.view.Sound;
 import org.gunnm.simplepac.view.TitleScreen;
 
+import com.scoreloop.client.android.core.model.Continuation;
+import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -48,6 +53,36 @@ public class TitleActivity extends Activity {
          }
 	 };
 	 
+	 
+	 public void onResume ()
+	 {
+		super.onResume();
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+	    boolean useScoreloop;
+	    	
+
+	    useScoreloop = preferences.getBoolean("use_scoreloop", false);
+	    if (useScoreloop)
+	    {
+	    	ScoreloopManagerSingleton.get().askUserToAcceptTermsOfService( this, new Continuation<Boolean>() {
+	    		public void withValue(final Boolean value, final Exception error) {
+	    			if (value != null && value) {
+
+	    			}
+	    			else
+	    			{
+	    				preferences.edit().putBoolean("use_scoreloop", false);
+
+	    			}
+	    		}
+	    	});
+	    }
+	    else
+	    {
+	    	preferences.edit().putBoolean("use_scoreloop", false);
+	    }
+	 }
+	 
 	public void onStop()
 	{
 		super.onStop();
@@ -59,6 +94,8 @@ public class TitleActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         
+		ScoreloopManagerSingleton.init(this, FullGame.scoreLoopSecret);
+
         builder = new AlertDialog.Builder(this);
         loadingResources = new ProgressDialog(this);
         loadingResources.setMessage("Loading Resources ...");
@@ -87,7 +124,6 @@ public class TitleActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
-    	scores = Scores.getInstance (getApplicationContext());
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		
@@ -97,6 +133,7 @@ public class TitleActivity extends Activity {
 
         loadingResources.show();
         
+    
         
 		if (debug)   
         {  

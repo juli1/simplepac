@@ -15,7 +15,7 @@ public class BasicSkin extends Skin
 	private int currentOrientation;
 	private AssetManager assetManager;
 	public final static String TAG = "Resources";
-	public final static int NB_BITMAPS = 50;
+	public final static int NB_BITMAPS = 51;
 	public final static int NB_ORIENTATIONS = 2;
 	
 	private final static int pacmanFull = 1;
@@ -67,6 +67,7 @@ public class BasicSkin extends Skin
 	private final static int wallHorizontal = 47;
 	private final static int highScoresLogo = 48;
 	private final static int copyright = 49;
+	private final static int leaderBoard = 50;
 	private Bitmap[][] skinBitmaps = new Bitmap[NB_BITMAPS][NB_ORIENTATIONS];
 	private int screenWidth;
 	private int screenHeight;
@@ -244,6 +245,7 @@ public class BasicSkin extends Skin
 				
 				skinBitmaps[newGame][orientation] 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenHeight / 3);
 				skinBitmaps[highScores][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenHeight / 3);
+				skinBitmaps[leaderBoard][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("leaderboard.png")), screenHeight / 3);
 				skinBitmaps[preferences][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("preferences.png")), screenHeight / 3);
 
 				skinBitmaps[instructions][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenHeight / 3);
@@ -263,6 +265,7 @@ public class BasicSkin extends Skin
 				
 				skinBitmaps[newGame][orientation] 		= scaleImage( BitmapFactory.decodeStream(manager.open("newgame.png")), screenWidth / 3);
 				skinBitmaps[highScores][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("highscores.png")), screenWidth / 3);
+				skinBitmaps[leaderBoard][orientation] 		= scaleImage(BitmapFactory.decodeStream(manager.open("leaderboard.png")), screenWidth / 3);
 				skinBitmaps[preferences][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("preferences.png")), screenWidth / 3);
 
 				skinBitmaps[instructions][orientation] 	= scaleImage(BitmapFactory.decodeStream(manager.open("instructions.png")), screenWidth / 3);
@@ -506,6 +509,9 @@ public class BasicSkin extends Skin
 		return this.skinBitmaps[highScores][this.currentOrientation];
 	}
 	
+	public Bitmap getLeaderBoard() {
+		return this.skinBitmaps[leaderBoard][this.currentOrientation];
+	}
 
 	public Bitmap getPreferences() {
 		return this.skinBitmaps[preferences][this.currentOrientation];

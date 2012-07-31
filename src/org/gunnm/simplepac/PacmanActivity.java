@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import org.gunnm.simplepac.R;
 import org.gunnm.simplepac.R.id;
 import org.gunnm.simplepac.R.layout;
+import org.gunnm.simplepac.configuration.FullGame;
 import org.gunnm.simplepac.controller.Key;
 import org.gunnm.simplepac.controller.Touch;
 import org.gunnm.simplepac.model.Game;
@@ -16,8 +17,13 @@ import org.gunnm.simplepac.view.Skin;
 import org.gunnm.simplepac.view.SkinInterface;
 import org.gunnm.simplepac.view.Sound;
 
+import com.scoreloop.client.android.ui.OnScoreSubmitObserver;
+import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
+import com.scoreloop.client.android.ui.ShowResultOverlayActivity;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Display;
@@ -28,7 +34,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class PacmanActivity extends Activity {
+public class PacmanActivity extends Activity implements OnScoreSubmitObserver{
 	
 	GameCanvas 	mainCanvas;
 	Game       	gameModel;
@@ -48,7 +54,15 @@ public class PacmanActivity extends Activity {
 		this.autoUpdate.purge ();
 		
 	}
+	
+    public void onScoreSubmit(final int status, final Exception error) {
 
+        //Calls the ShowResultOverlayActivity. Make sure you have modified the
+       //AndroidManifest.xml to reference this overlay class.
+       startActivity(new Intent(this, ShowResultOverlayActivity.class));
+    }
+    
+    
 	private void startTimer ()
 	{
 		autoUpdate = new Timer ();
@@ -94,7 +108,8 @@ public class PacmanActivity extends Activity {
 		  super.onResume();
 		  startTimer();
 	  }
-
+  
+      
 	public void onCreate(Bundle savedInstanceState)
 	{
 		int size;
@@ -107,6 +122,7 @@ public class PacmanActivity extends Activity {
 		Display display = wm.getDefaultDisplay();
 		currentRotation = display.getOrientation();
 		autoUpdate = new Timer();
+		
 		
 		if (display.getHeight() < display.getWidth())
 		{

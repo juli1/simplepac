@@ -16,6 +16,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,46 +27,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 
 
-public class Scores extends SQLiteOpenHelper {
+public class Scores  {
 
-		private final static String TAG = "PacmanDb";
-	
-	   	private static final int DATABASE_VERSION = 3;
-	   	private static final String DATABASE_NAME = "pacman_scores";
-	    private static final String TABLE_NAME = "scores";
-	    private static final String TABLE_CREATE =
-	                "CREATE TABLE " + TABLE_NAME + " (" +
-	                "score " + " INTEGER, " +
-	                "player " + " TEXT, " +
-	                "record_date  " + " TEXT);";
-	    private SharedPreferences preferences;
 	    private static Scores instance = null;
 	  
-	    public static Scores getInstance (Context context)
+	    public Scores ()
 	    {
-	    	if (Scores.instance == null)
-	    	{
-	    		Scores.instance = new Scores (context);
-	    	}
-	    	return Scores.getInstance ();
+	    	super ();
 	    }
 	    
 	    public static Scores getInstance ()
 	    {
+	    	if (instance == null)
+	    	{
+	    		instance = new Scores ();
+	    	}
 	    	return Scores.instance;
 	    }
 	    
-	    public Scores(Context context) 
-	    {
-	        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-            preferences = PreferenceManager.getDefaultSharedPreferences(context);
-	    }
 
+/*
 	    public void onCreate(SQLiteDatabase db) {
 	        db.execSQL(TABLE_CREATE);
 	        this.insertDefaultValues(db);
 	    }
-	    
+	   
 	    
 	    private void insertDefaultValues (SQLiteDatabase db)
 	    {
@@ -92,9 +79,13 @@ public class Scores extends SQLiteOpenHelper {
 	    		}
 	    	}
 	    }
-	    
-	    public void registerScore (int score)
+	    */ 
+	    public static void registerScore (int score)
 	    {
+	    	Double result = new Double (score);
+	    	ScoreloopManagerSingleton.get().onGamePlayEnded(result, null);
+	    	return;
+	    	/*
 	    	String username;
 	    	String date;
     		
@@ -127,10 +118,10 @@ public class Scores extends SQLiteOpenHelper {
 	    		//Log.i (TAG, "INSERT SUCCESFUL");
 	    	}
 	    	// Put a timeout for establishing a connection to the remote server
-	    	sendScore(score, date, 5000); 
+	    	sendScore(score, date, 5000); */
 
 	    }
-
+/*
 	    private boolean sendScore(int score, String date)
 	    {
 	    	return this.sendScore(score, date, 0);
@@ -274,5 +265,5 @@ public class Scores extends SQLiteOpenHelper {
 	    	cursor.close();
 	    	return scores;
 		}
-				
+			*/	
 }

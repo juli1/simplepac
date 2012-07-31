@@ -2,13 +2,19 @@ package org.gunnm.simplepac.view;
 
 import org.gunnm.simplepac.model.Game;
 
+import com.scoreloop.client.android.core.model.Continuation;
+import com.scoreloop.client.android.ui.EntryScreenActivity;
+import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -76,7 +82,7 @@ public class TitleScreen extends View implements OnTouchListener
 		 
 		canvas.drawBitmap(skin.getLogo(), logoAlignX, logoAlignY, null);
 		canvas.drawBitmap(skin.getNewGame(), newGameAlignX, newGameAlignY, null);
-		canvas.drawBitmap(skin.getHighScores(), highScoresAlignX, highScoresAlignY, null);
+		canvas.drawBitmap(skin.getLeaderBoard(), highScoresAlignX, highScoresAlignY, null);
 		canvas.drawBitmap(skin.getPreferences(), preferencesAlignX, preferencesAlignY, null);
 		canvas.drawBitmap(skin.getCopyright(), copyrightAlignX, copyrightAlignY, null);
 		canvas.drawBitmap(skin.getInstructions(), instructionsAlignX, instructionsAlignY, null);
@@ -101,10 +107,19 @@ public class TitleScreen extends View implements OnTouchListener
 			 
 			if ( (y > ( highScoresAlignY - margin / 2 )) && ( y < (highScoresAlignY + margin / 2 + skin.getHighScores().getHeight())))
 			{
-//				Log.i(TAG, "High Scores");
-				if (Game.isDemo())
-				{
-			      	  builder.setMessage("Scores functions available in full version only");  
+				SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+			    boolean useScoreloop;
+
+			    useScoreloop = preferences.getBoolean("use_scoreloop", false);
+			    
+			    if (useScoreloop)
+			    {
+					Intent intent = new Intent(context, EntryScreenActivity.class);
+					context.startActivity(intent);
+			    }
+			    else
+			    {
+			    	  builder.setMessage("You must use Score Loop to get access to the leaderboard");  
 			          builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {  
 			               public void onClick(DialogInterface dialog, int which) {  
 			                    
@@ -112,12 +127,8 @@ public class TitleScreen extends View implements OnTouchListener
 			          });  
 			          AlertDialog alert = builder.create();  
 			          alert.show();
-				}
-				else
-				{
-					Intent intent = new Intent(context, org.gunnm.simplepac.ScoresActivity.class);
-					context.startActivity(intent);
-				}
+			    }
+
 			}
 			
 			if ( (y > ( preferencesAlignY - margin / 2) ) && ( y < (preferencesAlignY + margin / 2 +  skin.getPreferences().getHeight())))
