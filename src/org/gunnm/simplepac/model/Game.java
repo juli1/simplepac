@@ -68,6 +68,7 @@ public class Game {
 	}
 	
 	
+	
 	public Game (SimplePacConfiguration configuration)
 	{
 		

@@ -4,6 +4,7 @@ import org.gunnm.simplepac.model.Game;
 
 import com.scoreloop.client.android.core.model.Continuation;
 import com.scoreloop.client.android.ui.EntryScreenActivity;
+import com.scoreloop.client.android.ui.LeaderboardsScreenActivity;
 import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
 
 import android.app.Activity;
@@ -119,7 +120,7 @@ public class TitleScreen extends View implements OnTouchListener
 			    	ScoreloopManagerSingleton.get().askUserToAcceptTermsOfService( context, new Continuation<Boolean>() {
 			    		public void withValue(final Boolean value, final Exception error) {
 			    			if (value != null && value) {
-								Intent intent = new Intent(context, EntryScreenActivity.class);
+								Intent intent = new Intent(context, LeaderboardsScreenActivity.class);
 								context.startActivity(intent);
 			    			}
 			    		}

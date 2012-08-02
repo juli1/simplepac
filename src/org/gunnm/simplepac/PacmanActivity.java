@@ -10,6 +10,7 @@ import org.gunnm.simplepac.configuration.FullGame;
 import org.gunnm.simplepac.controller.Key;
 import org.gunnm.simplepac.controller.Touch;
 import org.gunnm.simplepac.model.Game;
+import org.gunnm.simplepac.model.Scores;
 import org.gunnm.simplepac.view.BasicSkin;
 import org.gunnm.simplepac.view.BitmapView;
 import org.gunnm.simplepac.view.GameCanvas;
@@ -18,6 +19,7 @@ import org.gunnm.simplepac.view.SkinInterface;
 import org.gunnm.simplepac.view.Sound;
 
 import com.scoreloop.client.android.ui.OnScoreSubmitObserver;
+import com.scoreloop.client.android.ui.PostScoreOverlayActivity;
 import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
 import com.scoreloop.client.android.ui.ShowResultOverlayActivity;
 
@@ -26,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -34,7 +37,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class PacmanActivity extends Activity implements OnScoreSubmitObserver{
+public class PacmanActivity extends Activity {
 	
 	GameCanvas 	mainCanvas;
 	Game       	gameModel;
@@ -43,11 +46,11 @@ public class PacmanActivity extends Activity implements OnScoreSubmitObserver{
 	Skin		skin;
 	Sound		sound;
 	int			currentRotation;
-	
+	Scores 		scores;
 	private final static int 	UPDATE_INTERVAL = 60;
 	private final static String TAG = "PacmanActivity";
 	private Timer 				autoUpdate;
-	
+
 	private void stopTimer ()
 	{
 		this.autoUpdate.cancel();
@@ -55,14 +58,6 @@ public class PacmanActivity extends Activity implements OnScoreSubmitObserver{
 		
 	}
 	
-    public void onScoreSubmit(final int status, final Exception error) {
-
-        //Calls the ShowResultOverlayActivity. Make sure you have modified the
-       //AndroidManifest.xml to reference this overlay class.
-       startActivity(new Intent(this, ShowResultOverlayActivity.class));
-    }
-    
-    
 	private void startTimer ()
 	{
 		autoUpdate = new Timer ();
@@ -107,22 +102,63 @@ public class PacmanActivity extends Activity implements OnScoreSubmitObserver{
 	  {
 		  super.onResume();
 		  startTimer();
+
+		  scores 				= Scores.getInstance ();
+		  scores.setGameActivity(this);
+		  ScoreloopManagerSingleton.get().setOnScoreSubmitObserver(scores);	
 	  }
-  
+	  
+	  
+	 protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) 
+	 {
+
+		 scores = Scores.getInstance();
+		 scores.setGameActivity(this);
+		 switch (requestCode) {
+
+		 case Scores.SHOW_RESULT:
+			 if (scores.getScoreSubmitStatus() != OnScoreSubmitObserver.STATUS_ERROR_NETWORK) {
+				 // Show the post-score activity unless there has been a network error.
+				 startActivityForResult(new Intent(this, PostScoreOverlayActivity.class), Scores.POST_SCORE);
+			 } else { 
+
+				 finish();
+			 }
+
+			 break;
+
+		 case Scores.POST_SCORE:
+
+			 // Here we get notified that the PostScoreOverlay has finished.
+			 // in this example this simply means that we're ready to return to the main activity
+			 finish();
+			 break;
+		 default:
+			 break;
+}
+	 }
       
 	public void onCreate(Bundle savedInstanceState)
 	{
-		int size;
-		int newSize;
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		currentRotation = display.getOrientation();
-		autoUpdate = new Timer();
+		int 			size;
+		int 			newSize;
+		WindowManager 	wm;
+		Display 		display;
+
 		
+        super.onCreate(savedInstanceState);
+        
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        wm 					= (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+		display 			= wm.getDefaultDisplay();
+		currentRotation 	= display.getOrientation();
+		autoUpdate 			= new Timer();
+		
+		
+		scores 				= Scores.getInstance ();
+		scores.setGameActivity(this);
+		ScoreloopManagerSingleton.get().setOnScoreSubmitObserver(scores);
 		
 		if (display.getHeight() < display.getWidth())
 		{
@@ -139,6 +175,7 @@ public class PacmanActivity extends Activity implements OnScoreSubmitObserver{
 		{
 			gameModel.reinit();
 		}
+		
 		skin = BasicSkin.getInstance();
 
 		if (display.getWidth() > display.getHeight())

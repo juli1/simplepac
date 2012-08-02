@@ -61,30 +61,10 @@ public class TitleActivity extends Activity {
 	 public void onResume ()
 	 {
 		super.onResume();
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-	    boolean useScoreloop;
-	    	
-	    useScoreloop = preferences.getBoolean("use_scoreloop", false);
-	    if (useScoreloop)
-	    {
-
-	    	ScoreloopManagerSingleton.get().askUserToAcceptTermsOfService( this, new Continuation<Boolean>() {
-	    		public void withValue(final Boolean value, final Exception error) {
-	    			if (value != null && value) {
-	    				preferences.edit().putBoolean("use_scoreloop", true);
-	    			}
-	    			else
-	    			{
-	    				preferences.edit().putBoolean("use_scoreloop", false);
-
-	    			}
-	    		}
-	    	});
-	    }
-	    else
-	    {
-	    	preferences.edit().putBoolean("use_scoreloop", false);
-	    }
+		scores = Scores.getInstance();
+		scores.setGameActivity(this);
+		scores.checkTermsOfService();
+		
 	 }
 	 
 	public void onStop()
