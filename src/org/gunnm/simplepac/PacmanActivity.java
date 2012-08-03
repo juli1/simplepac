@@ -135,7 +135,7 @@ public class PacmanActivity extends Activity {
 			 break;
 		 default:
 			 break;
-}
+		 }
 	 }
       
 	public void onCreate(Bundle savedInstanceState)
