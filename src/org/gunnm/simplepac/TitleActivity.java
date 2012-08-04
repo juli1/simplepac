@@ -36,13 +36,17 @@ public class TitleActivity extends Activity {
 	private Scores			scores;
 	private final static boolean  debug = false;
 	private ProgressDialog 	loadingResources = null;
-	private boolean scoreLoopInitialized = false;
+	private	static TitleActivity instance;
 	
-	AlertDialog.Builder builder;
-
+	public static TitleActivity getInstance ()
+	{
+		return instance;
+	}
+	
+	
 	public TitleActivity ()
 	{
-		this.scoreLoopInitialized = false;
+		
 	}
 	 
 	 private Handler handler = new Handler()
@@ -61,8 +65,7 @@ public class TitleActivity extends Activity {
 	 public void onResume ()
 	 {
 		super.onResume();
-		scores = Scores.getInstance();
-		scores.setGameActivity(this);
+		scores = Scores.getInstance(this);
 		scores.checkTermsOfService();
 		
 	 }
@@ -75,29 +78,34 @@ public class TitleActivity extends Activity {
 	 
 	public void onCreate(Bundle savedInstanceState)
 	{
-
+		AlertDialog.Builder alertDialogBuilder;
+		AlertDialog 		alertDialog;
         super.onCreate(savedInstanceState);
+              
+        instance = this;
         
-        if (scoreLoopInitialized == false)
-        {
-        	try
-        	{
-        		ScoreloopManagerSingleton.init(this, FullGame.scoreLoopSecret);
-        		scoreLoopInitialized = true;
-        	}
-        	catch (IllegalStateException e)
-        	{
-        	
-        	}
-        }
-        
-        builder = new AlertDialog.Builder(this);
-        loadingResources = new ProgressDialog(this);
+        loadingResources 	= new ProgressDialog(this);
         loadingResources.setMessage("Loading Resources ...");
         loadingResources.setTitle("Please wait ...");
         loadingResources.setCancelable(true);
-		
         
+        alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setTitle("Loading error");
+
+        alertDialogBuilder
+        .setMessage("Error when loading resources")
+        .setPositiveButton("Close",new DialogInterface.OnClickListener() 
+        {
+        	public void onClick(DialogInterface dialog,int id) 
+        	{
+        		TitleActivity.instance.finish();
+        	}
+        });
+ 
+		alertDialog = alertDialogBuilder.create();
+				
+				
 		 Thread thread = new Thread(new Runnable ()
 		 {
 			 public void run()
@@ -122,13 +130,19 @@ public class TitleActivity extends Activity {
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		
-		gameModel       = Game.getInstance();
-		skin 			= BasicSkin.getInstance (this.getResources().getAssets(), display.getWidth(), display.getHeight(), gameModel);
-		sound      		= Sound.getInstance (this, gameModel, skin);
-
+		try
+		{
+			gameModel       = Game.getInstance();
+			skin 			= BasicSkin.getInstance (this.getResources().getAssets(), display.getWidth(), display.getHeight(), gameModel);
+			sound      		= Sound.getInstance (this, gameModel, skin);
+		}
+		catch (Exception e)
+		{
+			alertDialog.show();
+			return;
+		}
+		
         loadingResources.show();
-        
-    
         
 		if (debug)   
         {  

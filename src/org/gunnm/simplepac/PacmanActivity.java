@@ -103,8 +103,7 @@ public class PacmanActivity extends Activity {
 		  super.onResume();
 		  startTimer();
 
-		  scores 				= Scores.getInstance ();
-		  scores.setGameActivity(this);
+		  scores 				= Scores.getInstance (this);
 		  ScoreloopManagerSingleton.get().setOnScoreSubmitObserver(scores);	
 	  }
 	  
@@ -112,8 +111,7 @@ public class PacmanActivity extends Activity {
 	 protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) 
 	 {
 
-		 scores = Scores.getInstance();
-		 scores.setGameActivity(this);
+		 scores = Scores.getInstance(this);
 		 switch (requestCode) {
 
 		 case Scores.SHOW_RESULT:
@@ -156,8 +154,7 @@ public class PacmanActivity extends Activity {
 		autoUpdate 			= new Timer();
 		
 		
-		scores 				= Scores.getInstance ();
-		scores.setGameActivity(this);
+		scores 				= Scores.getInstance (this);
 		ScoreloopManagerSingleton.get().setOnScoreSubmitObserver(scores);
 		
 		if (display.getHeight() < display.getWidth())
