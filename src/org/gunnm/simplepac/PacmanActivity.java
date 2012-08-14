@@ -173,7 +173,7 @@ public class PacmanActivity extends Activity {
 			gameModel.reinit();
 		}
 		
-		skin = BasicSkin.getInstance();
+		skin = BasicSkin.getInstance(this.getAssets(), display.getWidth(), display.getHeight(), gameModel);
 
 		if (display.getWidth() > display.getHeight())
 		{
