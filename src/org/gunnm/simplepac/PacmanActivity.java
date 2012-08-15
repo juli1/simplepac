@@ -102,9 +102,7 @@ public class PacmanActivity extends Activity {
 	  {
 		  super.onResume();
 		  startTimer();
-
 		  scores 				= Scores.getInstance (this);
-		  ScoreloopManagerSingleton.get().setOnScoreSubmitObserver(scores);	
 	  }
 	  
 	  
@@ -112,27 +110,38 @@ public class PacmanActivity extends Activity {
 	 {
 
 		 scores = Scores.getInstance(this);
-		 switch (requestCode) {
+		 	Log.i("Pacmanactivity", "requestCode="+requestCode);
+		 	Log.i("ScoreStatus", "scorestatus=="+scores.getScoreSubmitStatus());
+		 switch (requestCode)
+		 { 
 
-		 case Scores.SHOW_RESULT:
-			 if (scores.getScoreSubmitStatus() != OnScoreSubmitObserver.STATUS_ERROR_NETWORK) {
-				 // Show the post-score activity unless there has been a network error.
-				 startActivityForResult(new Intent(this, PostScoreOverlayActivity.class), Scores.POST_SCORE);
-			 } else { 
-
-				 finish();
+			 case Scores.SHOW_RESULT:
+			 {
+				 if (scores.getScoreSubmitStatus() != OnScoreSubmitObserver.STATUS_ERROR_NETWORK) 
+				 {
+					 // Show the post-score activity unless there has been a network error.
+					 startActivityForResult(new Intent(this, PostScoreOverlayActivity.class), Scores.POST_SCORE);
+				 } 
+				 else 
+				 { 
+	
+					 finish();
+				 }
+	
+				 break;
 			 }
-
-			 break;
-
-		 case Scores.POST_SCORE:
-
-			 // Here we get notified that the PostScoreOverlay has finished.
-			 // in this example this simply means that we're ready to return to the main activity
-			 finish();
-			 break;
-		 default:
-			 break;
+			 
+			 case Scores.POST_SCORE:
+			 {
+				 // Here we get notified that the PostScoreOverlay has finished.
+				 // in this example this simply means that we're ready to return to the main activity
+				 finish();
+				 break;
+			 }
+			 default:
+			 {
+				 break;
+			 }
 		 }
 	 }
       

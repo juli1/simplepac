@@ -1,38 +1,16 @@
 package org.gunnm.simplepac.model;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.gunnm.simplepac.configuration.FullGame;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.scoreloop.client.android.core.model.Continuation;
 import com.scoreloop.client.android.ui.OnScoreSubmitObserver;
-import com.scoreloop.client.android.ui.PostScoreOverlayActivity;
 import com.scoreloop.client.android.ui.ScoreloopManagerSingleton;
 import com.scoreloop.client.android.ui.ShowResultOverlayActivity;
-
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 
 public class Scores implements OnScoreSubmitObserver
@@ -88,6 +66,7 @@ public class Scores implements OnScoreSubmitObserver
 	    		try
 	    		{
 	    			ScoreloopManagerSingleton.init(currentActivity, FullGame.scoreLoopSecret);
+	    			ScoreloopManagerSingleton.get().setOnScoreSubmitObserver(this);
 	    			this.scoreLoopInitialized = true;
 	    		}
 	    		catch (IllegalStateException ise)
@@ -116,6 +95,7 @@ public class Scores implements OnScoreSubmitObserver
 
 	    public void onScoreSubmit(final int status, final Exception error)
 	    {
+	    	this.scoreSubmitStatus = status;
 	    	if (this.useScoreLoop())
 	    	{
 	    		checkTermsOfService();
