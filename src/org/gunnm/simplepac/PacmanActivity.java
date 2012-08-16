@@ -194,7 +194,7 @@ public class PacmanActivity extends Activity {
 		}
 		
         mainCanvas = new GameCanvas (this, gameModel, skin);
-        sound      = Sound.getInstance();
+        sound      = Sound.getInstance(this, gameModel, skin);
  
         mainCanvas.setOnTouchListener(new Touch(gameModel, mainCanvas));
              

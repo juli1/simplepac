@@ -33,11 +33,6 @@ public class Sound {
 		}
 		return Sound.instance;
 	}
-
-	public static Sound getInstance ()
-	{
-		return Sound.instance;
-	}
 	
 	public Sound (Context c, Game g, Skin si)
 	{
